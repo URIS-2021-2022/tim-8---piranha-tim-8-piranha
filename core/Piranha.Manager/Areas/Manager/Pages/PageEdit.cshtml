@@ -1,0 +1,106 @@
+@page "~/manager/page/{routeAction}/{id}/{pageType?}/{after?}"
+@model PageEditViewModel
+@inject ManagerLocalizer Localizer
+@inject Piranha.Config Config
+@{
+    ViewBag.Title = Localizer.Page["Edit page"];
+    ViewBag.MenuItem = "Pages";
+
+    string action = ((string)RouteData.Values["routeAction"]).ToLower();
+    string contentId = RouteData.Values.ContainsKey("id") ? (string)RouteData.Values["id"] : null;
+}
+@section script
+{
+    <script src="@Url.Content(Piranha.Manager.Editor.EditorScripts.MainScriptUrl)"></script>
+    <script src="@Url.Content(Piranha.Manager.Editor.EditorScripts.EditorScriptUrl)"></script>
+    <script src="~/manager/assets/js/piranha.components.min.js"></script>
+    <script src="~/manager/assets/js/piranha.content.min.js"></script>
+
+    @if (action == "edit")
+    {
+        <script>
+            piranha.permissions.load(function () {
+                piranha.content.load("page", "@contentId");
+                $(".title input").focus();
+            });
+        </script>
+    }
+    else if (action == "add")
+    {
+        <script>
+            piranha.permissions.load(function () {
+                piranha.pageedit.create("@RouteData.Values["id"]", "@RouteData.Values["pageType"]");
+                $(".title input").focus();
+            });
+        </script>
+    }
+    else if (action == "addrelative")
+    {
+        <script>
+            piranha.permissions.load(function () {
+                piranha.pageedit.createrelative("@RouteData.Values["id"]", "@RouteData.Values["pageType"]", "@RouteData.Values["after"]");
+                $(".title input").focus();
+            });
+        </script>
+    }
+    else if (action == "copyrelative")
+    {
+        <script>
+            piranha.permissions.load(function () {
+                piranha.pageedit.copyrelative("@RouteData.Values["id"]", "@RouteData.Values["pageType"]", "@RouteData.Values["after"]");
+                $(".title input").focus();
+            });
+        </script>
+    }
+}
+
+<div id="content">
+    <div class="top">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">@Localizer.Menu["Content"]</li>
+                <li class="breadcrumb-item"><a href="~/manager/pages">@Localizer.Menu["Pages"]</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Localizer.General["Edit"]</li>
+                <!-- Content edit state -->
+                <partial name="Partial/_ContentEditState" />
+            </ol>
+        </nav>
+
+        <div class="container-fluid app" :class="{ ready: !loading }">
+            <div class="top-nav">
+                @foreach (var menuAction in Piranha.Manager.Actions.Toolbars.PageEdit)
+                {
+                    <partial name="@menuAction.ActionView" />
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid app" :class="{ ready: !loading }">
+        <div v-if="isReadOnly" class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <div class="alert alert-info region-center">
+                            <p>
+                                @Localizer.Page["This is a copy. In order to edit the content of the page you first need to detach it from the original. If you want to keep the page as a copy you should edit the content of the original page."]
+                            </p>
+                            <p class="text-right">
+                                <a v-if="state !== 'new'" v-on:click.prevent="detach()" href="#" class="btn btn-primary btn-labeled"><i class="fas fa-cut"></i> @Localizer.Page["Detach page"]</a>
+                                <a :href="piranha.baseUrl + 'manager/page/edit/' + originalId" class="btn btn-primary btn-labeled"><i class="fas fa-pen"></i> @Localizer.Page["Edit original"]</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Content edit navigation -->
+        <partial name="Partial/_ContentEditNav" />
+
+        <!-- Content edit body -->
+        <partial name="Partial/_ContentEditBody" />
+    </div>
+
+    <partial name="Partial/_ContentSettings" />
+</div>

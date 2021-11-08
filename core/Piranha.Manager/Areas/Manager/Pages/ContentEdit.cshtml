@@ -1,0 +1,94 @@
+@page "~/manager/content/{routeAction}/{id?}/{langId?}"
+@model ContentEditViewModel
+@inject ManagerLocalizer Localizer
+@inject Piranha.Config Config
+@{
+    ViewBag.Title = "Add/Edit";
+    ViewBag.MenuItem = "Add/Edit";
+
+    string action = ((string)RouteData.Values["routeAction"]).ToLower();
+    string contentId = RouteData.Values.ContainsKey("id") ? (string)RouteData.Values["id"] : null;
+    string languageId = RouteData.Values.ContainsKey("langId") ? (string)RouteData.Values["langId"] : null;
+}
+
+@section script
+{
+    <script src="@Url.Content(Piranha.Manager.Editor.EditorScripts.MainScriptUrl)"></script>
+    <script src="@Url.Content(Piranha.Manager.Editor.EditorScripts.EditorScriptUrl)"></script>
+    <script src="~/manager/assets/js/piranha.components.min.js"></script>
+    <script src="~/manager/assets/js/piranha.content.min.js"></script>
+
+    @if (action == "edit")
+    {
+        <script>
+            piranha.permissions.load(function () {
+                @if (languageId != null)
+                {
+<text>                piranha.content.load("content", "@contentId", "@languageId");
+</text>
+                }
+                else
+                {
+<text>                piranha.content.load("content", "@contentId", null);
+</text>
+                }
+                $(".title input").focus();
+            });
+        </script>
+    }
+    else if (action == "add")
+    {
+        <script>
+            piranha.permissions.load(function () {
+                piranha.content.create("@RouteData.Values["id"]");
+                $(".title input").focus();
+            });
+        </script>
+    }
+}
+
+@section partials
+{
+
+}
+
+<div id="content">
+    <div class="top">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">@Localizer.Menu["Content"]</li>
+                <li class="breadcrumb-item app" :class="{ ready: groupTitle !== null }"><a :href="piranha.baseUrl + 'manager/content/' + groupId">{{ groupTitle }}</a></li>
+                <li class="breadcrumb-item app" :class="{ ready: !loading }">{{ title }}</li>
+                <!-- Content edit state -->
+                <partial name="Partial/_ContentEditState" />
+            </ol>
+        </nav>
+
+        <div class="container-fluid app" :class="{ ready: !loading }">
+            <div class="top-nav">
+                @foreach (var menuAction in Piranha.Manager.Actions.Toolbars.ContentEdit)
+                {
+                    <partial name="@menuAction.ActionView" />
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Side navigation -->
+            <content-nav v-bind:groupid="groupId" v-bind:contentid="'@contentId'"></content-nav>
+
+            <!-- Main body -->
+            <div class="col main-body app" :class="{ ready: !loading }">
+                <!-- Content edit navigation -->
+                <partial name="Partial/_ContentEditNav" />
+
+                <!-- Content edit body -->
+                <partial name="Partial/_ContentEditBody" />
+            </div>
+        </div>
+    </div>
+
+    <partial name="Partial/_ContentSettings" />
+</div>

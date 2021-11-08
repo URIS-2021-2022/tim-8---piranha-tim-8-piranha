@@ -1,0 +1,70 @@
+@page "~/manager/post/{routeAction}/{id}/{postType?}"
+@model PostEditViewModel
+@inject ManagerLocalizer Localizer
+@{
+    ViewBag.Title = Localizer.Page["Edit post"];
+    ViewBag.MenuItem = "Pages";
+
+    string action = ((string)RouteData.Values["routeAction"]).ToLower();
+    string contentId = RouteData.Values.ContainsKey("id") ? (string)RouteData.Values["id"] : null;
+}
+@section script
+{
+    <script src="@Url.Content(Piranha.Manager.Editor.EditorScripts.MainScriptUrl)"></script>
+    <script src="@Url.Content(Piranha.Manager.Editor.EditorScripts.EditorScriptUrl)"></script>
+    <script src="~/manager/assets/js/piranha.components.min.js"></script>
+    <script src="~/manager/assets/js/piranha.content.min.js"></script>
+
+    @if (action == "edit")
+    {
+        <script>
+            piranha.permissions.load(function () {
+                piranha.content.load("post", "@contentId");
+                $(".title input").focus();
+            });
+        </script>
+    }
+    else if (action == "add")
+    {
+        <script>
+            piranha.permissions.load(function () {
+                piranha.postedit.create("@RouteData.Values["id"]", "@RouteData.Values["postType"]");
+                $(".title input").focus();
+            });
+        </script>
+    }
+}
+
+<div id="content">
+    <div class="top">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">@Localizer.Menu["Content"]</li>
+                <li class="breadcrumb-item"><a href="~/manager/pages">@Localizer.Menu["Pages"]</a></li>
+                <li class="breadcrumb-item"><a :href="piranha.baseUrl + 'manager/page/edit/' + parentId">@Localizer.General["Edit"]</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Localizer.Post["Edit post"]</li>
+                <!-- Content edit state -->
+                <partial name="Partial/_ContentEditState" />
+            </ol>
+        </nav>
+
+        <div class="container-fluid app" :class="{ ready: !loading }">
+            <div class="top-nav">
+                @foreach (var postAction in Piranha.Manager.Actions.Toolbars.PostEdit)
+                {
+                    <partial name="@postAction.ActionView" />
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid app" :class="{ ready: !loading }">
+        <!-- Content edit navigation -->
+        <partial name="Partial/_ContentEditNav" />
+
+        <!-- Content edit body -->
+        <partial name="Partial/_ContentEditBody" />
+    </div>
+
+    <partial name="Partial/_ContentSettings" />
+</div>

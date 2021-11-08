@@ -1,0 +1,11 @@
+<div v-if="features.useTranslations" class="dropdown d-inline">
+    <button class="btn btn-primary btn-labeled dropdown-toggle" type="button" data-toggle="dropdown">
+        <i class="fas fa-atlas"></i>
+        {{ languageTitle }}
+    </button>
+    <ul class="dropdown-menu">
+        <li v-for="lang in languages">
+            <a class="dropdown-item" :href="piranha.baseUrl + 'manager/labs/content/edit/' + id + '/' + lang.id">{{ lang.title }}</a>
+        </li>
+    </ul>
+</div>
