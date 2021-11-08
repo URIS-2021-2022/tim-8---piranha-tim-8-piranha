@@ -16,7 +16,7 @@ using Piranha.Manager.Editor;
 /// <summary>
 /// Extension class for adding TinyMCE to the web application.
 /// </summary>
-public static class TinyMCEExtensions
+public static class TinyMceExtensions
 {
     /// <summary>
     /// Adds the Tiny MCE editor module.
@@ -48,7 +48,7 @@ public static class TinyMCEExtensions
         //
         return builder.UseStaticFiles(new StaticFileOptions
         {
-            FileProvider = new EmbeddedFileProvider(typeof(TinyMCEExtensions).Assembly, "Piranha.Manager.TinyMCE.assets"),
+            FileProvider = new EmbeddedFileProvider(typeof(TinyMceExtensions).Assembly, "Piranha.Manager.TinyMCE.assets"),
             RequestPath = "/manager/tiny"
         });
     }

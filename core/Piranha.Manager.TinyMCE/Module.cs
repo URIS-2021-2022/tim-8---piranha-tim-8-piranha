@@ -51,15 +51,16 @@ namespace Piranha.Manager.TinyMCE
         /// <summary>
         /// The assembly.
         /// </summary>
-        internal static readonly Assembly Assembly;
+        internal static readonly Assembly Assembly = ModuleMethod();
 
         /// <summary>
         /// Static initialization.
         /// </summary>
-        static Module()
+        private static Assembly ModuleMethod()
         {
             // Get assembly information
-            Assembly = typeof(Module).GetTypeInfo().Assembly;
+            return typeof(Module).GetTypeInfo().Assembly;
+
         }
 
         /// <summary>

@@ -97,7 +97,9 @@ namespace Piranha.AspNetCore
         /// <param name="context">The current application context</param>
         public Task SignOut(object context)
         {
-            if (context is HttpContext)
+            object o = context as HttpContext;
+
+            if (o != null)
             {
                 return ((HttpContext)context).SignOutAsync("Piranha.SimpleSecurity");
             }
