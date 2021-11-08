@@ -1,0 +1,59 @@
+﻿@{
+    var module = Piranha.App.Modules.Get<Piranha.Manager.Module>();
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="~/manager/assets/css/full.min.css">
+    @foreach (var style in module.Styles) {
+    <link href="@Url.Content(style)" rel="stylesheet" type="text/css" />
+    }
+
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <partial name="~/Areas/Manager/Shared/Partial/_Menu.cshtml" />
+
+    @RenderBody()
+
+    <partial name="~/Areas/Manager/Shared/Partial/_BlockPickerModal.cshtml" />
+    <partial name="~/Areas/Manager/Shared/Partial/_MediaPickerModal.cshtml" />
+    <partial name="~/Areas/Manager/Shared/Partial/_PagePickerModal.cshtml" />
+    <partial name="~/Areas/Manager/Shared/Partial/_PostPickerModal.cshtml" />
+    <partial name="~/Areas/Manager/Shared/Partial/_PreviewModal.cshtml" />
+    <partial name="~/Areas/Manager/Shared/Partial/_Notifications.cshtml" />
+    <partial name="~/Areas/Manager/Shared/Partial/_MediaUploadTemplate.cshtml" />
+
+    <script>
+        var piranha = {};
+
+        piranha.baseUrl = "@Url.Content("~/")";
+    </script>
+
+    <partial name="~/Areas/Manager/Shared/Partial/_EditorConfig.cshtml" />
+
+    @RenderSection("partials", required: false)
+
+    <script src="~/manager/assets/js/piranha.min.js"></script>
+    @if (!string.IsNullOrWhiteSpace(ViewBag.Message))
+    {
+    <script>
+        piranha.notifications.push({
+            body: "@Html.Raw(ViewBag.Message)",
+            type: "@Html.Raw(ViewBag.MessageCss)",
+            hide: true
+        });
+    </script>
+    }
+
+    <partial name="~/Areas/Manager/Shared/Partial/_Resources.cshtml" />
+
+    @foreach (var script in module.Scripts) {
+    <script type="text/javascript" src="@Url.Content(script)"></script>
+    }
+    @RenderSection("script", required: false)
+</body>
+</html>

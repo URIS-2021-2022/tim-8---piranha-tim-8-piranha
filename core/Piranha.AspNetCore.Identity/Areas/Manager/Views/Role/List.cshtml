@@ -1,0 +1,51 @@
+@model Piranha.AspNetCore.Identity.Models.RoleListModel
+@inject ManagerLocalizer Localizer
+@{
+    ViewBag.Title = "Roles";
+    ViewBag.MenuItem = "Roles";
+}
+
+<div class="top">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">@Localizer.General["Settings"]</li>
+            <li class="breadcrumb-item active" aria-current="page">Roles</li>
+        </ol>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="top-nav">
+            <a href="@Url.Action("Add")" class="btn btn-labeled btn-primary pull-right">
+                <i class="fas fa-plus"></i>@Localizer.General["Add"]
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <table class="table table-borderless">
+        <thead>
+            <tr>
+                <th>@Localizer.General["Name"]</th>
+                <th class="text-center"># of Users</th>
+                <th class="actions one"></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var role in Model.Roles)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Action("Edit", new {id = role.Id})">@role.Name</a>
+                </td>
+                <td class="text-center">@role.UserCount</td>
+                <td class="actions one">
+                    <a class="remove" href="@Url.Action("Delete", new {id = role.Id})">
+                        <span class="fas fa-trash text-danger"></span>
+                    </a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
