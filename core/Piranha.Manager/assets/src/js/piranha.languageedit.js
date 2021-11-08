@@ -154,7 +154,7 @@ piranha.languageedit = new Vue({
             this.showDeleteInfo = false;
         },
         validate: function (item) {
-            isValid = true;
+            let isValid = true;
 
             for (var n = 0; n < this.items.length; n++) {
                 if (this.items[n].title === null || this.items[n].title === "")

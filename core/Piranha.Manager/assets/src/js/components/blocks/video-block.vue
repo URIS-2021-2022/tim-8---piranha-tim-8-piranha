@@ -1,6 +1,8 @@
 <template>
     <div class="block-body has-media-picker" :class="{ empty: isEmpty }">
-        <video class="w-100 mx-100" :src="mediaUrl" controls></video>
+        <video class="w-100 mx-100" :src="mediaUrl" controls>
+            <track label="English" kind="captions" srclang="en" src="resources/myvideo-en.vtt" default>
+        </video>
         <div class="media-picker">
             <div class="btn-group float-right">
                 <button v-on:click.prevent="select" class="btn btn-primary text-center">

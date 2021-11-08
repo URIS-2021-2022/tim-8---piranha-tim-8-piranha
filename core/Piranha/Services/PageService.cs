@@ -423,7 +423,7 @@ namespace Piranha.Services
                 await OnLoadAsync(model).ConfigureAwait(false);
             }
 
-            if (model != null && model is T)
+            if (model is T)
             {
                 return await MapOriginalAsync((T)model).ConfigureAwait(false);
             }
