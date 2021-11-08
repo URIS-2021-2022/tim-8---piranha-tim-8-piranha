@@ -44,7 +44,7 @@ namespace Piranha.AspNetCore.Http
         /// </summary>
         /// <param name="next">The next middleware in the pipeline</param>
         /// <param name="factory">The logger factory</param>
-        public MiddlewareBase(RequestDelegate next, ILoggerFactory factory) : this(next)
+        protected MiddlewareBase(RequestDelegate next, ILoggerFactory factory) : this(next)
         {
             if (factory != null)
             {
@@ -67,7 +67,7 @@ namespace Piranha.AspNetCore.Http
         /// </summary>
         /// <param name="context">The current http context</param>
         /// <returns>If the request has already been handled</returns>
-        protected bool IsHandled(HttpContext context)
+        protected static bool IsHandled(HttpContext context)
         {
             var values = context.Request.Query["piranha_handled"];
             if (values.Count > 0)

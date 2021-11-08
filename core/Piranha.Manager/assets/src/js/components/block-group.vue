@@ -52,11 +52,11 @@ export default {
     props: ["uid", "toolbar", "model"],
     methods: {
         selectItem: function (item) {
-            for (var n = 0; n < this.model.items.length; n++) {
-                if (this.model.items[n] == item) {
-                    this.model.items[n].isActive = true;
+            for (let value of this.model.items) {
+                if (value == item) {
+                    value.isActive = true;
                 } else {
-                    this.model.items[n].isActive = false;
+                    value.isActive = false;
                 }
             }
         },

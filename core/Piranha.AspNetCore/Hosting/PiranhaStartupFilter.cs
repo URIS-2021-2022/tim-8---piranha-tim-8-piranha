@@ -12,6 +12,7 @@ using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Piranha.AspNetCore.Http;
+using Piranha.AspNetCore.Security;
 
 namespace Piranha.AspNetCore.Hosting
 {

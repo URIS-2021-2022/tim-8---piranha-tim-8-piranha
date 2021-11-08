@@ -9,6 +9,7 @@
  */
 
 using Piranha.Extend;
+using System;
 
 namespace Piranha.Azure.Search
 {
@@ -50,6 +51,9 @@ namespace Piranha.Azure.Search
         /// <summary>
         /// Initializes the module.
         /// </summary>
-        public void Init() { }
+        public void Init() 
+        {
+            throw new NotSupportedException();
+        }
     }
 }
