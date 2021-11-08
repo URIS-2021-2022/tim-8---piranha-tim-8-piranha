@@ -1,0 +1,35 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <NoWarn>$(NoWarn);1591</NoWarn>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <Description>Piranha CMS security provider for AspNetCore Identity</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.0-rc.2.21480.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.0-rc.2.21480.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
+    <ProjectReference Include="..\..\core\Piranha\Piranha.csproj" />
+    <ProjectReference Include="..\..\core\Piranha.Manager\Piranha.Manager.csproj" />
+    <ProjectReference Include="..\..\core\Piranha.Manager.LocalAuth\Piranha.Manager.LocalAuth.csproj" />
+    <ProjectReference Include="..\..\core\Piranha.Manager.Localization\Piranha.Manager.Localization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="assets\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="assets\piranha.useredit.js" />
+  </ItemGroup>
+
+</Project>
