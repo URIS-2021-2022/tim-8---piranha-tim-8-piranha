@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <Description>TinyMCE WYSIWYG Editor for Piranha CMS</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GITHUB_ACTIONS)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="all" />
+    <ProjectReference Include="..\Piranha.Manager\Piranha.Manager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="assets\**\*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="node_modules\**" />
+    <Content Remove="package.json" />
+    <Content Remove="package-lock.json" />
+  </ItemGroup>
+
+</Project>
