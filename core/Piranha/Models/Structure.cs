@@ -113,7 +113,7 @@ namespace Piranha.Models
                     return crumb;
                 }
             }
-            return new List<T>(0);
+            return null;
         }
     }
 }
