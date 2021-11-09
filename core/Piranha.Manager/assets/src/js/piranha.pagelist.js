@@ -61,7 +61,7 @@ piranha.pagelist = new Vue({
                 $(e).nestable({
                     maxDepth: 100,
                     group: i,
-                    callback: function (l, e) {
+                    callback: function (l) {
                         fetch(piranha.baseUrl + "manager/api/page/move", {
                             method: "post",
                             headers: piranha.utils.antiForgeryHeaders(),

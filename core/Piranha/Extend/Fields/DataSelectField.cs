@@ -32,7 +32,7 @@ namespace Piranha.Extend.Fields
         {
             if (string.IsNullOrWhiteSpace(Id)) return;
 
-            var get = typeof(T).GetMethod("GetById", BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.Static);
+            var get = typeof(T).GetMethod("GetById", BindingFlags.Public | BindingFlags.Static);
 
             if (get != null)
             {

@@ -72,7 +72,7 @@ piranha.editor = {
             var index = this.editors.indexOf(simplemde);
 
             simplemde.toTextArea();
-            this.editors.splice[index, 1];
+            //this.editors.splice[index, 1];
         }
     },
     refreshMarkdown: function () {

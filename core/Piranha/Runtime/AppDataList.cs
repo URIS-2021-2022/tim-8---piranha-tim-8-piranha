@@ -33,7 +33,7 @@ namespace Piranha.Runtime
             //
             // Make sure we don't register the same type multiple times.
             //
-            if (_items.Where(i => i.Type == type).Count() == 0)
+            if (_items.Where(i => i.Type == type).Any())
             {
                 var item = Activator.CreateInstance<TItem>();
 

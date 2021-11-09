@@ -80,7 +80,7 @@ namespace Piranha.Services
                     // No page size provided, get from config
                     pageSize = config.ArchivePageSize;
 
-                    if (!pageSize.HasValue || pageSize == 0)
+                    if (pageSize == 0)
                     {
                         // No config available, default to 5
                         pageSize = 5;

@@ -20,7 +20,7 @@ namespace Piranha
         /// <summary>
         /// The inner Service collection.
         /// </summary>
-        public readonly IServiceCollection Services;
+        public IServiceCollection Services;
 
         /// <summary>
         /// Gets/sets if runtime compilation should be enabled.

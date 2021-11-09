@@ -139,10 +139,7 @@ namespace Piranha.Services
             {
                 model = null; // TODO: _cache?.Get<T>($"DynamicContent_{ id.ToString() }");
             }
-            else
-            {
-                model = null; // TODO: _cache?.Get<T>(id.ToString());
-            }
+           
 
             // If we have a model, let's initialize it
             if (model != null)

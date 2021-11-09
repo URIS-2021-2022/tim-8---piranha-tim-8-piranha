@@ -349,7 +349,7 @@ piranha.pageedit = new Vue({
             .then(function (response) { return response.json(); })
             .then(function (result) {
                 self.bind(result);
-
+                console.log(result);
                 piranha.notifications.push(result.status);
             })
             .catch(function (error) { 
