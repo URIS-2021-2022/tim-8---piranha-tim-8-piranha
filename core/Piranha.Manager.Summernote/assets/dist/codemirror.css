@@ -85,7 +85,6 @@
 @-webkit-keyframes blink {
   0% {}
   50% { background-color: transparent; }
-  100% {}
 }
 @keyframes blink {
   0% {}

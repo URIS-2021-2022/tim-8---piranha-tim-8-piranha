@@ -68,7 +68,7 @@ export default {
         pageImage: function () {
             if (this.hasPageImage) {
                 return piranha.baseUrl + "manager/api/media/url/" + this.model.body.page.primaryImage.id + "/446/220";
-                //return piranha.utils.formatUrl(this.model.body.page.primaryImage.media.publicUrl);
+                
             } else {
                 return piranha.utils.formatUrl("~/manager/assets/img/empty-image.png");
             }

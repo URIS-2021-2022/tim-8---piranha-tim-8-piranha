@@ -33,6 +33,12 @@
         </div>
         <table v-if="items.length > 0" class="table">
             <tbody>
+                <tr>
+                    <th>Header1</th>
+                    <th>Header2</th>
+                    <th>Header3</th>
+                    <th>Header4</th>
+                </tr>
                 <tr v-bind:key="post.id" v-for="post in selectedPosts" :class="{ unpublished: post.status === 'unpublished' || post.isScheduled }">
                     <td>
                         <a :href="piranha.baseUrl + post.editUrl + post.id">{{ post.title }}</a>
