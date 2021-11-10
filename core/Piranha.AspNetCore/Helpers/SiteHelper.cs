@@ -78,7 +78,7 @@ namespace Piranha.AspNetCore.Helpers
             {
                 return _api.Sites.GetContentByIdAsync<T>(Id);
             }
-            return Task.FromResult<T>(null);
+            return null;
         }
     }
 }
