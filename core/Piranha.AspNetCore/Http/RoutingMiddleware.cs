@@ -267,7 +267,7 @@ namespace Piranha.AspNetCore.Http
                         route.Append(post.Route ?? "/post");
                         for (var n = pos; n < segments.Length; n++)
                         {
-                            route.Append("/");
+                            route.Append('/');
                             route.Append(segments[n]);
                         }
 
@@ -517,7 +517,7 @@ namespace Piranha.AspNetCore.Http
         /// <param name="site">The site</param>
         /// <param name="hostname">The requested host</param>
         /// <returns>The hostname split into host and prefix</returns>
-        private string[] GetMatchingHost(Site site, string hostname)
+        private static string[] GetMatchingHost(Site site, string hostname)
         {
             var result = new string[2];
 

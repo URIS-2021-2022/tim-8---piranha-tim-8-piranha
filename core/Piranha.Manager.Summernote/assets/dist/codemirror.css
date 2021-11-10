@@ -11,7 +11,9 @@
 /* PADDING */
 
 .CodeMirror-lines {
-  padding: 4px 0; /* Vertical padding around content */
+    padding: 4px 0; /* Vertical padding around content */
+    cursor: text;
+    min-height: 1px; /* prevents collapsing before first draw */
 }
 .CodeMirror pre.CodeMirror-line,
 .CodeMirror pre.CodeMirror-line-like {
@@ -80,7 +82,6 @@
 }
 @-moz-keyframes blink {
   50% { background-color: transparent; }
-  100% {}
 }
 @-webkit-keyframes blink {
   0% {}
@@ -232,10 +233,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
 .CodeMirror-gutter-wrapper ::selection { background-color: transparent }
 .CodeMirror-gutter-wrapper ::-moz-selection { background-color: transparent }
 
-.CodeMirror-lines {
-  cursor: text;
-  min-height: 1px; /* prevents collapsing before first draw */
-}
 .CodeMirror pre.CodeMirror-line,
 .CodeMirror pre.CodeMirror-line-like {
   /* Reset some styles that the rest of the page might have set */

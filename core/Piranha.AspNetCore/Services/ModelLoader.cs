@@ -154,18 +154,14 @@ namespace Piranha.AspNetCore.Services
             }
 
             // Check if we're requesting a draft
-            if (draft)
+            if (draft && (await _auth.AuthorizeAsync(user, Piranha.Security.Permission.PostPreview)).Succeeded)
             {
-                // Check that the current user is authorized to preview pages
-                if ((await _auth.AuthorizeAsync(user, Piranha.Security.Permission.PostPreview)).Succeeded)
-                {
-                    // Get the draft, if available
-                    model = await _api.Posts.GetDraftByIdAsync<T>(id);
+                // Get the draft, if available
+                model = await _api.Posts.GetDraftByIdAsync<T>(id);
 
-                    if (model == null)
-                    {
-                        model = await _api.Posts.GetByIdAsync<T>(id);
-                    }
+                if (model == null)
+                {
+                    model = await _api.Posts.GetByIdAsync<T>(id);
                 }
             }
 
