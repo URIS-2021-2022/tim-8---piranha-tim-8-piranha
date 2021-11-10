@@ -43,7 +43,7 @@ public static class PiranhaSecurityExtensions
         builder.Services.AddAuthorization(o =>
         {
             // Invoke the builder options
-            var securityBuilder = new SecurityBuilder(o, builder);
+            var securityBuilder = new SecurityBuilder(o);
             builderOptions?.Invoke(securityBuilder);
         });
         return builder;

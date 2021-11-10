@@ -75,10 +75,10 @@ namespace Piranha.Azure
         /// <param name="media">The media file</param>
         /// <param name="id">The resource id</param>
         /// <returns>The public url</returns>
-        public string GetPublicUrl(Media media, string id)
+        public string GetPublicUrl(Media media, string filename)
         {
-            return media == null || string.IsNullOrWhiteSpace(id) ? null : 
-                $"{ _blobContainerClient.Uri.AbsoluteUri }/{ GetResourceName(media, id, true) }";
+            return media == null || string.IsNullOrWhiteSpace(filename) ? null : 
+                $"{ _blobContainerClient.Uri.AbsoluteUri }/{ GetResourceName(media, filename, true) }";
         }
 
         /// <summary>

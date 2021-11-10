@@ -25,7 +25,7 @@ namespace Piranha.AttributeBuilder
     /// </summary>
     public class ContentTypeBuilder
     {
-        private class BuilderItem<T> where T : ContentTypeBase
+        private sealed class BuilderItem<T> where T : ContentTypeBase
         {
             public Type Type { get; set; }
             public T ContentType { get; set; }
