@@ -34,7 +34,7 @@ public static class PiranhaSecurityExtensions
     /// <param name="securityOptions">The security options</param>
     /// <returns>The service builder</returns>
     public static PiranhaServiceBuilder UseSecurity(this PiranhaServiceBuilder builder, 
-        Action<SecurityBuilder> builderOptions, Action<SecurityOptions> securityOptions = null)
+        Action<SecurityBuilder> builderOptions, Action<SecurityOptions> securityOptions = null) 
     {
         // Configure
         builder.Services.Configure<SecurityOptions>(o => securityOptions?.Invoke(o));
