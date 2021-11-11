@@ -82,7 +82,7 @@ namespace Piranha.AspNetCore.Http
         /// </summary>
         /// <param name="context">The current http context</param>
         /// <returns>If the request is for a draft</returns>
-        protected bool IsDraft(HttpContext context)
+        protected static bool IsDraft(HttpContext context)
         {
             var values = context.Request.Query["draft"];
             if (values.Count > 0)
