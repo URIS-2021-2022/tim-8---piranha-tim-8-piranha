@@ -325,8 +325,6 @@ piranha.contentedit = new Vue({
             }
         }
     },
-    created: function () {
-    },
     updated: function () {
         var self = this;
 

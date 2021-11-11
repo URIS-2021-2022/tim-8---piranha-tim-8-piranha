@@ -88,12 +88,9 @@ namespace Piranha.AttributeBuilder
 
                         // Make sure we add the content group for this type as well
                         var groupType = GetContentGroupType(type);
-                        if (groupType != null)
+                        if (groupType != null && !_contentGroups.Contains(groupType))
                         {
-                            if (!_contentGroups.Contains(groupType))
-                            {
-                                _contentGroups.Add(groupType);
-                            }
+                            _contentGroups.Add(groupType);
                         }
                     }
                 }
