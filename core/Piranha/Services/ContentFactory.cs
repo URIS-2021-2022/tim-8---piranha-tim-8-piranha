@@ -331,13 +331,18 @@ namespace Piranha.Services
         /// <param name="managerInit">If this is initialization used by the manager</param>
         /// <typeparam name="T">The model type</typeparam>
         /// <returns>The initialized model</returns>
-        private async Task<T> InitAsync<T>(T model, ContentTypeBase type, bool managerInit) where T : ContentBase
+        private Task<T> InitAsync<T>(T model, ContentTypeBase type, bool managerInit) where T : ContentBase
         {
             if (model is IDynamicContent)
             {
                 throw new ArgumentException("For dynamic models InitDynamic should be used.");
             }
 
+            return InitAsyncWrapped<T>(model, type, managerInit);
+        }
+
+        private async Task<T> InitAsyncWrapped<T>(T model, ContentTypeBase type, bool managerInit) where T : ContentBase
+        {
             using (var scope = _services.CreateScope())
             {
                 foreach (var regionType in type.Regions)
@@ -362,6 +367,8 @@ namespace Piranha.Services
                         }
                     }
                 }
+
+
 
                 if (!(model is IContentInfo) && model is IBlockContent blockModel)
                 {
