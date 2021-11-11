@@ -27,7 +27,7 @@ function vueCompile() {
             getComponent = function (ast, sourceCode) {
                 const ta = ast.program.body[0]
                 if (!babelTypes.isExportDefaultDeclaration(ta)) {
-                    throw 'Top level declaration in file ' + relativeFile + ' must be "export default {" \n' + codeFrameColumns(sourceCode, { start: ta.loc.start }, { highlightCode: true });
+                    throw new Error('Top level declaration in file ' + relativeFile + ' must be "export default {" \n' + codeFrameColumns(sourceCode, { start: ta.loc.start }, { highlightCode: true }));
                 }
                 return ta.declaration;
             }
@@ -308,10 +308,8 @@ gulp.task("rtl:min:css", function (done) {
     }
 
     // Copy fonts
-    for (var temp = 0; temp < fonts.length; temp++)
-    {
-        gulp.src(fonts[temp])
-            .pipe(gulp.dest(output + "webfonts"));
+    for (let value of fonts) {
+        gulp.src(value).pipe(gulp.dest(output + "webfonts"));
     }
     done();
 });

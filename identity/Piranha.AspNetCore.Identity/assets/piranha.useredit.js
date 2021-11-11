@@ -88,7 +88,6 @@ piranha.useredit= new Vue({
             });
         },
         remove: function (userId) {
-            var self = this;
 
             piranha.alert.open({
                 title: piranha.resources.texts.delete,
