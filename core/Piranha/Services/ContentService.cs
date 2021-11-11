@@ -167,7 +167,7 @@ namespace Piranha.Services
 
             // Check that we got back the requested type from the
             // repository
-            if (model != null && model is T)
+            if (model is T)
             {
                 return model;
             }

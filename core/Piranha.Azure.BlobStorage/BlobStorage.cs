@@ -74,7 +74,7 @@ namespace Piranha.Azure
         /// Gets the public URL for the given media object.
         /// </summary>
         /// <param name="media">The media file</param>
-        /// <param name="id">The resource id</param>
+        /// <param name="filename">The resource id</param>
         /// <returns>The public url</returns>
         public string GetPublicUrl(Media media, string filename)
         {

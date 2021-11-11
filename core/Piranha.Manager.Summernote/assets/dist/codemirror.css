@@ -39,7 +39,7 @@
     min-height: 100%;
     z-index: 3;
 }
-.CodeMirror-linenumbers {}
+
 .CodeMirror-linenumber {
   padding: 0 3px 0 5px;
   min-width: 20px;
