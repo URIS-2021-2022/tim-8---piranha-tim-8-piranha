@@ -20,6 +20,7 @@ using Piranha.AttributeBuilder;
 using Piranha.Local;
 using PiranhaHostingExtensions;
 using Piranha.AspNetCore.Security;
+using Space;
 
 namespace MvcWeb
 {
