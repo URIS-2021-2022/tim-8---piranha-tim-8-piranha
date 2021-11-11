@@ -226,7 +226,7 @@ namespace Piranha
         /// Default constructor.
         /// </summary>
         /// <param name="options">Configuration options</param>
-        public Db(DbContextOptions<T> options) : base(options)
+        protected Db(DbContextOptions<T> options) : base(options)
         {
             if (!IsInitialized)
             {

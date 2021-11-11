@@ -698,10 +698,8 @@ namespace Piranha.AttributeBuilder
                 type = type.GenericTypeArguments.First();
             }
 
-            if (typeof(IField).IsAssignableFrom(type))
+            if (typeof(IField).IsAssignableFrom(type) && type.GetCustomAttribute<FieldTypeAttribute>() != null)
             {
-                if (type.GetCustomAttribute<FieldTypeAttribute>() != null)
-                {
                     MethodInfo generic = null;
 
                     if (typeof(Extend.Fields.SelectFieldBase).IsAssignableFrom(type))
@@ -721,7 +719,6 @@ namespace Piranha.AttributeBuilder
                     }
 
                     generic.Invoke(App.Fields, null);
-                }
             }
         }
     }

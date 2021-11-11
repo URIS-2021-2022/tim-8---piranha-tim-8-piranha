@@ -34,10 +34,10 @@
         <table v-if="items.length > 0" class="table">
             <tbody>
                 <tr>
-                    <th>Header1</th>
-                    <th>Header2</th>
-                    <th>Header3</th>
-                    <th>Header4</th>
+                    <th id="header1">Header1</th>
+                    <th id="header2">Header2</th>
+                    <th id="header3">Header3</th>
+                    <th id="header4">Header4</th>
                 </tr>
                 <tr v-bind:key="post.id" v-for="post in selectedPosts" :class="{ unpublished: post.status === 'unpublished' || post.isScheduled }">
                     <td>

@@ -1,6 +1,3 @@
-/*global
-    piranha
-*/
 
 piranha.config = new Vue({
     el: "#config",
