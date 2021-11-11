@@ -34,7 +34,7 @@ namespace Piranha.AspNetCore.Http
         /// Creates a new middleware instance.
         /// </summary>
         /// <param name="next">The next middleware in the pipeline</param>
-        public MiddlewareBase(RequestDelegate next)
+        protected MiddlewareBase(RequestDelegate next)
         {
             _next = next;
         }
