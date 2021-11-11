@@ -45,6 +45,7 @@
                         <button v-on:click.prevent="setStatus('approved')" class="btn btn-sm" :class="{ 'btn-primary': state === 'approved', 'btn-light': state !== 'approved' }">@Localizer.Comment["Approved"]</button>
                     </div>
                     <table class="table table-borderless table-comments">
+                        <caption>Some table description</caption>
                         <thead>
                             <tr>
                                 <th class="w-20">@Localizer.General["Author"]</th>

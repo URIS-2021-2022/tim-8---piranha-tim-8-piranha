@@ -1,7 +1,3 @@
-/*global
-    piranha, summernote
-*/
-
 piranha.summernote = {};
 
 piranha.summernote.linkmodal = new Vue({

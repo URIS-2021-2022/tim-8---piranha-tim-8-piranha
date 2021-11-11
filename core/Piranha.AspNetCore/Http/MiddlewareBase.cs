@@ -34,7 +34,7 @@ namespace Piranha.AspNetCore.Http
         /// Creates a new middleware instance.
         /// </summary>
         /// <param name="next">The next middleware in the pipeline</param>
-        public MiddlewareBase(RequestDelegate next)
+        protected MiddlewareBase(RequestDelegate next)
         {
             _next = next;
         }
@@ -97,7 +97,7 @@ namespace Piranha.AspNetCore.Http
         /// </summary>
         /// <param name="url">The url</param>
         /// <returns>If the given url is for the manager application</returns>
-        protected bool IsManagerRequest(string url)
+        protected static bool IsManagerRequest(string url)
         {
             if (string.IsNullOrEmpty(url))
             {
