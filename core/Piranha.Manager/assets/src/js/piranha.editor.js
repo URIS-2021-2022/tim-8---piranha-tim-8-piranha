@@ -29,7 +29,7 @@ piranha.editor = {
                             var endPoint = cm.getCursor("end");
 
                             if (active) {
-                                var text = cm.getLine(startPoint.line);
+                                text = cm.getLine(startPoint.line);
                                 cm.replaceRange("![" + media.filename + "](" + media.publicUrl + ")",
                                     {
                                         line: startPoint.line,
