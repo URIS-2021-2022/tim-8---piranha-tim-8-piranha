@@ -16,6 +16,7 @@ using Piranha.Manager.LocalAuth;
 
 public static class SimpleSecurityExtensions
 {
+    
     /// <summary>
     /// Adds the simple security implementation to the service collection.
     /// </summary>

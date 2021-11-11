@@ -39,7 +39,10 @@ header {
   white-space: nowrap; }
 
 .post-header img {
-  margin-top: 2rem; }
+    margin-top: 2rem;
+    border: solid .3rem #fff;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
 
 .post-header .tag {
   margin-right: 1rem; }
@@ -118,8 +121,4 @@ header {
   transition: color ease-in-out .15s; }
   .archive-item h2 a:hover {
     transition: color ease-in-out .15s; }
-
-.post-header img {
-  border: solid .3rem #fff;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15); }
 

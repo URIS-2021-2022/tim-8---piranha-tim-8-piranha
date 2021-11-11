@@ -91,7 +91,8 @@ piranha.postedit = new Vue({
             else if (this.metaPriority <= 0.9)
                 description =  piranha.resources.texts.high;
 
-            return description += " (" + this.metaPriority + ")";
+            description = description + " (" + this.metaPriority + ")";
+            return description;
         }
     },
     mounted() {

@@ -45,12 +45,13 @@
                         <button v-on:click.prevent="setStatus('approved')" class="btn btn-sm" :class="{ 'btn-primary': state === 'approved', 'btn-light': state !== 'approved' }">@Localizer.Comment["Approved"]</button>
                     </div>
                     <table class="table table-borderless table-comments">
+                        <caption>Some table description</caption>
                         <thead>
                             <tr>
                                 <th class="w-20">@Localizer.General["Author"]</th>
-                                <th class="w-50" scope="row">@Localizer.Comment["Comment"]</th>
-                                <th class="text-nowrap">@Localizer.Comment["Response to"]</th>
-                                <th class="text-center">@Localizer.Comment["Approved"]</th>
+                                <th class="w-50">@Localizer.Comment["Comment"]</th>
+                                <th id="text-nowrap" class="text-nowrap">@Localizer.Comment["Response to"]</th>
+                                <th class="text-comments">@Localizer.Comment["Approved"]</th>
                                 <th>@Localizer.General["Created"]</th>
                                 <th class="actions one"></th>
                             </tr>
@@ -70,7 +71,7 @@
                                 </td>
                                 <td class="align-middle">{{ comment.created }}</td>
                                 <td class="actions one align-middle">
-                                    <a v-if="piranha.permissions.comments.delete" v-on:click.prevent="remove(comment.id)" href="#" title="@Localizer.General["Delete"]" class="danger"><i class="fas fa-trash"></i></a>
+                                    <a v-if="piranha.permissions.comments.delete" v-on:click.prevent="remove(comment.id)" href="#" title="@Localizer.General["Delete"]" class="danger"><em class="fas fa-trash"></em></a>
                                 </td>
                             </tr>
                         </tbody>

@@ -25,7 +25,7 @@ namespace Piranha.AttributeBuilder
     /// </summary>
     public class ContentTypeBuilder
     {
-        private class BuilderItem<T> where T : ContentTypeBase
+        private sealed class BuilderItem<T> where T : ContentTypeBase
         {
             public Type Type { get; set; }
             public T ContentType { get; set; }
@@ -88,12 +88,9 @@ namespace Piranha.AttributeBuilder
 
                         // Make sure we add the content group for this type as well
                         var groupType = GetContentGroupType(type);
-                        if (groupType != null)
+                        if (groupType != null && !_contentGroups.Contains(groupType))
                         {
-                            if (!_contentGroups.Contains(groupType))
-                            {
-                                _contentGroups.Add(groupType);
-                            }
+                            _contentGroups.Add(groupType);
                         }
                     }
                 }
@@ -701,10 +698,8 @@ namespace Piranha.AttributeBuilder
                 type = type.GenericTypeArguments.First();
             }
 
-            if (typeof(IField).IsAssignableFrom(type))
+            if (typeof(IField).IsAssignableFrom(type) && type.GetCustomAttribute<FieldTypeAttribute>() != null)
             {
-                if (type.GetCustomAttribute<FieldTypeAttribute>() != null)
-                {
                     MethodInfo generic = null;
 
                     if (typeof(Extend.Fields.SelectFieldBase).IsAssignableFrom(type))
@@ -724,7 +719,6 @@ namespace Piranha.AttributeBuilder
                     }
 
                     generic.Invoke(App.Fields, null);
-                }
             }
         }
     }

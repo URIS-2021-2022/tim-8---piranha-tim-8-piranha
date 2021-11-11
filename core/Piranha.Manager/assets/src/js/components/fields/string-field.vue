@@ -31,7 +31,7 @@ export default {
         },
         isRequired: function () {
             return false;
-            //return this.meta.settings.IsRequired != null && this.meta.settings.IsRequired;
+           
         }
     }
 }

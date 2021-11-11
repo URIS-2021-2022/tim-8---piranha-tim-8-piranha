@@ -72,11 +72,9 @@ namespace Piranha.AspNetCore.Services
             }
 
             // Check if we're requesting a draft
-            if (draft)
+            // Check that the current user is authorized to preview pages
+            if (draft && (await _auth.AuthorizeAsync(user, Piranha.Security.Permission.PagePreview)).Succeeded)
             {
-                // Check that the current user is authorized to preview pages
-                if ((await _auth.AuthorizeAsync(user, Piranha.Security.Permission.PagePreview)).Succeeded)
-                {
                     // Get the draft, if available
                     model = await _api.Pages.GetDraftByIdAsync<T>(id);
 
@@ -84,7 +82,7 @@ namespace Piranha.AspNetCore.Services
                     {
                         model = await _api.Pages.GetByIdAsync<T>(id);
                     }
-                }
+                
             }
 
             // No draft loaded or requested, try to get the published page
@@ -154,18 +152,14 @@ namespace Piranha.AspNetCore.Services
             }
 
             // Check if we're requesting a draft
-            if (draft)
+            if (draft && (await _auth.AuthorizeAsync(user, Piranha.Security.Permission.PostPreview)).Succeeded)
             {
-                // Check that the current user is authorized to preview pages
-                if ((await _auth.AuthorizeAsync(user, Piranha.Security.Permission.PostPreview)).Succeeded)
-                {
-                    // Get the draft, if available
-                    model = await _api.Posts.GetDraftByIdAsync<T>(id);
+                // Get the draft, if available
+                model = await _api.Posts.GetDraftByIdAsync<T>(id);
 
-                    if (model == null)
-                    {
-                        model = await _api.Posts.GetByIdAsync<T>(id);
-                    }
+                if (model == null)
+                {
+                    model = await _api.Posts.GetByIdAsync<T>(id);
                 }
             }
 
