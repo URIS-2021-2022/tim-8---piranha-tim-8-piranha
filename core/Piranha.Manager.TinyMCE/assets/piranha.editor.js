@@ -1,6 +1,4 @@
-/*global
-    piranha, tinymce
-*/
+
 
 //
 // Create a new inline editor

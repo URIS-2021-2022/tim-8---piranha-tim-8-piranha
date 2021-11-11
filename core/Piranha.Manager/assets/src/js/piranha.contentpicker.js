@@ -59,9 +59,7 @@ piranha.contentpicker = new Vue({
                 })
                 .catch(function (error) { console.log("error:", error ); });
         },
-        loadGroups: function () {
-
-        },
+      
         refresh: function () {
             this.load(piranha.contentpicker.currentGroupId, true);
         },
