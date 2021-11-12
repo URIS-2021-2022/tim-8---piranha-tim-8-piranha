@@ -9,7 +9,6 @@ piranha.dropzone = new function () {
     var self = this;
 
     self.init = function (selector, options) {
-        if (!options) options = {};
 
         var defaultOptions = {
             paramName: 'Uploads',

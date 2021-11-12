@@ -9,6 +9,7 @@
  */
 
 using Piranha.Extend;
+using System;
 
 namespace Piranha.Azure
 {
@@ -52,6 +53,7 @@ namespace Piranha.Azure
         /// </summary>
         public void Init()
         {
+            throw new NotSupportedException();
         }
     }
 }
