@@ -141,7 +141,7 @@ namespace Piranha.Services
             }
             else
             {
-                model = null; // TODO: _cache?.Get<T>(id.ToString());
+                model =  _cache?.Get<T>(id.ToString());
             }
 
             // If we have a model, let's initialize it

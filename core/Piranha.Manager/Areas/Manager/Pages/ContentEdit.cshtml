@@ -135,7 +135,7 @@
                                                     <i class="fas fa-plus"></i>
                                                 </button>
                                                 <button v-on:click.prevent="removePrimaryImage" class="btn btn-danger text-center">
-                                                    <i class="fas fa-times"></i>
+                                                    <em class="fas fa-times"></em>
                                                 </button>
                                             </div>
                                             <div class="card text-left">
@@ -180,7 +180,7 @@
                             <div :id="'tb-' + block.meta.uid" class="component-toolbar"></div>
                             <div class="block-header">
                                 <div class="title">
-                                    <i :class="block.meta.icon"></i><strong>{{ block.meta.name }}</strong> <span v-if="!block.meta.isGroup && block.meta.isCollapsed">- {{ block.meta.title }}</span>
+                                    <em :class="block.meta.icon"></em><strong>{{ block.meta.name }}</strong> <span v-if="!block.meta.isGroup && block.meta.isCollapsed">- {{ block.meta.title }}</span>
                                 </div>
                                 <div class="actions">
                                     <span v-on:click.prevent="collapseBlock(block)" class="btn btn-sm">

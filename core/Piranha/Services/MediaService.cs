@@ -610,7 +610,7 @@ namespace Piranha.Services
             //
             // This is now handled in the provider
             //
-            // sb.Append(media.Id);
+           
             // sb.Append("-");
             //
 
