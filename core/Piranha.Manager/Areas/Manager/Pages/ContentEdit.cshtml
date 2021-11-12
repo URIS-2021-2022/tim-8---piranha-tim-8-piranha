@@ -132,7 +132,7 @@
                                         <div class="media-picker">
                                             <div class="btn-group float-right">
                                                 <button v-on:click.prevent="selectPrimaryImage" class="btn btn-primary text-center">
-                                                    <i class="fas fa-plus"></i>
+                                                    <em class="fas fa-plus"></em>
                                                 </button>
                                                 <button v-on:click.prevent="removePrimaryImage" class="btn btn-danger text-center">
                                                     <i class="fas fa-times"></i>
@@ -173,7 +173,7 @@
                 <div id="content-blocks" class="blocks@(Config.ManagerOutlined ? " blocks-outline" : "")">
                     <a href="#" class="block-add unsortable" v-on:click.prevent="piranha.blockpicker.open(piranha.contentedit.addBlock, 0)">
                         <hr>
-                        <i class="fas fa-plus-circle"></i>
+                        <em class="fas fa-plus-circle"></em>
                     </a>
                     <div v-for="(block, index) in blocks" v-bind:key="block.meta.uid">
                         <div :class="'block ' + block.meta.component + (block.meta.isCollapsed ? ' collapsed' : '') + (block.meta.width === 'full' ? ' block-full' : '')">
@@ -185,7 +185,7 @@
                                 <div class="actions">
                                     <span v-on:click.prevent="collapseBlock(block)" class="btn btn-sm">
                                         <i v-if="block.meta.isCollapsed" class="fas fa-chevron-down"></i>
-                                        <i v-else class="fas fa-chevron-up"></i>
+                                        <em v-else class="fas fa-chevron-up"></em>
                                     </span>
                                     <span class="btn btn-sm handle">
                                         <i class="fas fa-ellipsis-v"></i>

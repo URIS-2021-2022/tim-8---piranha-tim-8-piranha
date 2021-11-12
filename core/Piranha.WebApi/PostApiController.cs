@@ -85,12 +85,11 @@ namespace Piranha.WebApi
         [Route("info/{id:Guid}")]
         public async Task<IActionResult> GetInfoById(Guid id)
         {
-            if (!Module.AllowAnonymousAccess)
+            if (!Module.AllowAnonymousAccess && !(await _auth.AuthorizeAsync(User, Permissions.Posts)).Succeeded)
             {
-                if (!(await _auth.AuthorizeAsync(User, Permissions.Posts)).Succeeded)
-                {
+                
                     return Unauthorized();
-                }
+                
             }
             return Json(await _api.Posts.GetByIdAsync<PostInfo>(id));
         }
