@@ -51,6 +51,11 @@ namespace Piranha.Models
         /// <summary>
         /// Gets/sets the available field settings.
         /// </summary>
-        public IDictionary<string, object> Settings = new Dictionary<string, object>();
+        private IDictionary<string, object> settings = new Dictionary<string, object>();
+        public IDictionary<string, object> Settings
+        {
+            get { return settings; }
+            set { settings = value;  }
+        }
     }
 }

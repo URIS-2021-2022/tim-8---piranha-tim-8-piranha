@@ -354,7 +354,7 @@ namespace Piranha.Services
                 foreach (var model in models.Where(m => m is T))
                 {
                     await OnLoadAsync(model).ConfigureAwait(false);
-                    ret.Add(await MapOriginalAsync((T)model).ConfigureAwait(false));
+                    ret.Add(await MapOriginalAsync(model).ConfigureAwait(false));
                 }
             }
 

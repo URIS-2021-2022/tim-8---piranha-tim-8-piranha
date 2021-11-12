@@ -507,22 +507,11 @@ namespace Piranha.Services
 
             if (folder != null)
             {
-                //
-                // TODO: Check empty
-                //
-                // var folderCount = _db.MediaFolders.Count(f => f.ParentId == id);
-                // var mediaCount = _db.Media.Count(m => m.FolderId == id);
-
-                // if (folderCount == 0 && mediaCount == 0)
-                // {
-
-                // Call hooks & delete
                 App.Hooks.OnBeforeDelete(folder);
                 await _repo.DeleteFolder(id).ConfigureAwait(false);
                 App.Hooks.OnAfterDelete(folder);
 
                 RemoveFromCache(folder);
-                //}
             }
         }
 

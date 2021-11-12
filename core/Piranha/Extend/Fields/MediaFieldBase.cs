@@ -22,7 +22,14 @@ namespace Piranha.Extend.Fields
         /// </summary>
         public virtual string GetTitle()
         {
-            return Media != null ? (!string.IsNullOrWhiteSpace(Media.Title)? string.Format("{0} ({1})", Media.Title, Media.Filename) : Media.Filename) : null;
+            if (Media != null)
+            {
+                return !string.IsNullOrWhiteSpace(Media.Title) ? string.Format("{0} ({1})", Media.Title, Media.Filename) : Media.Filename;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
