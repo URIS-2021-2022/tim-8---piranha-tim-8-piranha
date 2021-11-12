@@ -1,10 +1,6 @@
 // Prevent Dropzone from auto discoveringr all elements:
 Dropzone.autoDiscover = false;
 
-/*global
-    piranha
-*/
-
 piranha.dropzone = new function () {
     var self = this;
 

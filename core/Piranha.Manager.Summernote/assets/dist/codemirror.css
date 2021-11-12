@@ -87,7 +87,7 @@
   50% { background-color: transparent; }
 }
 @-webkit-keyframes blink {
-  0% {}
+  0% {color: pink; }
   50% { background-color: transparent; }
 }
 @keyframes blink {

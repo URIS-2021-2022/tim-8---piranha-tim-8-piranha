@@ -1,6 +1,3 @@
-/*global
-    piranha, tinymce
-*/
 
 piranha.editor = {
     editors:[],

@@ -88,7 +88,7 @@
             </li>
             <li v-for="region in contentRegions" class="nav-item">
                 <a class="nav-link" v-on:click.prevent="selectRegion(region.meta)" :class="{ active: selectedRegion.uid == region.meta.uid }" href="#">
-                    <i :class="region.meta.icon"></i>{{ region.meta.name }}
+                    <em :class="region.meta.icon"></em>{{ region.meta.name }}
                 </a>
             </li>
         </ul>
