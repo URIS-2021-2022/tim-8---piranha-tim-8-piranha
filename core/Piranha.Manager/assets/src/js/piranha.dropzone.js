@@ -24,7 +24,9 @@ piranha.dropzone = new function () {
 
                 // Default addedfile callback
                 if (!options.addedfile) {
-                    options.addedfile = function (file) { }
+                    options.addedfile = function (file) {
+                        //Add logic to this method or explain why it's empty
+                    }
                 }
 
                 // Default removedfile callback

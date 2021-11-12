@@ -407,6 +407,7 @@ piranha.postedit = new Vue({
         }
     },
     created: function () {
+        //Add logic to this method or explain why it's empty
     },
     updated: function () {
         var self = this;
