@@ -93,9 +93,11 @@ piranha.pageedit = new Vue({
             else if (this.metaPriority <= 0.6)
                 description =  piranha.resources.texts.medium;
             else if (this.metaPriority <= 0.9)
-                description =  piranha.resources.texts.high;
+                description = piranha.resources.texts.high;
 
-            return description += " (" + this.metaPriority + ")";
+            var help = " (" + this.metaPriority + ")";
+            description += help;
+            return description;
         }
     },
     mounted() {

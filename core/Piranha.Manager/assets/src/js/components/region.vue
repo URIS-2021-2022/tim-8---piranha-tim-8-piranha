@@ -85,12 +85,10 @@ export default {
         updateTitle: function (e) {
             var self = this;
             if (self.model.meta.isCollection) {
-                for (var n = 0; n < self.model.items.length; n++) {
-                    var item = self.model.items[n];
-                    for (var m = 0; m < item.fields.length; m++) {
-                        var field = item.fields[m];
-                        if (field.meta.uid === e.uid) {
-                            self.model.items[n].title = e.title;
+                for (var value of self.model.items) {
+                    for (var value2 of value.fields) {
+                        if (value2.meta.uid === e.uid) {
+                            value.title = e.title;
                             break;
                         }
                     }
