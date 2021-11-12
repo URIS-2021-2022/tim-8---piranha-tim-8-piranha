@@ -1,6 +1,4 @@
-/*global
-    piranha
-*/
+
 
 piranha.pagepicker = new Vue({
     el: "#pagepicker",

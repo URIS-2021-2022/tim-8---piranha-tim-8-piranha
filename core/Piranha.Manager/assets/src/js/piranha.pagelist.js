@@ -142,9 +142,8 @@ piranha.pagelist = new Vue({
         changeVisibility: function (page, expanded) {
             page.isExpanded = expanded;
 
-            for (var n = 0; n < page.items.length; n++)
-            {
-                this.changeVisibility(page.items[n], expanded);
+            for (let value of page.items) {
+                this.changeVisibility(value, expanded);
             }
         }
     },
