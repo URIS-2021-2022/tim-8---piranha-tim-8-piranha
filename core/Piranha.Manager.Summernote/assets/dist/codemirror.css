@@ -95,7 +95,7 @@
 @keyframes blink {
   0% {color: pink}
   50% { background-color: transparent; }
-  100% {}
+  
 }
 
 /* Can style cursor different in overwrite (non-insert) mode */

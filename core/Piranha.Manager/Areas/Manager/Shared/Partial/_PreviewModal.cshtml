@@ -52,6 +52,7 @@
                         </template>
                         <template v-else-if="media.type === 'Video'">
                             <video class="d-block mx-auto mw-100" controls>
+                                <track label="English" kind="captions" srclang="en" src="resources/myvideo-en.vtt" default>
                                 <source :src="media.publicUrl" type="">
                                 @Localizer.Media["Your browser does not support the video tag."]
                             </video>

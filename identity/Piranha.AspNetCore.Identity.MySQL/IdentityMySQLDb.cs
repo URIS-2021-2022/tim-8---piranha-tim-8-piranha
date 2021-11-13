@@ -12,12 +12,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Piranha.AspNetCore.Identity.MySQL
 {
-    public class IdentityMySQLDb : Identity.Db<IdentityMySQLDb> 
+    public class IdentityMySqlDb : Identity.Db<IdentityMySqlDb> 
     { 
         /// <summary>
         /// Default constructor.
         /// </summary>
         /// <param name="options">Configuration options</param>
-        public IdentityMySQLDb(DbContextOptions<IdentityMySQLDb> options) : base(options) { }
+        public IdentityMySqlDb(DbContextOptions<IdentityMySqlDb> options) : base(options) { }
     }
 }
