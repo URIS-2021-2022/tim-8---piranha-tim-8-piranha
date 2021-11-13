@@ -28,7 +28,7 @@ namespace Piranha.AspNetCore.Security
         /// Default constructor.
         /// </summary>
         /// <param name="authorization">The authorization options</param>
-        /// <param name="builder">The service builder</param>
+        
         public SecurityBuilder(AuthorizationOptions authorization)
         {
             _authorization = authorization;
