@@ -104,24 +104,21 @@ namespace Piranha.Runtime
             }
 
             // Automatically register fields for convenience
-            foreach (var prop in typeof(TValue).GetProperties(App.PropertyBindings))
+            foreach (var prop in typeof(TValue).GetProperties(App.PropertyBindings).Where(x => typeof(IField).IsAssignableFrom(x.PropertyType)))
             {
-                if (typeof(IField).IsAssignableFrom(prop.PropertyType))
-                {
-                    MethodInfo generic = null;
+                MethodInfo generic = null;
 
-                    if (typeof(SelectFieldBase).IsAssignableFrom(prop.PropertyType))
-                    {
-                        var method = typeof(Runtime.AppFieldList).GetMethod("RegisterSelect");
-                        generic = method.MakeGenericMethod(prop.PropertyType.GenericTypeArguments.First());
-                    }
-                    else
-                    {
-                        var method = typeof(Runtime.AppFieldList).GetMethod("Register");
-                        generic = method.MakeGenericMethod(prop.PropertyType);
-                    }
-                    generic.Invoke(App.Fields, null);
+                if (typeof(SelectFieldBase).IsAssignableFrom(prop.PropertyType))
+                {
+                    var method = typeof(Runtime.AppFieldList).GetMethod("RegisterSelect");
+                    generic = method.MakeGenericMethod(prop.PropertyType.GenericTypeArguments.First());
                 }
+                else
+                {
+                    var method = typeof(Runtime.AppFieldList).GetMethod("Register");
+                    generic = method.MakeGenericMethod(prop.PropertyType);
+                }
+                generic.Invoke(App.Fields, null);
             }
             return item;
         }

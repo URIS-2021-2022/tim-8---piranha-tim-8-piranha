@@ -198,7 +198,6 @@ namespace Piranha.Repositories
         public async Task Save<T>(T model, Guid languageId) where T : Models.GenericContent
         {
             var type = App.ContentTypes.GetById(model.TypeId);
-            var lastModified = DateTime.MinValue;
 
             if (type != null)
             {

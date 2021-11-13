@@ -160,9 +160,13 @@ namespace Piranha.Services
             // If we don't have a model, get it from the repository
             if (model == null)
             {
-                model = await _repo.GetById<T>(id, languageId.Value).ConfigureAwait(false);
+                if (languageId.HasValue)
+                {
+                    model = await _repo.GetById<T>(id, languageId.Value).ConfigureAwait(false);
 
-                await OnLoadAsync(model).ConfigureAwait(false);
+                    await OnLoadAsync(model).ConfigureAwait(false);
+                }
+               
             }
 
             // Check that we got back the requested type from the
@@ -257,7 +261,10 @@ namespace Piranha.Services
 
             // Call hooks and save
             App.Hooks.OnBeforeSave<GenericContent>(model);
-            await _repo.Save(model, languageId.Value);
+            if (languageId.HasValue)
+            {
+                await _repo.Save(model, languageId.Value);
+            }
             App.Hooks.OnAfterSave<GenericContent>(model);
 
             // Remove from cache

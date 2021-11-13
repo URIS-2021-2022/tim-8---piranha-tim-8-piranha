@@ -555,6 +555,7 @@ namespace Piranha.Services
         private IEnumerable GetEnumerable<T>(T model, string regionId) where T : Models.ContentBase
         {
             object value = null;
+            object returnValue = new();
 
             if (model is Models.IDynamicContent dynamicModel)
             {
@@ -566,7 +567,7 @@ namespace Piranha.Services
             }
             if (value is IEnumerable)
                 return (IEnumerable)value;
-            return null;
+            return (IEnumerable) returnValue;
         }
 
         /// <summary>
