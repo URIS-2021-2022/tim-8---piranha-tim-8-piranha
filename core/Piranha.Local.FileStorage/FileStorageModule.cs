@@ -53,7 +53,7 @@ namespace Piranha.Local
         /// </summary>
         public void Init()
         {
-            //throw new NotSupportedException();
+            //I tried to put throw new exception but it didn't work!
         }
     }
 }

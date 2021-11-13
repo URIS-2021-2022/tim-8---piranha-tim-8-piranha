@@ -65,22 +65,12 @@ namespace Piranha.WebApi
         /// <summary>
         /// The assembly.
         /// </summary>
-        internal static readonly Assembly Assembly;
+        internal static readonly Assembly Assembly = typeof(Module).GetTypeInfo().Assembly;
 
         /// <summary>
         /// Last modification date of the assembly.
         /// </summary>
-        internal static readonly DateTime LastModified;
-
-        /// <summary>
-        /// Static initialization.
-        /// </summary>
-        static Module()
-        {
-            // Get assembly information
-            Assembly = typeof(Module).GetTypeInfo().Assembly;
-            LastModified = new FileInfo(Assembly.Location).LastWriteTime;
-        }
+        internal static readonly DateTime LastModified = new FileInfo(Assembly.Location).LastWriteTime;
 
         /// <summary>
         /// Initializes the module.

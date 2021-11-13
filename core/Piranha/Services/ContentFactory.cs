@@ -468,16 +468,13 @@ namespace Piranha.Services
                 var properties = block.GetType().GetProperties(App.PropertyBindings);
 
                 // Initialize all of the fields
-                foreach (var property in properties)
+                foreach (var property in properties.Where(x=> typeof(Extend.IField).IsAssignableFrom(x.PropertyType)))
                 {
-                    if (typeof(Extend.IField).IsAssignableFrom(property.PropertyType))
-                    {
-                        var field = property.GetValue(block);
+                    var field = property.GetValue(block);
 
-                        if (field != null)
-                        {
-                            await InitFieldAsync(scope, field, managerInit).ConfigureAwait(false);
-                        }
+                    if (field != null)
+                    {
+                        await InitFieldAsync(scope, field, managerInit).ConfigureAwait(false);
                     }
                 }
 
