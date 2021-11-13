@@ -20,20 +20,20 @@ namespace Piranha.AspNetCore.Identity.MySQL
     /// when creating migrations.
     /// </summary>
     [NoCoverage]
-    public class DbFactory : IDesignTimeDbContextFactory<IdentityMySQLDb>
+    public class DbFactory : IDesignTimeDbContextFactory<IdentityMySqlDb>
     {
         /// <summary>
         /// Creates a new db context.
         /// </summary>
         /// <param name="args">The arguments</param>
         /// <returns>The db context</returns>
-        public IdentityMySQLDb CreateDbContext(string[] args) 
+        public IdentityMySqlDb CreateDbContext(string[] args) 
         {
             var connectionString = "server=localhost;port=3306;database=piranha;uid=root;password=password";
 
-            var builder = new DbContextOptionsBuilder<IdentityMySQLDb>();
+            var builder = new DbContextOptionsBuilder<IdentityMySqlDb>();
             builder.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
-            return new IdentityMySQLDb(builder.Options);
+            return new IdentityMySqlDb(builder.Options);
         }
     }
 }

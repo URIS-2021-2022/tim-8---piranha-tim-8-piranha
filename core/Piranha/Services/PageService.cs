@@ -723,7 +723,7 @@ namespace Piranha.Services
             }
 
             // Invalidate sitemap if any other pages were affected
-            if (changeState || affected.Count() > 0)
+            if (changeState || affected.Any() )
             {
                 await _siteService.InvalidateSitemapAsync(model.SiteId).ConfigureAwait(false);
             }

@@ -10,7 +10,7 @@ using System;
 
 namespace Piranha.AspNetCore.Identity.MySQL.Migrations
 {
-    [DbContext(typeof(IdentityMySQLDb))]
+    [DbContext(typeof(IdentityMySqlDb))]
     [Migration("20180605110313_InitialCreate")]
     partial class InitialCreate
     {

@@ -530,7 +530,7 @@ namespace Piranha.Services
                         {
                             var blockItems = TransformContentBlocks(((Extend.BlockGroup)models[n]).Items, languageId);
 
-                            if (blockItems.Count() > 0)
+                            if (blockItems.Count > 0)
                             {
                                 foreach (var item in blockItems)
                                 {

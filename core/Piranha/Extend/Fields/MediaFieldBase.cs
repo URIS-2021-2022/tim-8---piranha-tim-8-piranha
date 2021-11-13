@@ -97,13 +97,13 @@ namespace Piranha.Extend.Fields
         /// </summary>
         /// <param name="obj">The field</param>
         /// <returns>True if the fields are equal</returns>
-        public virtual bool Equals(T obj)
+        public virtual bool Equals(T other)
         {
-            if (obj == null)
+            if (other == null)
             {
                 return false;
             }
-            return Id == obj.Id;
+            return Id == other.Id;
         }
 
         /// <summary>
