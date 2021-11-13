@@ -400,7 +400,7 @@ namespace Piranha.Manager.Services
                                 Name = fieldType.Title,
                                 Component = appFieldType.Component,
                                 Placeholder = fieldType.Placeholder,
-                                IsHalfWidth = fieldType.Options.HasFlag(FieldOption.HalfWidth),
+                                IsHalfWidth = fieldType.Options.HasFlag(FieldOptions.HalfWidth),
                                 IsTranslatable = typeof(ITranslatable).IsAssignableFrom(appFieldType.Type),
                                 Description = fieldType.Description,
                                 Settings = fieldType.Settings

@@ -54,7 +54,7 @@ namespace Piranha.AspNetCore.Http
             if (!IsHandled(context) && !IsManagerRequest(context.Request.Path.Value))
             {
                 var url = context.Request.Path.HasValue ? context.Request.Path.Value : "";
-                var segments = !string.IsNullOrEmpty(url) ? url.Substring(1).Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries) : new string[] { };
+                var segments = !string.IsNullOrEmpty(url) ? url.Substring(1).Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries) : Array.Empty<string>();
                 int pos = 0;
 
                 _logger?.LogDebug($"Url: [{ url }]");
@@ -453,7 +453,8 @@ namespace Piranha.AspNetCore.Http
                         context.Request.QueryString =
                             new QueryString(context.Request.QueryString.Value + "&" + strQuery);
                     }
-                    else {
+                    else
+                    {
                         context.Request.QueryString =
                             new QueryString("?" + strQuery);
                     }

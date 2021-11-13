@@ -17,7 +17,7 @@ namespace Piranha.Models
     /// handled in the manager panel.
     /// </summary>
     [Flags]
-    public enum FieldOption
+    public enum FieldOptions
     {
         HalfWidth = 1
     }

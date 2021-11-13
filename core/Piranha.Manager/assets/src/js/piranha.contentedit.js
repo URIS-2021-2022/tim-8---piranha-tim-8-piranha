@@ -1,6 +1,4 @@
-/*global
-    piranha
-*/
+
 
 piranha.contentedit = new Vue({
     el: "#contentedit",

@@ -13,31 +13,30 @@
 </template>
 
 <script>
-export default {
-    props: ["uid", "model", "meta"],
-    methods: {
-        update: function () {
-            // Tell parent that title has been updated
-            if (this.meta.notifyChange) {
-                var title = this.model.value;
-                if (title.length > 40) {
-                    title = title.substring(0, 40) + "...";
-                }
+    export default {
+        props: ["uid", "model", "meta"],
+        methods: {
+            update: function () {
+                // Tell parent that title has been updated
+                if (this.meta.notifyChange) {
+                    var title = this.model.value;
+                    if (title.length > 40) {
+                        title = title.substring(0, 40) + "...";
+                    }
 
-                this.$emit('update-title', {
-                    uid: this.uid,
-                    title: title
-                });
+                    this.$emit('update-title', {
+                        uid: this.uid,
+                        title: title
+                    });
+                }
+            },
+            maxLength: function () {
+                return this.meta.settings.MaxLength != null && this.meta.settings.MaxLength > 0 ?
+                    this.meta.settings.MaxLength : null;
+            },
+            isRequired: function () {
+                return false;
             }
-        },
-        maxLength: function () {
-            return this.meta.settings.MaxLength != null && this.meta.settings.MaxLength > 0 ?
-                this.meta.settings.MaxLength : null;
-        },
-        isRequired: function () {
-            return false;
-            //return this.meta.settings.IsRequired != null && this.meta.settings.IsRequired;
         }
     }
-}
 </script>

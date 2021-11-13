@@ -11,7 +11,7 @@
         }
     }
 
-    >div >.block {
+    > div > .block {
         margin-top: -1rem;
         margin-bottom: -1rem;
     }
@@ -97,6 +97,7 @@
             border-radius: 50%;
             position: relative;
             transition: all ease-in-out .2s;
+            cursor: pointer;
 
             i {
                 position: absolute;
@@ -130,10 +131,6 @@
             &.selected {
                 background: $gray-400 !important;
             }
-        }
-
-        .btn {
-            cursor: pointer;
         }
     }
 
@@ -225,7 +222,7 @@
 }
 
 .markdown-block {
-    .markdown-field{
+    .markdown-field {
         border: none;
 
         .editor-toolbar:not(.fullscreen) {
@@ -236,6 +233,7 @@
             padding-left: 0;
             min-height: 150px;
         }
+
         .CodeMirror-scroll:not(.CodeMirror-fullscreen) {
             min-height: 150px;
         }
@@ -269,6 +267,25 @@
             white-space: pre-wrap;
             grid-area: 1 / 1 / 2 / 2;
         }
+    }
+
+    .empty:not(:focus-within) {
+        background: $gray-100 url("../img/empty-text.png") no-repeat 50% 50%;
+        height: 8rem;
+    }
+
+    pre {
+        min-height: 1.3rem;
+        height: 100%;
+        font-size: .875rem;
+        margin-bottom: 0;
+        white-space: normal;
+    }
+
+    p {
+        min-height: 1.3rem;
+        height: 100%;
+        padding: 0 1rem;
     }
 }
 
@@ -308,6 +325,7 @@
             padding: 1rem 0;
             margin-bottom: 2rem !important;
         }
+
         &.primary-image-modal {
             background: $white;
             padding: .5rem;
@@ -381,7 +399,6 @@
     h3 {
         font-family: Bitter,serif;
     }
-
 }
 
 .block-group {
@@ -402,27 +419,6 @@
     hr {
         width: 80%;
         border-color: $gray-400;
-    }
-}
-
-.text-block {
-    .empty:not(:focus-within) {
-        background: $gray-100 url("../img/empty-text.png") no-repeat 50% 50%;
-        height: 8rem;
-    }
-
-    pre {
-        min-height: 1.3rem;
-        height: 100%;
-        font-size: .875rem;
-        margin-bottom: 0;
-        white-space: normal;
-    }
-
-    p {
-        min-height: 1.3rem;
-        height: 100%;
-        padding: 0 1rem;
     }
 }
 

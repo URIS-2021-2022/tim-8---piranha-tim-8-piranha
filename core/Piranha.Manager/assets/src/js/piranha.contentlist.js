@@ -30,13 +30,13 @@ piranha.contentlist = new Vue({
 
             piranha.permissions.load(function () {
                 fetch(piranha.baseUrl + "manager/api/content/" + group + "/list")
-                .then(function (response) { return response.json(); })
-                .then(function (result) {
-                    self.bind(result);
+                    .then(function (response) { return response.json(); })
+                    .then(function (result) {
+                        self.bind(result);
 
-                    self.loading = false;
-                })
-                .catch(function (error) { console.log("error:", error ); });
+                        self.loading = false;
+                    })
+                    .catch(function (error) { console.log("error:", error); });
             });
         },
         remove: function (id) {
@@ -54,17 +54,15 @@ piranha.contentlist = new Vue({
                         headers: piranha.utils.antiForgeryHeaders(),
                         body: JSON.stringify(id)
                     })
-                    .then(function (response) { return response.json(); })
-                    .then(function (result) {
-                        piranha.notifications.push(result);
+                        .then(function (response) { return response.json(); })
+                        .then(function (result) {
+                            piranha.notifications.push(result);
 
-                        self.load(self.group.id);
-                    })
-                    .catch(function (error) { console.log("error:", error ); });
+                            self.load(self.group.id);
+                        })
+                        .catch(function (error) { console.log("error:", error); });
                 }
             });
         },
-    },
-    created: function () {
     }
 });

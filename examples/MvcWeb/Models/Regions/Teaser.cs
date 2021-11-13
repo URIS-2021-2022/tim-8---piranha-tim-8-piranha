@@ -22,13 +22,13 @@ namespace MvcWeb.Models.Regions
         /// <summary>
         /// Gets/sets the title.
         /// </summary>
-        [Field(Options = FieldOption.HalfWidth)]
+        [Field(Options = FieldOptions.HalfWidth)]
         public StringField Title { get; set; }
 
         /// <summary>
         /// Gets/sets the subtitle.
         /// </summary>
-        [Field(Options = FieldOption.HalfWidth)]
+        [Field(Options = FieldOptions.HalfWidth)]
         public StringField SubTitle { get; set; }
 
         /// <summary>

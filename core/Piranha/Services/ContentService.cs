@@ -247,14 +247,11 @@ namespace Piranha.Services
             Validator.ValidateObject(model, context, true);
 
             // Ensure category
-            if (type.UseCategory)
+            if (type.UseCategory && model is ICategorizedContent categorizedModel)
             {
-                if (model is ICategorizedContent categorizedModel)
+                if (categorizedModel.Category == null || (string.IsNullOrWhiteSpace(categorizedModel.Category.Title) && string.IsNullOrWhiteSpace(categorizedModel.Category.Slug)))
                 {
-                    if (categorizedModel.Category == null || (string.IsNullOrWhiteSpace(categorizedModel.Category.Title) && string.IsNullOrWhiteSpace(categorizedModel.Category.Slug)))
-                    {
-                        throw new ValidationException("The Category field is required");
-                    }
+                    throw new ValidationException("The Category field is required");
                 }
             }
 
@@ -324,7 +321,7 @@ namespace Piranha.Services
             }
 
             // Initialize primary image
-             if (model.PrimaryImage == null)
+            if (model.PrimaryImage == null)
             {
                 model.PrimaryImage = new Extend.Fields.ImageField();
             }
