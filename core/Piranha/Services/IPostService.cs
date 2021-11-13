@@ -44,20 +44,6 @@ namespace Piranha.Services
         /// <summary>
         /// Gets the available posts for the specified blog.
         /// </summary>
-        /// <param name="siteId">The optional site id</param>
-        /// <returns>The posts</returns>
-        Task<IEnumerable<DynamicPost>> GetAllBySiteIdAsync(Guid? siteId = null);
-
-        /// <summary>
-        /// Gets the available post items.
-        /// </summary>
-        /// <param name="siteId">The optional site id</param>
-        /// <returns>The posts</returns>
-        Task<IEnumerable<T>> GetAllBySiteIdAsync<T>(Guid? siteId = null) where T : PostBase;
-
-        /// <summary>
-        /// Gets the available posts for the specified blog.
-        /// </summary>
         /// <param name="slug">The blog slug</param>
         /// <param name="siteId">The optional site id</param>
         /// <returns>The posts</returns>
@@ -70,6 +56,22 @@ namespace Piranha.Services
         /// <param name="siteId">The optional site id</param>
         /// <returns>The posts</returns>
         Task<IEnumerable<T>> GetAllAsync<T>(string slug, Guid? siteId = null) where T : PostBase;
+
+        /// <summary>
+        /// Gets the available posts for the specified blog.
+        /// </summary>
+        /// <param name="siteId">The optional site id</param>
+        /// <returns>The posts</returns>
+        Task<IEnumerable<DynamicPost>> GetAllBySiteIdAsync(Guid? siteId = null);
+
+        /// <summary>
+        /// Gets the available post items.
+        /// </summary>
+        /// <param name="siteId">The optional site id</param>
+        /// <returns>The posts</returns>
+        Task<IEnumerable<T>> GetAllBySiteIdAsync<T>(Guid? siteId = null) where T : PostBase;
+
+        
 
         /// <summary>
         /// Gets all available categories for the specified blog.

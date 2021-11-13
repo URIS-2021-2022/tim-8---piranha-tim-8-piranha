@@ -834,7 +834,7 @@ namespace Piranha.Services
         /// <param name="field">The page field</param>
         /// <param name="languageId">The optional language id</param>
         /// <returns>The value</returns>
-        private object DeserializeValue(TField field, Guid? languageId)
+        private static object DeserializeValue(TField field, Guid? languageId)
         {
             var type = App.Fields.GetByType(field.CLRType);
 
