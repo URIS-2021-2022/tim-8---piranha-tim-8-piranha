@@ -1,7 +1,3 @@
-/*global
-    piranha
-*/
-
 piranha.contentpicker = new Vue({
     el: "#contentpicker",
     data: {
