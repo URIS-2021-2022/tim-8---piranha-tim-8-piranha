@@ -11,7 +11,7 @@ using System;
 namespace Piranha.AspNetCore.Identity.MySQL.Migrations
 {
     [NoCoverage]
-    [DbContext(typeof(IdentityMySQLDb))]
+    [DbContext(typeof(IdentityMySqlDb))]
     partial class IdentityMySQLDbModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

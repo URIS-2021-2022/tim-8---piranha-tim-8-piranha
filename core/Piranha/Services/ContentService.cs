@@ -249,12 +249,10 @@ namespace Piranha.Services
             // Ensure category
             if (type.UseCategory)
             {
-                if (model is ICategorizedContent categorizedModel)
+                if (model is ICategorizedContent categorizedModel && (categorizedModel.Category == null || (string.IsNullOrWhiteSpace(categorizedModel.Category.Title) && string.IsNullOrWhiteSpace(categorizedModel.Category.Slug))))
                 {
-                    if (categorizedModel.Category == null || (string.IsNullOrWhiteSpace(categorizedModel.Category.Title) && string.IsNullOrWhiteSpace(categorizedModel.Category.Slug)))
-                    {
                         throw new ValidationException("The Category field is required");
-                    }
+         
                 }
             }
 

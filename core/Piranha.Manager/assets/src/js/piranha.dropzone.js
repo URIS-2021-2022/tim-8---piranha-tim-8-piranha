@@ -32,7 +32,11 @@ piranha.dropzone = new function () {
 
                 // Default error callback
                 if (!options.error) {
-                    options.error = function (file) { }
+                    options.error = function (file) {
+                        
+                       // this function is empty now, but will be filled in the future!
+                        
+                    }
                 }
 
                 // Default complete callback
