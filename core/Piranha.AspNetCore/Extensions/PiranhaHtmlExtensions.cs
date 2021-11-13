@@ -50,12 +50,12 @@ public static class PiranhaHtmlExtensions
             sb.AppendLine($"<meta name=\"robots\" content=\"{ MetaRobots(content) }\">");
             sb.AppendLine($"<meta name=\"keywords\" content=\"{ content.MetaKeywords }\">");
         }
-        else if(meta && !string.IsNullOrWhiteSpace(content.MetaDescription))
+        else if (meta && !string.IsNullOrWhiteSpace(content.MetaDescription))
         {
             sb.AppendLine($"<meta name=\"robots\" content=\"{ MetaRobots(content) }\">");
             sb.AppendLine($"<meta name=\"description\" content=\"{ content.MetaDescription }\">");
         }
-        else if(meta)
+        else if (meta)
         {
             sb.AppendLine($"<meta name=\"robots\" content=\"{ MetaRobots(content) }\">");
         }
@@ -89,7 +89,7 @@ public static class PiranhaHtmlExtensions
                 sb.AppendLine($"<meta property=\"og:image\" content=\"{ app.AbsoluteContentUrl(contentBase.PrimaryImage) }\">");
             }
         }
-        if(opengraph && !string.IsNullOrWhiteSpace(OgDescription(content)))
+        if (opengraph && !string.IsNullOrWhiteSpace(OgDescription(content)))
         {
             sb.AppendLine($"<meta property=\"og:description\" content=\"{ OgDescription(content) }\">");
         }

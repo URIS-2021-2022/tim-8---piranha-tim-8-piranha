@@ -12,12 +12,13 @@ using System;
 using Microsoft.AspNetCore.Builder;
 using Piranha.AspNetCore;
 
-/// <summary>
-/// Extensions methods for hosting Piranha in an ASP.NET
-/// application.
-/// </summary>
+
 namespace PiranhaHostingExtensions
 {
+    /// <summary>
+    /// Extensions methods for hosting Piranha in an ASP.NET
+    /// application.
+    /// </summary>
     public static class PiranhaHostingExtensions
     {
         /// <summary>

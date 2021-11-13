@@ -13,7 +13,7 @@ piranha.dropzone = new function () {
             thumbnailWidth: 70,
             thumbnailHeight: 70,
             previewsContainer: selector + " .media-list",
-            previewTemplate: document.querySelector( "#media-upload-template").innerHTML,
+            previewTemplate: document.querySelector("#media-upload-template").innerHTML,
             uploadMultiple: true,
             init: function () {
                 var self = this;
@@ -39,7 +39,7 @@ piranha.dropzone = new function () {
                 if (!options.complete) {
                     options.complete = function (file) {
                         //console.log(file)
-                        if (file.status !== "success" && file.xhr.responseText !== "" ) {
+                        if (file.status !== "success" && file.xhr.responseText !== "") {
                             var response = JSON.parse(file.xhr.responseText);
                             file.previewElement.querySelector("[data-dz-errormessage]").innerText = response.body;
                         }
@@ -48,7 +48,9 @@ piranha.dropzone = new function () {
 
                 // Default queuecomplete callback
                 if (!options.queuecomplete) {
-                    options.queuecomplete = function () {}
+                    options.queuecomplete = function () {
+                        return undefined;
+                    }
                 }
 
                 self.on("addedfile", options.addedfile);

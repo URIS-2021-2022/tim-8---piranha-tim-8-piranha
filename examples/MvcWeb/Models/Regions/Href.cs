@@ -19,10 +19,10 @@ namespace MvcWeb.Models.Regions
     /// </summary>
     public class Href
     {
-        [Field(Title = "Button Text", Options = FieldOption.HalfWidth)]
+        [Field(Title = "Button Text", Options = FieldOptions.HalfWidth)]
         public StringField ButtonText { get; set; }
 
-        [Field(Title = "Button Link", Options = FieldOption.HalfWidth)]
+        [Field(Title = "Button Link", Options = FieldOptions.HalfWidth)]
         public PageField ButtonLink { get; set; }
     }
 }

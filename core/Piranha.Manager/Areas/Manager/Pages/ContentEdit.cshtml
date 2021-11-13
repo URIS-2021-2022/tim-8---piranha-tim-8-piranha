@@ -83,7 +83,7 @@
             </li>
             <li v-for="editor in editors" class="nav-item">
                 <a class="nav-link" v-on:click.prevent="selectRegion(editor)" :class="{ active: selectedRegion.uid == editor.uid }" href="#">
-                    <i :class="editor.icon"></i>{{ editor.name }}
+                    <em :class="editor.icon"></em>{{ editor.name }}
                 </a>
             </li>
             <li v-for="region in contentRegions" class="nav-item">
