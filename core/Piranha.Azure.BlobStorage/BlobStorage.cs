@@ -102,9 +102,16 @@ namespace Piranha.Azure
         /// <returns>The public url</returns>
         public string GetResourceName(Media media, string filename, bool encode)
         {
-            return _naming == BlobStorageNaming.UniqueFileNames ? 
-                $"{ media.Id }-{ (encode ? System.Web.HttpUtility.UrlPathEncode(filename) : filename) }" : 
-                $"{ media.Id }/{ (encode ? System.Web.HttpUtility.UrlPathEncode(filename) : filename) }";
+                
+
+            if(_naming == BlobStorageNaming.UniqueFileNames)
+            {
+                return $"{ media.Id }-{ (encode ? System.Web.HttpUtility.UrlPathEncode(filename) : filename) }";
+            }
+            else
+            {
+                return $"{ media.Id }/{ (encode ? System.Web.HttpUtility.UrlPathEncode(filename) : filename) }";
+            }
         }
 
         /// <summary>

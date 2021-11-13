@@ -153,12 +153,11 @@ namespace Piranha.Local
         /// <param name="media">The media file</param>
         private void EnsureFolder(Media media)
         {
-            if (_naming == FileStorageNaming.UniqueFolderNames)
+            if (_naming == FileStorageNaming.UniqueFolderNames && !Directory.Exists($"{ _basePath }/{ media.Id }"))
             {
-                if (!Directory.Exists($"{ _basePath }/{ media.Id }"))
-                {
+                
                     Directory.CreateDirectory($"{ _basePath }/{ media.Id }");
-                }
+                
             }
         }
     }

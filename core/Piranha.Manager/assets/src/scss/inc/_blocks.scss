@@ -196,14 +196,15 @@
                 }
             }
         }
-    }
 
-    &:hover, &:focus-within {
         border-color: $gray-400;
 
         > .block-header, .custom-actions {
             opacity: 1;
         }
+    }
+
+    &:hover, &:focus-within {
     }
 
     &.danger {

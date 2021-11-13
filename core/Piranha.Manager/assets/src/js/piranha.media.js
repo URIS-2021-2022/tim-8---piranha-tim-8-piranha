@@ -45,15 +45,15 @@ piranha.media = new Vue({
             this.listView = result.viewMode === "list";
         },
         initFolders: function (folders) {
-            for (var n = 0; n < folders.length; n++) {
-                folders[n].edit = false;
+            for (let value of folders) {
+                value.edit = false;
 
-                if (folders[n].id === this.currentFolderId) {
-                    this.currentFolder = folders[n];
+                if (value.id === this.currentFolderId) {
+                    this.currentFolder = value;
                 }
 
-                if (folders[n].items.length > 0) {
-                    this.initFolders(folders[n].items);
+                if (value.items.length > 0) {
+                    this.initFolders(value.items);
                 }
             }
         },

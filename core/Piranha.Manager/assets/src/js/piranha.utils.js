@@ -1,6 +1,4 @@
-/*global
-    piranha
-*/
+
 
 piranha.utils = {
     formatUrl: function (str) {
