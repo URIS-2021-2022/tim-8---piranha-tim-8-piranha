@@ -14,7 +14,6 @@ using Microsoft.AspNetCore.Html;
 using Piranha.AspNetCore.Services;
 using Piranha.Extend;
 using Piranha.Models;
-using PiranhaUrlExtension;
 
 /// <summary>
 /// Extension class with html helper methods.
