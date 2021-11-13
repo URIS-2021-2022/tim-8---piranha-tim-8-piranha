@@ -23,8 +23,8 @@
             <button v-if="piranha.permissions.media.delete" class="btn btn-danger media-delete" v-on:click.stop.prevent="remove(item.id)"><i class="fas fa-trash"></i></button>
 
             <template v-if="item.type === 'Image'">
-                <img src="~/manager/assets/img/media-placeholder.png">
-                <img class="thumbnail-image" :src="getThumbnailUrl(item)">
+                <img src="~/manager/assets/img/media-placeholder.png" alt="description for media-placeholder.png">
+                <img class="thumbnail-image" :src="getThumbnailUrl(item)" alt="description for thumbnail">
             </template>
 
             <template v-else-if="item.type === 'Document'">
