@@ -31,10 +31,10 @@ namespace MvcWeb.Models.Regions
         [Field(Placeholder = "Etiam porta sem malesuada magna mollis euismod.")]
         public HtmlField Html { get; set; }
 
-        [Field(Options = FieldOption.HalfWidth, Placeholder = "Etiam porta sem malesuada magna mollis euismod.")]
+        [Field(Options = FieldOptions.HalfWidth, Placeholder = "Etiam porta sem malesuada magna mollis euismod.")]
         public DocumentField Document { get; set; }
 
-        [Field(Options = FieldOption.HalfWidth, Placeholder = "Etiam porta sem malesuada magna mollis euismod.")]
+        [Field(Options = FieldOptions.HalfWidth, Placeholder = "Etiam porta sem malesuada magna mollis euismod.")]
         public ImageField Image { get; set; }
 
         [Field(Placeholder = "Etiam porta sem malesuada magna mollis euismod.")]

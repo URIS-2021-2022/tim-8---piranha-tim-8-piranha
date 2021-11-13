@@ -7,11 +7,11 @@ namespace RazorWeb.Models.Blocks
     [BlockType(Name = "Generic Block", Category = "My Category", Icon = "fas fa-fish", IsGeneric = true, ListTitle = "Title")]
     public class MyGenericBlock : Block
     {
-        [Field(Options = Piranha.Models.FieldOption.HalfWidth)]
+        [Field(Options = Piranha.Models.FieldOptions.HalfWidth)]
         [StringFieldSettings(MaxLength = 16)]
         public StringField Title { get; set; }
 
-        [Field(Options = Piranha.Models.FieldOption.HalfWidth)]
+        [Field(Options = Piranha.Models.FieldOptions.HalfWidth)]
 
         public ImageField Image { get; set; }
 

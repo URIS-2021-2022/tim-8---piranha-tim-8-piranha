@@ -62,7 +62,7 @@ namespace Piranha.Manager.Services
                     {
                         field.Meta.Name = !string.IsNullOrWhiteSpace(attr.Title) ? attr.Title : field.Meta.Name;
                         field.Meta.Placeholder = attr.Placeholder;
-                        field.Meta.IsHalfWidth = attr.Options.HasFlag(FieldOption.HalfWidth);
+                        field.Meta.IsHalfWidth = attr.Options.HasFlag(FieldOptions.HalfWidth);
                         field.Meta.Description = attr.Description;
                     }
                     fields.Add(field);
