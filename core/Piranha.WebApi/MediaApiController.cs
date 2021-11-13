@@ -62,12 +62,9 @@ namespace Piranha.WebApi
         [Route("list/{folderId:Guid?}")]
         public async Task<IActionResult> GetByFolderId(Guid? folderId = null)
         {
-            if (!Module.AllowAnonymousAccess)
+            if (!Module.AllowAnonymousAccess && !(await _auth.AuthorizeAsync(User, Permissions.Media)).Succeeded)
             {
-                if (!(await _auth.AuthorizeAsync(User, Permissions.Media)).Succeeded)
-                {
-                    return Unauthorized();
-                }
+                return Unauthorized();
             }
             return Json(await _api.Media.GetAllByFolderIdAsync(folderId));
         }
@@ -80,12 +77,9 @@ namespace Piranha.WebApi
         [Route("structure")]
         public async Task<IActionResult> GetStructure()
         {
-            if (!Module.AllowAnonymousAccess)
+            if (!Module.AllowAnonymousAccess && !(await _auth.AuthorizeAsync(User, Permissions.Media)).Succeeded)
             {
-                if (!(await _auth.AuthorizeAsync(User, Permissions.Media)).Succeeded)
-                {
-                    return Unauthorized();
-                }
+                return Unauthorized();
             }
             return Json(await _api.Media.GetStructureAsync());
         }

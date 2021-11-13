@@ -530,7 +530,7 @@ namespace Piranha.Services
                         {
                             var blockItems = TransformContentBlocks(((Extend.BlockGroup)models[n]).Items, languageId);
 
-                            if (blockItems.Count() > 0)
+                            if (blockItems.Count > 0)
                             {
                                 foreach (var item in blockItems)
                                 {
@@ -555,6 +555,7 @@ namespace Piranha.Services
         private IEnumerable GetEnumerable<T>(T model, string regionId) where T : Models.ContentBase
         {
             object value = null;
+            object returnValue = new();
 
             if (model is Models.IDynamicContent dynamicModel)
             {
@@ -566,7 +567,7 @@ namespace Piranha.Services
             }
             if (value is IEnumerable)
                 return (IEnumerable)value;
-            return null;
+            return (IEnumerable) returnValue;
         }
 
         /// <summary>
@@ -834,7 +835,7 @@ namespace Piranha.Services
         /// <param name="field">The page field</param>
         /// <param name="languageId">The optional language id</param>
         /// <returns>The value</returns>
-        private object DeserializeValue(TField field, Guid? languageId)
+        private static object DeserializeValue(TField field, Guid? languageId)
         {
             var type = App.Fields.GetByType(field.CLRType);
 

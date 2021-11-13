@@ -114,15 +114,12 @@ namespace Piranha.AttributeBuilder
                         });
                     }
                 }
-                else if (typeof(SiteContentBase).IsAssignableFrom(type))
+                else if (typeof(SiteContentBase).IsAssignableFrom(type) && type.GetCustomAttribute<SiteTypeAttribute>() != null)
                 {
-                    if (type.GetCustomAttribute<SiteTypeAttribute>() != null)
+                    _siteTypes.Add(new BuilderItem<SiteType>
                     {
-                        _siteTypes.Add(new BuilderItem<SiteType>
-                        {
-                            Type = type
-                        });
-                    }
+                        Type = type
+                    });
                 }
             }
             return this;
@@ -379,16 +376,16 @@ namespace Piranha.AttributeBuilder
                 // Add archive items
                 if (pageType.IsArchive)
                 {
-                    var itemTypes = type.GetCustomAttributes(typeof(PageTypeArchiveItemAttribute));
-                    foreach (PageTypeArchiveItemAttribute itemType in itemTypes)
+                    IEnumerable<Attribute> itemTypes = type.GetCustomAttributes(typeof(PageTypeArchiveItemAttribute));
+                    foreach (Attribute itemType in itemTypes)
                     {
-                        var postAttr = itemType.PostType.GetCustomAttribute<PostTypeAttribute>();
+                        var postAttr = ((PageTypeArchiveItemAttribute)itemType).PostType.GetCustomAttribute<PostTypeAttribute>();
                         if (postAttr != null)
                         {
                             var typeId = postAttr.Id;
                             if (string.IsNullOrWhiteSpace(typeId))
                             {
-                                typeId = itemType.PostType.Name;
+                                typeId = ((PageTypeArchiveItemAttribute)itemType).PostType.Name;
                             }
                             pageType.ArchiveItemTypes.Add(typeId);
                         }
@@ -641,7 +638,7 @@ namespace Piranha.AttributeBuilder
                         regionType.Fields.Add(fieldType.Item2);
                     // Then add the unsorted fields
                     foreach (var fieldType in sortedFields.Where(t => !t.Item1.HasValue))
-                        regionType.Fields.Add(fieldType.Item2);                    
+                        regionType.Fields.Add(fieldType.Item2);
 
                     // Skip regions without fields.
                     if (regionType.Fields.Count == 0)
@@ -700,25 +697,25 @@ namespace Piranha.AttributeBuilder
 
             if (typeof(IField).IsAssignableFrom(type) && type.GetCustomAttribute<FieldTypeAttribute>() != null)
             {
-                    MethodInfo generic = null;
+                MethodInfo generic = null;
 
-                    if (typeof(Extend.Fields.SelectFieldBase).IsAssignableFrom(type))
-                    {
-                        var method = typeof(Runtime.AppFieldList).GetMethod("RegisterSelect");
-                        generic = method.MakeGenericMethod(type.GenericTypeArguments.First());
-                    }
-                    else if (typeof(Extend.Fields.DataSelectFieldBase).IsAssignableFrom(type))
-                    {
-                        var method = typeof(Runtime.AppFieldList).GetMethod("RegisterDataSelect");
-                        generic = method.MakeGenericMethod(type.GenericTypeArguments.First());
-                    }
-                    else
-                    {
-                        var method = typeof(Runtime.AppFieldList).GetMethod("Register");
-                        generic = method.MakeGenericMethod(type);
-                    }
+                if (typeof(Extend.Fields.SelectFieldBase).IsAssignableFrom(type))
+                {
+                    var method = typeof(Runtime.AppFieldList).GetMethod("RegisterSelect");
+                    generic = method.MakeGenericMethod(type.GenericTypeArguments.First());
+                }
+                else if (typeof(Extend.Fields.DataSelectFieldBase).IsAssignableFrom(type))
+                {
+                    var method = typeof(Runtime.AppFieldList).GetMethod("RegisterDataSelect");
+                    generic = method.MakeGenericMethod(type.GenericTypeArguments.First());
+                }
+                else
+                {
+                    var method = typeof(Runtime.AppFieldList).GetMethod("Register");
+                    generic = method.MakeGenericMethod(type);
+                }
 
-                    generic.Invoke(App.Fields, null);
+                generic.Invoke(App.Fields, null);
             }
         }
     }

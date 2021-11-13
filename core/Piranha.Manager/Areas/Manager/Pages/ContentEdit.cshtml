@@ -78,17 +78,17 @@
         <ul v-if="(useBlocks && (editors.length + contentRegions.length > 0)) || editors.length + contentRegions.length > 1" class="nav nav-pills nav-pills-card justify-content-center">
             <li v-if="useBlocks" class="nav-item">
                 <a class="nav-link" v-on:click.prevent="selectRegion({ uid: 'uid-blocks' })" :class="{ active: selectedRegion.uid === 'uid-blocks' }" href="#">
-                    <i class="fas fa-pen-alt"></i>@Localizer.General["Main content"]
+                    <em class="fas fa-pen-alt"></em>@Localizer.General["Main content"]
                 </a>
             </li>
             <li v-for="editor in editors" class="nav-item">
                 <a class="nav-link" v-on:click.prevent="selectRegion(editor)" :class="{ active: selectedRegion.uid == editor.uid }" href="#">
-                    <i :class="editor.icon"></i>{{ editor.name }}
+                    <em :class="editor.icon"></em>{{ editor.name }}
                 </a>
             </li>
             <li v-for="region in contentRegions" class="nav-item">
                 <a class="nav-link" v-on:click.prevent="selectRegion(region.meta)" :class="{ active: selectedRegion.uid == region.meta.uid }" href="#">
-                    <i :class="region.meta.icon"></i>{{ region.meta.name }}
+                    <em :class="region.meta.icon"></em>{{ region.meta.name }}
                 </a>
             </li>
         </ul>
@@ -132,10 +132,10 @@
                                         <div class="media-picker">
                                             <div class="btn-group float-right">
                                                 <button v-on:click.prevent="selectPrimaryImage" class="btn btn-primary text-center">
-                                                    <em class="fas fa-plus"></em>
+                                                    <i class="fas fa-plus"></i>
                                                 </button>
                                                 <button v-on:click.prevent="removePrimaryImage" class="btn btn-danger text-center">
-                                                    <i class="fas fa-times"></i>
+                                                    <em class="fas fa-times"></em>
                                                 </button>
                                             </div>
                                             <div class="card text-left">
@@ -173,25 +173,25 @@
                 <div id="content-blocks" class="blocks@(Config.ManagerOutlined ? " blocks-outline" : "")">
                     <a href="#" class="block-add unsortable" v-on:click.prevent="piranha.blockpicker.open(piranha.contentedit.addBlock, 0)">
                         <hr>
-                        <em class="fas fa-plus-circle"></em>
+                        <i class="fas fa-plus-circle"></i>
                     </a>
                     <div v-for="(block, index) in blocks" v-bind:key="block.meta.uid">
                         <div :class="'block ' + block.meta.component + (block.meta.isCollapsed ? ' collapsed' : '') + (block.meta.width === 'full' ? ' block-full' : '')">
                             <div :id="'tb-' + block.meta.uid" class="component-toolbar"></div>
                             <div class="block-header">
                                 <div class="title">
-                                    <i :class="block.meta.icon"></i><strong>{{ block.meta.name }}</strong> <span v-if="!block.meta.isGroup && block.meta.isCollapsed">- {{ block.meta.title }}</span>
+                                    <em :class="block.meta.icon"></em><strong>{{ block.meta.name }}</strong> <span v-if="!block.meta.isGroup && block.meta.isCollapsed">- {{ block.meta.title }}</span>
                                 </div>
                                 <div class="actions">
                                     <span v-on:click.prevent="collapseBlock(block)" class="btn btn-sm">
-                                        <i v-if="block.meta.isCollapsed" class="fas fa-chevron-down"></i>
-                                        <em v-else class="fas fa-chevron-up"></em>
+                                        <em v-if="block.meta.isCollapsed" class="fas fa-chevron-down"></em>
+                                        <i v-else class="fas fa-chevron-up"></i>
                                     </span>
                                     <span class="btn btn-sm handle">
                                         <i class="fas fa-ellipsis-v"></i>
                                     </span>
                                     <button v-on:click.prevent="removeBlock(block)" class="btn btn-sm danger block-remove" tabindex="-1">
-                                        <i class="fas fa-trash"></i>
+                                        <em class="fas fa-trash"></em>
                                     </button>
                                 </div>
                             </div>

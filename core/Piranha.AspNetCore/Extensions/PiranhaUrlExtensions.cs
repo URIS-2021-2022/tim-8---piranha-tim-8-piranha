@@ -256,8 +256,6 @@ public static class PiranhaUrlExtensions
         return GenerateUrl(app, url, false);
     }
 
-    
-
     /// <summary>
     /// Generates an absolute url for the given content.
     /// </summary>

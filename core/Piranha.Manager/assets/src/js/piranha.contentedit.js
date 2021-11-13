@@ -1,6 +1,4 @@
-/*global
-    piranha
-*/
+
 
 piranha.contentedit = new Vue({
     el: "#contentedit",
@@ -361,8 +359,11 @@ piranha.contentedit = new Vue({
                 $("#selectedTags").on("change", function() {
                     var items = $(this).find("option:selected");
                     self.selectedTags = [];
-                    for (var n = 0; n < items.length; n++) {
-                        self.selectedTags.push(items[n].text);
+                    //for (var n = 0; n < items.length; n++) {
+                    //    self.selectedTags.push(items[n].text);
+                    //}
+                    for (let value of items) {
+                        self.selectedTags.push(value.text);
                     }
                 });
             }

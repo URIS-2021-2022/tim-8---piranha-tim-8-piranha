@@ -74,7 +74,7 @@ namespace Piranha.Azure
         /// Gets the public URL for the given media object.
         /// </summary>
         /// <param name="media">The media file</param>
-        /// <param name="id">The resource id</param>
+        /// <param name="filename">The resource id</param>
         /// <returns>The public url</returns>
         public string GetPublicUrl(Media media, string filename)
         {
@@ -102,9 +102,16 @@ namespace Piranha.Azure
         /// <returns>The public url</returns>
         public string GetResourceName(Media media, string filename, bool encode)
         {
-            return _naming == BlobStorageNaming.UniqueFileNames ? 
-                $"{ media.Id }-{ (encode ? System.Web.HttpUtility.UrlPathEncode(filename) : filename) }" : 
-                $"{ media.Id }/{ (encode ? System.Web.HttpUtility.UrlPathEncode(filename) : filename) }";
+                
+
+            if(_naming == BlobStorageNaming.UniqueFileNames)
+            {
+                return $"{ media.Id }-{ (encode ? System.Web.HttpUtility.UrlPathEncode(filename) : filename) }";
+            }
+            else
+            {
+                return $"{ media.Id }/{ (encode ? System.Web.HttpUtility.UrlPathEncode(filename) : filename) }";
+            }
         }
 
         /// <summary>
@@ -190,11 +197,7 @@ namespace Piranha.Azure
         }
 
         // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-        // ~BlobStorage()
-        // {
-        //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-        //     Dispose(disposing: false);
-        // }
+        
 
         public void Dispose()
         {

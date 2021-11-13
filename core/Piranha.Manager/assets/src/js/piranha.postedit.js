@@ -355,9 +355,9 @@ piranha.postedit = new Vue({
             }
         },
         updateBlockTitle: function (e) {
-            for (var n = 0; n < this.blocks.length; n++) {
-                if (this.blocks[n].meta.uid === e.uid) {
-                    this.blocks[n].meta.title = e.title;
+            for (let value of blocks) {
+                if (value.meta.uid === e.uid) {
+                    value.meta.title = e.title;
                     break;
                 }
             }

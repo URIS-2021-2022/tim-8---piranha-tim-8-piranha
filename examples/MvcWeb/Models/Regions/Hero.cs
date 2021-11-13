@@ -22,13 +22,13 @@ namespace MvcWeb.Models.Regions
         /// <summary>
         /// Gets/sets the optional subtitle.
         /// </summary>
-        [Field(Options = FieldOption.HalfWidth)]
+        [Field(Options = FieldOptions.HalfWidth)]
         public StringField Subtitle { get; set; }
 
         /// <summary>
         /// Gets/sets the optional primary image.
         /// </summary>
-        [Field(Title = "Primary Image", Options = FieldOption.HalfWidth)]
+        [Field(Title = "Primary Image", Options = FieldOptions.HalfWidth)]
         public ImageField PrimaryImage { get; set; }
 
         /// <summary>

@@ -44,6 +44,7 @@
         }
 
         &.dz-complete {
+            color: silver;
         }
 
         &.dz-remove {
@@ -170,9 +171,6 @@
         .file-error {
             display: block;
         }
-    }
-
-    &.dz-complete {
     }
 
     &.dz-remove {

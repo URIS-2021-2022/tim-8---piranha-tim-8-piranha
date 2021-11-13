@@ -21,6 +21,7 @@ using Piranha.Local;
 using PiranhaHostingExtensions;
 using Piranha.AspNetCore.Security;
 using Space;
+using Piranha.Manager.TinyMCE;
 
 namespace MvcWeb
 {

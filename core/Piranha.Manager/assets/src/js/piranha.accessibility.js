@@ -1,6 +1,4 @@
-/*global
-    piranha
-*/
+
 
 piranha.accessibility = new function () {
     "use strict";

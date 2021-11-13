@@ -83,8 +83,7 @@ piranha.blockpicker = new Vue({
             });
         }
     },
-    created: function () {
-    }
+    
 });
 
 $(document).ready(function() {

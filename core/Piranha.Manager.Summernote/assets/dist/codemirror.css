@@ -39,7 +39,7 @@
     min-height: 100%;
     z-index: 3;
 }
-.CodeMirror-linenumbers {}
+
 .CodeMirror-linenumber {
   padding: 0 3px 0 5px;
   min-width: 20px;
@@ -54,9 +54,11 @@
 /* CURSOR */
 
 .CodeMirror-cursor {
-  border-left: 1px solid black;
-  border-right: none;
-  width: 0;
+    border-left: 1px solid black;
+    border-right: none;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
 }
 /* Shown when moving in bi-directional text */
 .CodeMirror div.CodeMirror-secondarycursor {
@@ -87,13 +89,13 @@
   50% { background-color: transparent; }
 }
 @-webkit-keyframes blink {
-  0% {}
+  0% {color: pink; }
   50% { background-color: transparent; }
 }
 @keyframes blink {
-  0% {}
+  0% {color: pink}
   50% { background-color: transparent; }
-  100% {}
+  
 }
 
 /* Can style cursor different in overwrite (non-insert) mode */
@@ -292,11 +294,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {color: #a22;}
   height: 0;
   overflow: hidden;
   visibility: hidden;
-}
-
-.CodeMirror-cursor {
-  position: absolute;
-  pointer-events: none;
 }
 .CodeMirror-measure pre { position: static; }
 

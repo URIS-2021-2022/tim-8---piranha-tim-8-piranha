@@ -198,7 +198,6 @@ namespace Piranha.Repositories
         public async Task Save<T>(T model, Guid languageId) where T : Models.GenericContent
         {
             var type = App.ContentTypes.GetById(model.TypeId);
-            var lastModified = DateTime.MinValue;
 
             if (type != null)
             {
@@ -248,10 +247,9 @@ namespace Piranha.Repositories
                 }
 
                 // Ensure tags
-                if (type.UseTags)
+                if (type.UseTags && model is Models.ITaggedContent tagged)
                 {
-                    if (model is Models.ITaggedContent tagged)
-                    {
+                    
                         foreach (var t in tagged.Tags)
                         {
                             var tag = await _db.Taxonomies
@@ -292,7 +290,7 @@ namespace Piranha.Repositories
                             t.Title = tag.Title;
                             t.Slug = tag.Slug;
                         }
-                    }
+                    
                 }
 
                 var content = await _db.Content
@@ -484,7 +482,7 @@ namespace Piranha.Repositories
                 /*
                  * TODO
                  *
-                await DeleteUnusedCategories(model.BlogId).ConfigureAwait(false);
+                
                 await DeleteUnusedTags(model.BlogId).ConfigureAwait(false);
                  */
             }

@@ -52,13 +52,14 @@
                         </template>
                         <template v-else-if="media.type === 'Video'">
                             <video class="d-block mx-auto mw-100" controls>
+                                <track label="English" kind="captions" srclang="en" src="resources/myvideo-en.vtt" default>
                                 <source :src="media.publicUrl" type="">
                                 @Localizer.Media["Your browser does not support the video tag."]
                             </video>
                         </template>
                         <template v-else-if="media.type === 'Document'">
                             <div class="embed-responsive embed-responsive-4by3">
-                                <iframe class="embed-responsive-item" :src="media.publicUrl"></iframe>
+                                <iframe title="Document" class="embed-responsive-item" :src="media.publicUrl"></iframe>
                             </div>
                         </template>
                         <template v-else>
@@ -74,7 +75,7 @@
                         <table class="table table-borderless m-0">
                             <tbody>
                                 <tr>
-                                    <th>@Localizer.General["Filename"]</th>
+                                    <th id="id1">@Localizer.General["Filename"]</th>
                                     <td>{{ media.filename }}</td>
                                 </tr>
                                 <tr>

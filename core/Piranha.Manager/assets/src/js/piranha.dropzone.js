@@ -1,15 +1,10 @@
 // Prevent Dropzone from auto discoveringr all elements:
 Dropzone.autoDiscover = false;
 
-/*global
-    piranha
-*/
-
 piranha.dropzone = new function () {
     var self = this;
 
     self.init = function (selector, options) {
-        if (!options) options = {};
 
         var defaultOptions = {
             paramName: 'Uploads',
@@ -18,14 +13,16 @@ piranha.dropzone = new function () {
             thumbnailWidth: 70,
             thumbnailHeight: 70,
             previewsContainer: selector + " .media-list",
-            previewTemplate: document.querySelector( "#media-upload-template").innerHTML,
+            previewTemplate: document.querySelector("#media-upload-template").innerHTML,
             uploadMultiple: true,
             init: function () {
                 var self = this;
 
                 // Default addedfile callback
                 if (!options.addedfile) {
-                    options.addedfile = function (file) { }
+                    options.addedfile = function (file) {
+                        //Add logic to this method or explain why it's empty
+                    }
                 }
 
                 // Default removedfile callback
@@ -35,14 +32,18 @@ piranha.dropzone = new function () {
 
                 // Default error callback
                 if (!options.error) {
-                    options.error = function (file) { }
+                    options.error = function (file) {
+                        
+                       // this function is empty now, but will be filled in the future!
+                        
+                    }
                 }
 
                 // Default complete callback
                 if (!options.complete) {
                     options.complete = function (file) {
                         //console.log(file)
-                        if (file.status !== "success" && file.xhr.responseText !== "" ) {
+                        if (file.status !== "success" && file.xhr.responseText !== "") {
                             var response = JSON.parse(file.xhr.responseText);
                             file.previewElement.querySelector("[data-dz-errormessage]").innerText = response.body;
                         }
@@ -51,7 +52,9 @@ piranha.dropzone = new function () {
 
                 // Default queuecomplete callback
                 if (!options.queuecomplete) {
-                    options.queuecomplete = function () {}
+                    options.queuecomplete = function () {
+                        return undefined;
+                    }
                 }
 
                 self.on("addedfile", options.addedfile);

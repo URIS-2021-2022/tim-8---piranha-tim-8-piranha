@@ -2,6 +2,8 @@
     piranha
 */
 
+const { variableDeclaration } = require("@babel/types");
+
 piranha.pagelist = new Vue({
     el: "#pagelist",
     data: {
@@ -122,13 +124,15 @@ piranha.pagelist = new Vue({
             });
         },
         collapse: function () {
-            for (var n = 0; n < this.sites.length; n++)
+            for (var sitesValue of this.sites)
             {
-                for (var i = 0; i < this.sites[n].pages.length; i++)
+                for (var sitesPageValue of sitesValue.pages)
                 {
-                    this.changeVisibility(this.sites[n].pages[i], false);
+                    this.changeVisibility(this.sitesValue.sitesPageValue, false);
+
                 }
             }
+            
         },
         expand: function () {
             for (var n = 0; n < this.sites.length; n++)
@@ -142,9 +146,8 @@ piranha.pagelist = new Vue({
         changeVisibility: function (page, expanded) {
             page.isExpanded = expanded;
 
-            for (var n = 0; n < page.items.length; n++)
-            {
-                this.changeVisibility(page.items[n], expanded);
+            for (let value of page.items) {
+                this.changeVisibility(value, expanded);
             }
         }
     },

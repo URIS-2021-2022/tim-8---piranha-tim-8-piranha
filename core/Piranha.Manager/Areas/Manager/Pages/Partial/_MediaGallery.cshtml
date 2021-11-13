@@ -2,7 +2,7 @@
 
 <div v-if="!listView" class="gallery gallery-sm">
     <a href="#" class="thumbnail droppable" v-if="currentFolderId != null" v-on:click.prevent="load(parentFolderId)" v-on:dragover="dragover" v-on:dragleave="dragleave" v-on:drop="drop($event, parentFolderId)">
-        <img src="~/manager/assets/img/media-placeholder.png">
+        <img alt="media-placeholder" src="~/manager/assets/img/media-placeholder.png">
         <div class="thumbnail-icon">
             <i class="fas fa-folder-open fa-3x"></i>
         </div>
@@ -42,7 +42,7 @@
             </template>
 
             <template v-else-if="item.type === 'Resource'">
-                <img src="~/manager/assets/img/media-placeholder.png">
+                <img src="~/manager/assets/img/media-placeholder.png" alt="textual description">
                 <div class="thumbnail-icon">
                     <i class="fas fa-box-open fa-3x"></i>
                 </div>

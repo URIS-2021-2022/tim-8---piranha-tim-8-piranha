@@ -44,12 +44,9 @@ namespace Piranha.WebApi
         [Route("{id:Guid}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            if (!Module.AllowAnonymousAccess)
+            if (!Module.AllowAnonymousAccess && !(await _auth.AuthorizeAsync(User, Permissions.Pages)).Succeeded)
             {
-                if (!(await _auth.AuthorizeAsync(User, Permissions.Pages)).Succeeded)
-                {
-                    return Unauthorized();
-                }
+                return Unauthorized();
             }
             return Json(await _api.Pages.GetByIdAsync<PageBase>(id));
         }
@@ -64,12 +61,11 @@ namespace Piranha.WebApi
         [Route("{slug}")]
         public async Task<IActionResult> GetBySlug(string slug)
         {
-            if (!Module.AllowAnonymousAccess)
+            if (!Module.AllowAnonymousAccess && !(await _auth.AuthorizeAsync(User, Permissions.Pages)).Succeeded)
             {
-                if (!(await _auth.AuthorizeAsync(User, Permissions.Pages)).Succeeded)
-                {
+                
                     return Unauthorized();
-                }
+                
             }
             return Json(await _api.Pages.GetBySlugAsync<PageBase>(slug));
         }
@@ -85,12 +81,9 @@ namespace Piranha.WebApi
         [Route("{siteId}/{slug}")]
         public async Task<IActionResult> GetBySlugAndSite(Guid siteId, string slug)
         {
-            if (!Module.AllowAnonymousAccess)
+            if (!Module.AllowAnonymousAccess && !(await _auth.AuthorizeAsync(User, Permissions.Pages)).Succeeded)
             {
-                if (!(await _auth.AuthorizeAsync(User, Permissions.Pages)).Succeeded)
-                {
-                    return Unauthorized();
-                }
+                return Unauthorized();
             }
             return Json(await _api.Pages.GetBySlugAsync<PageBase>(slug, siteId));
         }

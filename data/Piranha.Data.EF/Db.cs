@@ -20,7 +20,7 @@ namespace Piranha
         /// Gets/sets whether the db context as been initialized. This
         /// is only performed once in the application lifecycle.
         /// </summary>
-        private static volatile bool IsInitialized = false;
+        private volatile bool IsInitialized = false;
 
         /// <summary>
         /// The object mutex used for initializing the context.

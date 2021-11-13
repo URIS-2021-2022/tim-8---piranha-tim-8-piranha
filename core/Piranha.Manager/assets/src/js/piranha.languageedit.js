@@ -2,6 +2,8 @@
     piranha
 */
 
+const { ASSIGNMENT_OPERATORS } = require("@babel/types");
+
 piranha.languageedit = new Vue({
     el: "#languageedit",
     data: {
@@ -15,12 +17,11 @@ piranha.languageedit = new Vue({
     },
     methods: {
         bind: function (result) {
-            for (var n = 0; n < result.items.length; n++)
-            {
-                result.items[n].errorTitle = false;
+            for (let value of result.items) {
+                value.errorTitle = false;
 
-                if (result.items[n].isDefault) {
-                    this.originalDefault = this.currentDefault = result.items[n];
+                if (value.isDefault) {
+                    this.originalDefault = this.currentDefault = value;
                 }
             }
             this.items = result.items;
@@ -122,9 +123,9 @@ piranha.languageedit = new Vue({
         },
         setDefault: function (item) {
             if (!item.isDefault) {
-                for (var n = 0; n < this.items.length; n++) {
-                    if (this.items[n].id != item.id) {
-                        this.items[n].isDefault = false;
+                for (let value of this.items) {
+                    if (value.id != item.id) {
+                        value.isDefault = false;
                     }
                 }
                 item.isDefault = true;
