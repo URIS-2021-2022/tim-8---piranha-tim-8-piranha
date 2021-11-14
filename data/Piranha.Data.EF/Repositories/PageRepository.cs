@@ -471,12 +471,9 @@ namespace Piranha.Repositories
                 }
 
                 // Remove all blocks that are not reusable
-                foreach (var pageBlock in model.Blocks)
+                foreach (var pageBlock in model.Blocks.Where(pageBlock => !pageBlock.Block.IsReusable))
                 {
-                    if (!pageBlock.Block.IsReusable)
-                    {
-                        _db.Blocks.Remove(pageBlock.Block);
-                    }
+                    _db.Blocks.Remove(pageBlock.Block);
                 }
 
                 // Remove the main page.
@@ -971,7 +968,7 @@ namespace Piranha.Repositories
         /// <param name="siteId">The site id</param>
         /// <param name="sortOrder">The sort order</param>
         /// <param name="increase">If sort order should be increase or decreased</param>
-        private IEnumerable<Guid> MovePages(IList<Page> pages, Guid pageId, Guid siteId, int sortOrder, bool increase)
+        private static IEnumerable<Guid> MovePages(IList<Page> pages, Guid pageId, Guid siteId, int sortOrder, bool increase)
         {
             var affected = pages.Where(p => p.SortOrder >= sortOrder).ToList();
 

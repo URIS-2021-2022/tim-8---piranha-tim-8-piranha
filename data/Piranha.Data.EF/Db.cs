@@ -248,213 +248,213 @@ namespace Piranha
         /// <summary>
         /// Creates and configures the data model.
         /// </summary>
-        /// <param name="mb">The current model builder</param>
-        protected override void OnModelCreating(ModelBuilder mb)
+        /// <param name="modelBuilder">The current model builder</param>
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            mb.Entity<Data.Alias>().ToTable("Piranha_Aliases");
-            mb.Entity<Data.Alias>().Property(a => a.AliasUrl).IsRequired().HasMaxLength(256);
-            mb.Entity<Data.Alias>().Property(a => a.RedirectUrl).IsRequired().HasMaxLength(256);
-            mb.Entity<Data.Alias>().HasIndex(a => new { a.SiteId, a.AliasUrl }).IsUnique();
+            modelBuilder.Entity<Data.Alias>().ToTable("Piranha_Aliases");
+            modelBuilder.Entity<Data.Alias>().Property(a => a.AliasUrl).IsRequired().HasMaxLength(256);
+            modelBuilder.Entity<Data.Alias>().Property(a => a.RedirectUrl).IsRequired().HasMaxLength(256);
+            modelBuilder.Entity<Data.Alias>().HasIndex(a => new { a.SiteId, a.AliasUrl }).IsUnique();
 
-            mb.Entity<Data.Block>().ToTable("Piranha_Blocks");
-            mb.Entity<Data.Block>().Property(b => b.CLRType).IsRequired().HasMaxLength(256);
-            mb.Entity<Data.Block>().Property(b => b.Title).HasMaxLength(128);
+            modelBuilder.Entity<Data.Block>().ToTable("Piranha_Blocks");
+            modelBuilder.Entity<Data.Block>().Property(b => b.CLRType).IsRequired().HasMaxLength(256);
+            modelBuilder.Entity<Data.Block>().Property(b => b.Title).HasMaxLength(128);
 
-            mb.Entity<Data.BlockField>().ToTable("Piranha_BlockFields");
-            mb.Entity<Data.BlockField>().Property(f => f.FieldId).IsRequired().HasMaxLength(64);
-            mb.Entity<Data.BlockField>().Property(f => f.CLRType).IsRequired().HasMaxLength(256);
-            mb.Entity<Data.BlockField>().HasIndex(f => new { f.BlockId, f.FieldId, f.SortOrder }).IsUnique();
+            modelBuilder.Entity<Data.BlockField>().ToTable("Piranha_BlockFields");
+            modelBuilder.Entity<Data.BlockField>().Property(f => f.FieldId).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Data.BlockField>().Property(f => f.CLRType).IsRequired().HasMaxLength(256);
+            modelBuilder.Entity<Data.BlockField>().HasIndex(f => new { f.BlockId, f.FieldId, f.SortOrder }).IsUnique();
 
-            mb.Entity<Data.Category>().ToTable("Piranha_Categories");
-            mb.Entity<Data.Category>().Property(c => c.Title).IsRequired().HasMaxLength(64);
-            mb.Entity<Data.Category>().Property(c => c.Slug).IsRequired().HasMaxLength(64);
-            mb.Entity<Data.Category>().HasIndex(c => new { c.BlogId, c.Slug }).IsUnique();
+            modelBuilder.Entity<Data.Category>().ToTable("Piranha_Categories");
+            modelBuilder.Entity<Data.Category>().Property(c => c.Title).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Data.Category>().Property(c => c.Slug).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Data.Category>().HasIndex(c => new { c.BlogId, c.Slug }).IsUnique();
 
-            mb.Entity<Data.Content>().ToTable("Piranha_Content");
-            mb.Entity<Data.Content>().Property(p => p.TypeId).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.Content>().Ignore(p => p.SelectedLanguageId);
+            modelBuilder.Entity<Data.Content>().ToTable("Piranha_Content");
+            modelBuilder.Entity<Data.Content>().Property(p => p.TypeId).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.Content>().Ignore(p => p.SelectedLanguageId);
 
-            mb.Entity<Data.ContentBlock>().ToTable("Piranha_ContentBlocks");
-            mb.Entity<Data.ContentBlock>().Property(b => b.CLRType).IsRequired().HasMaxLength(256);
+            modelBuilder.Entity<Data.ContentBlock>().ToTable("Piranha_ContentBlocks");
+            modelBuilder.Entity<Data.ContentBlock>().Property(b => b.CLRType).IsRequired().HasMaxLength(256);
 
-            mb.Entity<Data.ContentBlockField>().ToTable("Piranha_ContentBlockFields");
-            mb.Entity<Data.ContentBlockField>().Property(f => f.FieldId).IsRequired().HasMaxLength(64);
-            mb.Entity<Data.ContentBlockField>().Property(f => f.CLRType).IsRequired().HasMaxLength(256);
-            mb.Entity<Data.ContentBlockField>().HasIndex(f => new { f.BlockId, f.FieldId, f.SortOrder }).IsUnique();
+            modelBuilder.Entity<Data.ContentBlockField>().ToTable("Piranha_ContentBlockFields");
+            modelBuilder.Entity<Data.ContentBlockField>().Property(f => f.FieldId).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Data.ContentBlockField>().Property(f => f.CLRType).IsRequired().HasMaxLength(256);
+            modelBuilder.Entity<Data.ContentBlockField>().HasIndex(f => new { f.BlockId, f.FieldId, f.SortOrder }).IsUnique();
 
-            mb.Entity<Data.ContentBlockFieldTranslation>().ToTable("Piranha_ContentBlockFieldTranslations");
-            mb.Entity<Data.ContentBlockFieldTranslation>().HasKey(t => new { t.FieldId, t.LanguageId });
+            modelBuilder.Entity<Data.ContentBlockFieldTranslation>().ToTable("Piranha_ContentBlockFieldTranslations");
+            modelBuilder.Entity<Data.ContentBlockFieldTranslation>().HasKey(t => new { t.FieldId, t.LanguageId });
 
-            mb.Entity<Data.ContentField>().ToTable("Piranha_ContentFields");
-            mb.Entity<Data.ContentField>().Property(f => f.RegionId).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.ContentField>().Property(f => f.FieldId).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.ContentField>().Property(f => f.CLRType).HasMaxLength(256).IsRequired();
-            mb.Entity<Data.ContentField>().HasIndex(f => new { f.ContentId, f.RegionId, f.FieldId, f.SortOrder });
+            modelBuilder.Entity<Data.ContentField>().ToTable("Piranha_ContentFields");
+            modelBuilder.Entity<Data.ContentField>().Property(f => f.RegionId).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.ContentField>().Property(f => f.FieldId).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.ContentField>().Property(f => f.CLRType).HasMaxLength(256).IsRequired();
+            modelBuilder.Entity<Data.ContentField>().HasIndex(f => new { f.ContentId, f.RegionId, f.FieldId, f.SortOrder });
 
-            mb.Entity<Data.ContentFieldTranslation>().ToTable("Piranha_ContentFieldTranslations");
-            mb.Entity<Data.ContentFieldTranslation>().HasKey(t => new { t.FieldId, t.LanguageId });
+            modelBuilder.Entity<Data.ContentFieldTranslation>().ToTable("Piranha_ContentFieldTranslations");
+            modelBuilder.Entity<Data.ContentFieldTranslation>().HasKey(t => new { t.FieldId, t.LanguageId });
 
-            mb.Entity<Data.ContentGroup>().ToTable("Piranha_ContentGroups");
-            mb.Entity<Data.ContentGroup>().Property(t => t.Id).IsRequired().HasMaxLength(64);
-            mb.Entity<Data.ContentGroup>().Property(t => t.CLRType).IsRequired().HasMaxLength(255);
-            mb.Entity<Data.ContentGroup>().Property(t => t.Title).IsRequired().HasMaxLength(128);
+            modelBuilder.Entity<Data.ContentGroup>().ToTable("Piranha_ContentGroups");
+            modelBuilder.Entity<Data.ContentGroup>().Property(t => t.Id).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Data.ContentGroup>().Property(t => t.CLRType).IsRequired().HasMaxLength(255);
+            modelBuilder.Entity<Data.ContentGroup>().Property(t => t.Title).IsRequired().HasMaxLength(128);
 
-            mb.Entity<Data.ContentTaxonomy>().ToTable("Piranha_ContentTaxonomies");
-            mb.Entity<Data.ContentTaxonomy>().HasKey(t => new { t.ContentId, t.TaxonomyId });
-            mb.Entity<Data.ContentTaxonomy>().HasOne(t => t.Taxonomy).WithMany().IsRequired().OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Data.ContentTaxonomy>().ToTable("Piranha_ContentTaxonomies");
+            modelBuilder.Entity<Data.ContentTaxonomy>().HasKey(t => new { t.ContentId, t.TaxonomyId });
+            modelBuilder.Entity<Data.ContentTaxonomy>().HasOne(t => t.Taxonomy).WithMany().IsRequired().OnDelete(DeleteBehavior.Restrict);
 
-            mb.Entity<Data.ContentTranslation>().ToTable("Piranha_ContentTranslations");
-            mb.Entity<Data.ContentTranslation>().HasKey(t => new { t.ContentId, t.LanguageId });
-            mb.Entity<Data.ContentTranslation>().Property(p => p.Title).HasMaxLength(128).IsRequired();
+            modelBuilder.Entity<Data.ContentTranslation>().ToTable("Piranha_ContentTranslations");
+            modelBuilder.Entity<Data.ContentTranslation>().HasKey(t => new { t.ContentId, t.LanguageId });
+            modelBuilder.Entity<Data.ContentTranslation>().Property(p => p.Title).HasMaxLength(128).IsRequired();
 
-            mb.Entity<Data.ContentType>().ToTable("Piranha_ContentTypes");
-            mb.Entity<Data.ContentType>().Property(t => t.Id).IsRequired().HasMaxLength(64);
-            mb.Entity<Data.ContentType>().Property(t => t.Group).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Data.ContentType>().ToTable("Piranha_ContentTypes");
+            modelBuilder.Entity<Data.ContentType>().Property(t => t.Id).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Data.ContentType>().Property(t => t.Group).IsRequired().HasMaxLength(64);
 
-            mb.Entity<Data.Language>().ToTable("Piranha_Languages");
-            mb.Entity<Data.Language>().Property(l => l.Title).IsRequired().HasMaxLength(64);
-            mb.Entity<Data.Language>().Property(l => l.Culture).HasMaxLength(6);
+            modelBuilder.Entity<Data.Language>().ToTable("Piranha_Languages");
+            modelBuilder.Entity<Data.Language>().Property(l => l.Title).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Data.Language>().Property(l => l.Culture).HasMaxLength(6);
 
-            mb.Entity<Data.Media>().ToTable("Piranha_Media");
-            mb.Entity<Data.Media>().Property(m => m.Filename).HasMaxLength(128).IsRequired();
-            mb.Entity<Data.Media>().Property(m => m.ContentType).HasMaxLength(256).IsRequired();
-            mb.Entity<Data.Media>().Property(m => m.Title).HasMaxLength(128);
-            mb.Entity<Data.Media>().Property(m => m.AltText).HasMaxLength(128);
-            mb.Entity<Data.Media>().Property(m => m.Description).HasMaxLength(512);
+            modelBuilder.Entity<Data.Media>().ToTable("Piranha_Media");
+            modelBuilder.Entity<Data.Media>().Property(m => m.Filename).HasMaxLength(128).IsRequired();
+            modelBuilder.Entity<Data.Media>().Property(m => m.ContentType).HasMaxLength(256).IsRequired();
+            modelBuilder.Entity<Data.Media>().Property(m => m.Title).HasMaxLength(128);
+            modelBuilder.Entity<Data.Media>().Property(m => m.AltText).HasMaxLength(128);
+            modelBuilder.Entity<Data.Media>().Property(m => m.Description).HasMaxLength(512);
 
-            mb.Entity<Data.MediaFolder>().ToTable("Piranha_MediaFolders");
-            mb.Entity<Data.MediaFolder>().Property(f => f.Name).HasMaxLength(128).IsRequired();
-            mb.Entity<Data.MediaFolder>().Property(f => f.Description).HasMaxLength(512);
+            modelBuilder.Entity<Data.MediaFolder>().ToTable("Piranha_MediaFolders");
+            modelBuilder.Entity<Data.MediaFolder>().Property(f => f.Name).HasMaxLength(128).IsRequired();
+            modelBuilder.Entity<Data.MediaFolder>().Property(f => f.Description).HasMaxLength(512);
 
-            mb.Entity<Data.MediaVersion>().ToTable("Piranha_MediaVersions");
-            mb.Entity<Data.MediaVersion>().Property(v => v.FileExtension).HasMaxLength(8);
-            mb.Entity<Data.MediaVersion>().HasIndex(v => new { v.MediaId, v.Width, v.Height }).IsUnique();
+            modelBuilder.Entity<Data.MediaVersion>().ToTable("Piranha_MediaVersions");
+            modelBuilder.Entity<Data.MediaVersion>().Property(v => v.FileExtension).HasMaxLength(8);
+            modelBuilder.Entity<Data.MediaVersion>().HasIndex(v => new { v.MediaId, v.Width, v.Height }).IsUnique();
 
-            mb.Entity<Data.Page>().ToTable("Piranha_Pages");
-            mb.Entity<Data.Page>().Property(p => p.PageTypeId).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.Page>().Property(p => p.ContentType).HasMaxLength(255).IsRequired().HasDefaultValue("Page");
-            mb.Entity<Data.Page>().Property(p => p.Title).HasMaxLength(128).IsRequired();
-            mb.Entity<Data.Page>().Property(p => p.NavigationTitle).HasMaxLength(128);
-            mb.Entity<Data.Page>().Property(p => p.Slug).HasMaxLength(128).IsRequired();
-            mb.Entity<Data.Page>().Property(p => p.MetaTitle).HasMaxLength(128);
-            mb.Entity<Data.Page>().Property(p => p.MetaKeywords).HasMaxLength(128);
-            mb.Entity<Data.Page>().Property(p => p.MetaDescription).HasMaxLength(256);
-            mb.Entity<Data.Page>().Property(p => p.MetaIndex).HasDefaultValue(true);
-            mb.Entity<Data.Page>().Property(p => p.MetaFollow).HasDefaultValue(true);
-            mb.Entity<Data.Page>().Property(p => p.MetaPriority).HasDefaultValue(0.5);
-            mb.Entity<Data.Page>().Property(p => p.OgTitle).HasMaxLength(128);
-            mb.Entity<Data.Page>().Property(p => p.OgDescription).HasMaxLength(256);
-            mb.Entity<Data.Page>().Property(p => p.Route).HasMaxLength(256);
-            mb.Entity<Data.Page>().Property(p => p.RedirectUrl).HasMaxLength(256);
-            mb.Entity<Data.Page>().Property(p => p.EnableComments).HasDefaultValue(false);
-            mb.Entity<Data.Page>().HasIndex(p => new { p.SiteId, p.Slug }).IsUnique();
+            modelBuilder.Entity<Data.Page>().ToTable("Piranha_Pages");
+            modelBuilder.Entity<Data.Page>().Property(p => p.PageTypeId).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.Page>().Property(p => p.ContentType).HasMaxLength(255).IsRequired().HasDefaultValue("Page");
+            modelBuilder.Entity<Data.Page>().Property(p => p.Title).HasMaxLength(128).IsRequired();
+            modelBuilder.Entity<Data.Page>().Property(p => p.NavigationTitle).HasMaxLength(128);
+            modelBuilder.Entity<Data.Page>().Property(p => p.Slug).HasMaxLength(128).IsRequired();
+            modelBuilder.Entity<Data.Page>().Property(p => p.MetaTitle).HasMaxLength(128);
+            modelBuilder.Entity<Data.Page>().Property(p => p.MetaKeywords).HasMaxLength(128);
+            modelBuilder.Entity<Data.Page>().Property(p => p.MetaDescription).HasMaxLength(256);
+            modelBuilder.Entity<Data.Page>().Property(p => p.MetaIndex).HasDefaultValue(true);
+            modelBuilder.Entity<Data.Page>().Property(p => p.MetaFollow).HasDefaultValue(true);
+            modelBuilder.Entity<Data.Page>().Property(p => p.MetaPriority).HasDefaultValue(0.5);
+            modelBuilder.Entity<Data.Page>().Property(p => p.OgTitle).HasMaxLength(128);
+            modelBuilder.Entity<Data.Page>().Property(p => p.OgDescription).HasMaxLength(256);
+            modelBuilder.Entity<Data.Page>().Property(p => p.Route).HasMaxLength(256);
+            modelBuilder.Entity<Data.Page>().Property(p => p.RedirectUrl).HasMaxLength(256);
+            modelBuilder.Entity<Data.Page>().Property(p => p.EnableComments).HasDefaultValue(false);
+            modelBuilder.Entity<Data.Page>().HasIndex(p => new { p.SiteId, p.Slug }).IsUnique();
 
-            mb.Entity<Data.PageBlock>().ToTable("Piranha_PageBlocks");
-            mb.Entity<Data.PageBlock>().HasIndex(b => new { b.PageId, b.SortOrder }).IsUnique();
+            modelBuilder.Entity<Data.PageBlock>().ToTable("Piranha_PageBlocks");
+            modelBuilder.Entity<Data.PageBlock>().HasIndex(b => new { b.PageId, b.SortOrder }).IsUnique();
 
-            mb.Entity<Data.PageComment>().ToTable("Piranha_PageComments");
-            mb.Entity<Data.PostComment>().Property(c => c.UserId).HasMaxLength(128);
-            mb.Entity<Data.PageComment>().Property(c => c.Author).HasMaxLength(128).IsRequired();
-            mb.Entity<Data.PageComment>().Property(c => c.Email).HasMaxLength(128).IsRequired();
-            mb.Entity<Data.PageComment>().Property(c => c.Url).HasMaxLength(256);
+            modelBuilder.Entity<Data.PageComment>().ToTable("Piranha_PageComments");
+            modelBuilder.Entity<Data.PostComment>().Property(c => c.UserId).HasMaxLength(128);
+            modelBuilder.Entity<Data.PageComment>().Property(c => c.Author).HasMaxLength(128).IsRequired();
+            modelBuilder.Entity<Data.PageComment>().Property(c => c.Email).HasMaxLength(128).IsRequired();
+            modelBuilder.Entity<Data.PageComment>().Property(c => c.Url).HasMaxLength(256);
 
-            mb.Entity<Data.PageField>().ToTable("Piranha_PageFields");
-            mb.Entity<Data.PageField>().Property(f => f.RegionId).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.PageField>().Property(f => f.FieldId).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.PageField>().Property(f => f.CLRType).HasMaxLength(256).IsRequired();
-            mb.Entity<Data.PageField>().HasIndex(f => new { f.PageId, f.RegionId, f.FieldId, f.SortOrder });
+            modelBuilder.Entity<Data.PageField>().ToTable("Piranha_PageFields");
+            modelBuilder.Entity<Data.PageField>().Property(f => f.RegionId).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.PageField>().Property(f => f.FieldId).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.PageField>().Property(f => f.CLRType).HasMaxLength(256).IsRequired();
+            modelBuilder.Entity<Data.PageField>().HasIndex(f => new { f.PageId, f.RegionId, f.FieldId, f.SortOrder });
 
-            mb.Entity<Data.PagePermission>().ToTable("Piranha_PagePermissions");
-            mb.Entity<Data.PagePermission>().HasKey(p => new { p.PageId, p.Permission });
+            modelBuilder.Entity<Data.PagePermission>().ToTable("Piranha_PagePermissions");
+            modelBuilder.Entity<Data.PagePermission>().HasKey(p => new { p.PageId, p.Permission });
 
-            mb.Entity<Data.PageRevision>().ToTable("Piranha_PageRevisions");
+            modelBuilder.Entity<Data.PageRevision>().ToTable("Piranha_PageRevisions");
 
-            mb.Entity<Data.PageType>().ToTable("Piranha_PageTypes");
-            mb.Entity<Data.PageType>().Property(p => p.Id).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.PageType>().Property(p => p.CLRType).HasMaxLength(256);
+            modelBuilder.Entity<Data.PageType>().ToTable("Piranha_PageTypes");
+            modelBuilder.Entity<Data.PageType>().Property(p => p.Id).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.PageType>().Property(p => p.CLRType).HasMaxLength(256);
 
-            mb.Entity<Data.Param>().ToTable("Piranha_Params");
-            mb.Entity<Data.Param>().Property(p => p.Key).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.Param>().Property(p => p.Description).HasMaxLength(256);
-            mb.Entity<Data.Param>().HasIndex(p => p.Key).IsUnique();
+            modelBuilder.Entity<Data.Param>().ToTable("Piranha_Params");
+            modelBuilder.Entity<Data.Param>().Property(p => p.Key).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.Param>().Property(p => p.Description).HasMaxLength(256);
+            modelBuilder.Entity<Data.Param>().HasIndex(p => p.Key).IsUnique();
 
-            mb.Entity<Data.Post>().ToTable("Piranha_Posts");
-            mb.Entity<Data.Post>().Property(p => p.PostTypeId).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.Post>().Property(p => p.Title).HasMaxLength(128).IsRequired();
-            mb.Entity<Data.Post>().Property(p => p.Slug).HasMaxLength(128).IsRequired();
-            mb.Entity<Data.Post>().Property(p => p.MetaTitle).HasMaxLength(128);
-            mb.Entity<Data.Post>().Property(p => p.MetaKeywords).HasMaxLength(128);
-            mb.Entity<Data.Post>().Property(p => p.MetaDescription).HasMaxLength(256);
-            mb.Entity<Data.Post>().Property(p => p.MetaIndex).HasDefaultValue(true);
-            mb.Entity<Data.Post>().Property(p => p.MetaFollow).HasDefaultValue(true);
-            mb.Entity<Data.Post>().Property(p => p.MetaPriority).HasDefaultValue(0.5);
-            mb.Entity<Data.Post>().Property(p => p.OgTitle).HasMaxLength(128);
-            mb.Entity<Data.Post>().Property(p => p.OgDescription).HasMaxLength(256);
-            mb.Entity<Data.Post>().Property(p => p.Route).HasMaxLength(256);
-            mb.Entity<Data.Post>().Property(p => p.RedirectUrl).HasMaxLength(256);
-            mb.Entity<Data.Post>().Property(p => p.EnableComments).HasDefaultValue(false);
-            mb.Entity<Data.Post>().HasOne(p => p.Category).WithMany().IsRequired().OnDelete(DeleteBehavior.Restrict);
-            mb.Entity<Data.Post>().HasIndex(p => new { p.BlogId, p.Slug }).IsUnique();
+            modelBuilder.Entity<Data.Post>().ToTable("Piranha_Posts");
+            modelBuilder.Entity<Data.Post>().Property(p => p.PostTypeId).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.Post>().Property(p => p.Title).HasMaxLength(128).IsRequired();
+            modelBuilder.Entity<Data.Post>().Property(p => p.Slug).HasMaxLength(128).IsRequired();
+            modelBuilder.Entity<Data.Post>().Property(p => p.MetaTitle).HasMaxLength(128);
+            modelBuilder.Entity<Data.Post>().Property(p => p.MetaKeywords).HasMaxLength(128);
+            modelBuilder.Entity<Data.Post>().Property(p => p.MetaDescription).HasMaxLength(256);
+            modelBuilder.Entity<Data.Post>().Property(p => p.MetaIndex).HasDefaultValue(true);
+            modelBuilder.Entity<Data.Post>().Property(p => p.MetaFollow).HasDefaultValue(true);
+            modelBuilder.Entity<Data.Post>().Property(p => p.MetaPriority).HasDefaultValue(0.5);
+            modelBuilder.Entity<Data.Post>().Property(p => p.OgTitle).HasMaxLength(128);
+            modelBuilder.Entity<Data.Post>().Property(p => p.OgDescription).HasMaxLength(256);
+            modelBuilder.Entity<Data.Post>().Property(p => p.Route).HasMaxLength(256);
+            modelBuilder.Entity<Data.Post>().Property(p => p.RedirectUrl).HasMaxLength(256);
+            modelBuilder.Entity<Data.Post>().Property(p => p.EnableComments).HasDefaultValue(false);
+            modelBuilder.Entity<Data.Post>().HasOne(p => p.Category).WithMany().IsRequired().OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Data.Post>().HasIndex(p => new { p.BlogId, p.Slug }).IsUnique();
 
-            mb.Entity<Data.PostBlock>().ToTable("Piranha_PostBlocks");
-            mb.Entity<Data.PostBlock>().HasIndex(b => new { b.PostId, b.SortOrder }).IsUnique();
+            modelBuilder.Entity<Data.PostBlock>().ToTable("Piranha_PostBlocks");
+            modelBuilder.Entity<Data.PostBlock>().HasIndex(b => new { b.PostId, b.SortOrder }).IsUnique();
 
-            mb.Entity<Data.PostComment>().ToTable("Piranha_PostComments");
-            mb.Entity<Data.PostComment>().Property(c => c.UserId).HasMaxLength(128);
-            mb.Entity<Data.PostComment>().Property(c => c.Author).HasMaxLength(128).IsRequired();
-            mb.Entity<Data.PostComment>().Property(c => c.Email).HasMaxLength(128).IsRequired();
-            mb.Entity<Data.PostComment>().Property(c => c.Url).HasMaxLength(256);
+            modelBuilder.Entity<Data.PostComment>().ToTable("Piranha_PostComments");
+            modelBuilder.Entity<Data.PostComment>().Property(c => c.UserId).HasMaxLength(128);
+            modelBuilder.Entity<Data.PostComment>().Property(c => c.Author).HasMaxLength(128).IsRequired();
+            modelBuilder.Entity<Data.PostComment>().Property(c => c.Email).HasMaxLength(128).IsRequired();
+            modelBuilder.Entity<Data.PostComment>().Property(c => c.Url).HasMaxLength(256);
 
-            mb.Entity<Data.PostField>().ToTable("Piranha_PostFields");
-            mb.Entity<Data.PostField>().Property(f => f.RegionId).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.PostField>().Property(f => f.FieldId).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.PostField>().Property(f => f.CLRType).HasMaxLength(256).IsRequired();
-            mb.Entity<Data.PostField>().HasIndex(f => new { f.PostId, f.RegionId, f.FieldId, f.SortOrder });
+            modelBuilder.Entity<Data.PostField>().ToTable("Piranha_PostFields");
+            modelBuilder.Entity<Data.PostField>().Property(f => f.RegionId).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.PostField>().Property(f => f.FieldId).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.PostField>().Property(f => f.CLRType).HasMaxLength(256).IsRequired();
+            modelBuilder.Entity<Data.PostField>().HasIndex(f => new { f.PostId, f.RegionId, f.FieldId, f.SortOrder });
 
-            mb.Entity<Data.PostPermission>().ToTable("Piranha_PostPermissions");
-            mb.Entity<Data.PostPermission>().HasKey(p => new { p.PostId, p.Permission });
+            modelBuilder.Entity<Data.PostPermission>().ToTable("Piranha_PostPermissions");
+            modelBuilder.Entity<Data.PostPermission>().HasKey(p => new { p.PostId, p.Permission });
 
-            mb.Entity<Data.PostRevision>().ToTable("Piranha_PostRevisions");
+            modelBuilder.Entity<Data.PostRevision>().ToTable("Piranha_PostRevisions");
 
-            mb.Entity<Data.PostTag>().ToTable("Piranha_PostTags");
-            mb.Entity<Data.PostTag>().HasKey(t => new { t.PostId, t.TagId });
-            mb.Entity<Data.PostTag>().HasOne(t => t.Tag).WithMany().IsRequired().OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Data.PostTag>().ToTable("Piranha_PostTags");
+            modelBuilder.Entity<Data.PostTag>().HasKey(t => new { t.PostId, t.TagId });
+            modelBuilder.Entity<Data.PostTag>().HasOne(t => t.Tag).WithMany().IsRequired().OnDelete(DeleteBehavior.Restrict);
 
-            mb.Entity<Data.PostType>().ToTable("Piranha_PostTypes");
-            mb.Entity<Data.PostType>().Property(p => p.Id).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.PostType>().Property(p => p.CLRType).HasMaxLength(256);
+            modelBuilder.Entity<Data.PostType>().ToTable("Piranha_PostTypes");
+            modelBuilder.Entity<Data.PostType>().Property(p => p.Id).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.PostType>().Property(p => p.CLRType).HasMaxLength(256);
 
-            mb.Entity<Data.Site>().ToTable("Piranha_Sites");
-            mb.Entity<Data.Site>().Property(s => s.SiteTypeId).HasMaxLength(64);
-            mb.Entity<Data.Site>().Property(s => s.InternalId).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.Site>().Property(s => s.Title).HasMaxLength(128);
-            mb.Entity<Data.Site>().Property(s => s.Description).HasMaxLength(256);
-            mb.Entity<Data.Site>().Property(s => s.Hostnames).HasMaxLength(256);
-            mb.Entity<Data.Site>().Property(s => s.Culture).HasMaxLength(6);
-            mb.Entity<Data.Site>().HasOne(s => s.Language).WithMany().OnDelete(DeleteBehavior.Restrict);
-            mb.Entity<Data.Site>().HasIndex(s => s.InternalId).IsUnique();
+            modelBuilder.Entity<Data.Site>().ToTable("Piranha_Sites");
+            modelBuilder.Entity<Data.Site>().Property(s => s.SiteTypeId).HasMaxLength(64);
+            modelBuilder.Entity<Data.Site>().Property(s => s.InternalId).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.Site>().Property(s => s.Title).HasMaxLength(128);
+            modelBuilder.Entity<Data.Site>().Property(s => s.Description).HasMaxLength(256);
+            modelBuilder.Entity<Data.Site>().Property(s => s.Hostnames).HasMaxLength(256);
+            modelBuilder.Entity<Data.Site>().Property(s => s.Culture).HasMaxLength(6);
+            modelBuilder.Entity<Data.Site>().HasOne(s => s.Language).WithMany().OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Data.Site>().HasIndex(s => s.InternalId).IsUnique();
 
 
-            mb.Entity<Data.SiteField>().ToTable("Piranha_SiteFields");
-            mb.Entity<Data.SiteField>().Property(f => f.RegionId).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.SiteField>().Property(f => f.FieldId).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.SiteField>().Property(f => f.CLRType).HasMaxLength(256).IsRequired();
-            mb.Entity<Data.SiteField>().HasIndex(f => new { f.SiteId, f.RegionId, f.FieldId, f.SortOrder });
+            modelBuilder.Entity<Data.SiteField>().ToTable("Piranha_SiteFields");
+            modelBuilder.Entity<Data.SiteField>().Property(f => f.RegionId).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.SiteField>().Property(f => f.FieldId).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.SiteField>().Property(f => f.CLRType).HasMaxLength(256).IsRequired();
+            modelBuilder.Entity<Data.SiteField>().HasIndex(f => new { f.SiteId, f.RegionId, f.FieldId, f.SortOrder });
 
-            mb.Entity<Data.SiteType>().ToTable("Piranha_SiteTypes");
-            mb.Entity<Data.SiteType>().Property(s => s.Id).HasMaxLength(64).IsRequired();
-            mb.Entity<Data.SiteType>().Property(s => s.CLRType).HasMaxLength(256);
+            modelBuilder.Entity<Data.SiteType>().ToTable("Piranha_SiteTypes");
+            modelBuilder.Entity<Data.SiteType>().Property(s => s.Id).HasMaxLength(64).IsRequired();
+            modelBuilder.Entity<Data.SiteType>().Property(s => s.CLRType).HasMaxLength(256);
 
-            mb.Entity<Data.Tag>().ToTable("Piranha_Tags");
-            mb.Entity<Data.Tag>().Property(t => t.Title).IsRequired().HasMaxLength(64);
-            mb.Entity<Data.Tag>().Property(t => t.Slug).IsRequired().HasMaxLength(64);
-            mb.Entity<Data.Tag>().HasIndex(t => new { t.BlogId, t.Slug }).IsUnique();
+            modelBuilder.Entity<Data.Tag>().ToTable("Piranha_Tags");
+            modelBuilder.Entity<Data.Tag>().Property(t => t.Title).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Data.Tag>().Property(t => t.Slug).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Data.Tag>().HasIndex(t => new { t.BlogId, t.Slug }).IsUnique();
 
-            mb.Entity<Data.Taxonomy>().ToTable("Piranha_Taxonomies");
-            mb.Entity<Data.Taxonomy>().Property(t => t.GroupId).IsRequired().HasMaxLength(64);
-            mb.Entity<Data.Taxonomy>().Property(t => t.Title).IsRequired().HasMaxLength(64);
-            mb.Entity<Data.Taxonomy>().Property(t => t.Slug).IsRequired().HasMaxLength(64);
-            mb.Entity<Data.Taxonomy>().HasIndex(t => new { t.GroupId, t.Type, t.Slug }).IsUnique();
+            modelBuilder.Entity<Data.Taxonomy>().ToTable("Piranha_Taxonomies");
+            modelBuilder.Entity<Data.Taxonomy>().Property(t => t.GroupId).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Data.Taxonomy>().Property(t => t.Title).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Data.Taxonomy>().Property(t => t.Slug).IsRequired().HasMaxLength(64);
+            modelBuilder.Entity<Data.Taxonomy>().HasIndex(t => new { t.GroupId, t.Type, t.Slug }).IsUnique();
         }
 
         /// <summary>
@@ -537,7 +537,7 @@ namespace Piranha
             //
             var langId = Guid.NewGuid();
 
-            if (Languages.Count() == 0)
+            if (!Languages.Any())
             {
                 Languages.Add(new Data.Language
                 {

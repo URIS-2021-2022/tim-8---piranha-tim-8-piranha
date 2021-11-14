@@ -91,14 +91,11 @@ namespace Piranha.Services
                     var block = (Extend.Block)Activator.CreateInstance(blockType.Type);
                     block.Type = typeName;
 
-                    foreach (var prop in blockType.Type.GetProperties(App.PropertyBindings))
+                    foreach (var prop in blockType.Type.GetProperties(App.PropertyBindings).Select(prop => prop).Where(prop => typeof(Extend.IField).IsAssignableFrom(prop.PropertyType)))
                     {
-                        if (typeof(Extend.IField).IsAssignableFrom(prop.PropertyType))
-                        {
-                            var field = Activator.CreateInstance(prop.PropertyType);
-                            await InitFieldAsync(scope, field, managerInit).ConfigureAwait(false);
-                            prop.SetValue(block, field);
-                        }
+                        var field = Activator.CreateInstance(prop.PropertyType);
+                        await InitFieldAsync(scope, field, managerInit).ConfigureAwait(false);
+                        prop.SetValue(block, field);
                     }
                     return block;
                 }
