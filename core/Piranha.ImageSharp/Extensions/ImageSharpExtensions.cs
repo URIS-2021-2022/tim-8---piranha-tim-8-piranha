@@ -7,8 +7,7 @@
  * https://github.com/piranhacms/piranha.core
  *
  */
-namespace ImageSE
-{
+
 
     using Microsoft.Extensions.DependencyInjection;
     using Piranha;
@@ -39,5 +38,5 @@ namespace ImageSE
         }
     }
 
-}
+
 

@@ -10,7 +10,7 @@
 
 using Piranha;
 using Piranha.AspNetCore;
-using TinyExtension;
+
 
 namespace Piranha.Manager.TinyMCE
 {

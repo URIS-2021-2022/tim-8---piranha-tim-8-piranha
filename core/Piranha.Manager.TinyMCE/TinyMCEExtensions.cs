@@ -7,8 +7,7 @@
  * https://github.com/piranhacms/piranha.core
  *
  */
-namespace TinyExtension
-{
+
 
 
     using Microsoft.AspNetCore.Builder;
@@ -58,4 +57,3 @@ namespace TinyExtension
             });
         }
     }
-}
