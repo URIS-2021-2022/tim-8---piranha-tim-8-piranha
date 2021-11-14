@@ -60,7 +60,7 @@ namespace Piranha.Services
         {
             var models = await _repo.GetAll();
 
-            if (models.Count() > 0)
+            if (models.Any())
             {
                 foreach (var modelLogo in models.Select(model => model.Logo))
                 {

@@ -121,9 +121,9 @@ namespace Piranha.Services
             {
                 pageBlock.Id = Guid.Empty;
 
-                if (pageBlock is Extend.BlockGroup)
+                if (pageBlock is Extend.BlockGroup pb)
                 {
-                    foreach (var childBlock in ((Extend.BlockGroup)pageBlock).Items)
+                    foreach (var childBlock in pb.Items)
                     {
                         childBlock.Id = Guid.Empty;
                     }

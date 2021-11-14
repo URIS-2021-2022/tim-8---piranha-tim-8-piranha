@@ -63,12 +63,12 @@ piranha.pagelist = new Vue({
                 $(e).nestable({
                     maxDepth: 100,
                     group: i,
-                    callback: function (l, e) {
+                    callback: function (l, el) {
                         fetch(piranha.baseUrl + "manager/api/page/move", {
                             method: "post",
                             headers: piranha.utils.antiForgeryHeaders(),
                             body: JSON.stringify({
-                                id: $(e).attr("data-id"),
+                                id: $(el).attr("data-id"),
                                 items: $(l).nestable("serialize")
                             })
                         })
@@ -121,13 +121,13 @@ piranha.pagelist = new Vue({
             self.sites.forEach((e) => setSiteTitle(e));
         },
         collapse: function () {
-            for (var sitesValue of this.sites) {
-                for (var sitesPageValue of sitesValue.pages) {
-                    this.changeVisibility(this.sitesValue.sitesPageValue, false);
-
+            for (var sitesValue of this.sites)
+            {
+                for (let i = 0; i < sitesValue.pages.length; i++)
+                {
+                  this.changeVisibility(this.sitesValue.sitesPageValue, false);
                 }
             }
-
         },
         expand: function () {
             for (var n = 0; n < this.sites.length; n++) {

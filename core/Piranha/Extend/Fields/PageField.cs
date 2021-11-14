@@ -73,7 +73,7 @@ namespace Piranha.Extend.Fields
             {
                 return api.Pages.GetByIdAsync<T>(Id.Value);
             }
-            return null;
+            return Task.FromResult<T>(null);
         }
 
         /// <summary>
