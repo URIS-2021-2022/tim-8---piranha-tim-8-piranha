@@ -173,7 +173,8 @@ namespace Piranha.Extend.Fields
 
                 foreach (var attr in attrs)
                 {
-                    if (attr is DisplayAttribute)
+                    DisplayAttribute at = attr as DisplayAttribute;
+                    if (at != null)
                     {
                         return ((DisplayAttribute)attr).Description;
                     }

@@ -23,6 +23,7 @@ using PiranhaHostingExtensions;
 using Piranha.AspNetCore.Security;
 using Space;
 using Piranha.Manager.TinyMCE;
+using FileStorageStartupExtensions;
 
 namespace RazorWeb
 {

@@ -9,7 +9,7 @@ using Piranha.Data.EF.SQLServer;
 
 namespace Piranha.Data.EF.SQLServer.Migrations
 {
-    [DbContext(typeof(SQLServerDb))]
+    [DbContext(typeof(SqlServerDb))]
     [Migration("20200519090245_AddPageInformation")]
     partial class AddPageInformation
     {

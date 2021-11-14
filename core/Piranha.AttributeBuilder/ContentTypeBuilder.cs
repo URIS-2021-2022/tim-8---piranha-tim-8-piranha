@@ -483,14 +483,14 @@ namespace Piranha.AttributeBuilder
             var routes = new List<ContentTypeRoute>();
 
             var attrs = type.GetTypeInfo().GetCustomAttributes(typeof(ContentTypeRouteAttribute));
-            foreach (ContentTypeRouteAttribute attribute in attrs)
+            foreach (Attribute attribute in attrs)
             {
-                if (!string.IsNullOrWhiteSpace(attribute.Title) && !string.IsNullOrWhiteSpace(attribute.Route))
+                if (!string.IsNullOrWhiteSpace(((ContentTypeRouteAttribute)attribute).Title) && !string.IsNullOrWhiteSpace(((ContentTypeRouteAttribute)attribute).Route))
                 {
                     var contentRoute = new ContentTypeRoute
                     {
-                        Title = attribute.Title,
-                        Route = attribute.Route
+                        Title = ((ContentTypeRouteAttribute)attribute).Title,
+                        Route = ((ContentTypeRouteAttribute)attribute).Route
                     };
 
                     // Make sure the route starts with a forward slash

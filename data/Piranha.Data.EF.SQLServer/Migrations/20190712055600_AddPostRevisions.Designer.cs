@@ -8,7 +8,7 @@ using Piranha;
 
 namespace Piranha.Data.EF.SQLServer.Migrations
 {
-    [DbContext(typeof(SQLServerDb))]
+    [DbContext(typeof(SqlServerDb))]
     [Migration("20190712055600_AddPostRevisions")]
     partial class AddPostRevisions
     {

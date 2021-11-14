@@ -12,7 +12,7 @@ using System;
 namespace Piranha.Data.EF.SQLServer.Migrations
 {
     [NoCoverage]
-    [DbContext(typeof(SQLServerDb))]
+    [DbContext(typeof(SqlServerDb))]
     [Migration("20180430082044_AddOriginalPageIdToPage")]
     partial class AddOriginalPageIdToPage
     {

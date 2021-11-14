@@ -441,11 +441,11 @@ namespace Piranha.Services
                         }
                         blocks.Add(block);
 
-                        if (typeof(Extend.BlockGroup).IsAssignableFrom(models[n].GetType()))
+                        if (models[n] is Extend.BlockGroup)
                         {
                             var blockItems = TransformBlocks(((Extend.BlockGroup)models[n]).Items);
 
-                            if (blockItems.Count() > 0)
+                            if (blockItems.Count > 0)
                             {
                                 foreach (var item in blockItems)
                                 {
