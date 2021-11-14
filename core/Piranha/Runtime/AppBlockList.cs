@@ -74,10 +74,11 @@ namespace Piranha.Runtime
 
                 if (attr is BlockGroupTypeAttribute groupAttr)
                 {
+                    var vertical = groupAttr.Display == Models.BlockDisplayMode.Vertical ? "block-group-vertical" :
+                        "block-group";
                     item.Component =
                         groupAttr.Display == Models.BlockDisplayMode.Horizontal ? "block-group-horizontal" :
-                        groupAttr.Display == Models.BlockDisplayMode.Vertical ? "block-group-vertical" :
-                        "block-group";
+                        vertical;
 
                     if (!string.IsNullOrWhiteSpace(groupAttr.Component))
                     {

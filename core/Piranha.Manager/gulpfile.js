@@ -36,7 +36,7 @@ function vueCompile() {
         }
 
         var compile;
-        compile = function (componentName, content) {
+        compile = function (compoName, content) {
             var component = vueCompiler.parseComponent(content, []);
             if (component.styles.length > 0) {
                 component.styles.forEach(s => {
@@ -57,7 +57,7 @@ function vueCompile() {
 
             var wrapInComponent = babelTemplate("Vue.component(NAME, COMPONENT);");
             var componentAst = wrapInComponent({
-                NAME: babelTypes.stringLiteral(componentName),
+                NAME: babelTypes.stringLiteral(compoName),
                 COMPONENT: vueComponent
             })
 

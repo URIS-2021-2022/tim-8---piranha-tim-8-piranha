@@ -163,7 +163,7 @@ namespace Piranha.Extend.Fields
         /// </summary>
         /// <param name="val">The enum value</param>
         /// <returns>The display title</returns>
-        private string GetEnumTitle(Enum val)
+        private static string GetEnumTitle(Enum val)
         {
             var members = typeof(T).GetMember(val.ToString());
 
@@ -185,7 +185,7 @@ namespace Piranha.Extend.Fields
         /// <summary>
         /// Initializes the meta data needed in the manager interface.
         /// </summary>
-        private void InitMetaData()
+        private static void InitMetaData()
         {
             if (IsInitialized)
                 return;
