@@ -509,28 +509,28 @@ namespace Piranha.AttributeBuilder
             var editors = new List<ContentTypeEditor>();
 
             var attrs = type.GetTypeInfo().GetCustomAttributes(typeof(ContentTypeEditorAttribute));
-            foreach (ContentTypeEditorAttribute attr in attrs)
+            foreach (Attribute attr in attrs)
             {
-                if (!string.IsNullOrWhiteSpace(attr.Component) && !string.IsNullOrWhiteSpace(attr.Title))
+                if (!string.IsNullOrWhiteSpace(((ContentTypeEditorAttribute)attr).Component) && !string.IsNullOrWhiteSpace(((ContentTypeEditorAttribute)attr).Title))
                 {
                     // Check if we already have an editor registered with this name
-                    var current = editors.FirstOrDefault(e => e.Title == attr.Title);
+                    var current = editors.FirstOrDefault(e => e.Title == ((ContentTypeEditorAttribute)attr).Title);
 
                     if (current != null)
                     {
                         // Replace current editor
-                        current.Component = attr.Component;
-                        current.Icon = attr.Icon;
-                        current.Title = attr.Title;
+                        current.Component = ((ContentTypeEditorAttribute)attr).Component;
+                        current.Icon = ((ContentTypeEditorAttribute)attr).Icon;
+                        current.Title = ((ContentTypeEditorAttribute)attr).Title;
                     }
                     else
                     {
                         // Add new editor
                         editors.Add(new ContentTypeEditor
                         {
-                            Component = attr.Component,
-                            Icon = attr.Icon,
-                            Title = attr.Title
+                            Component = ((ContentTypeEditorAttribute)attr).Component,
+                            Icon = ((ContentTypeEditorAttribute)attr).Icon,
+                            Title = ((ContentTypeEditorAttribute)attr).Title
                         });
                     }
                 }

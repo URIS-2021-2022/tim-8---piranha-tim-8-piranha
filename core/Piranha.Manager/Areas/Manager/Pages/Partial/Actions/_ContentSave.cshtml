@@ -3,8 +3,8 @@
 
 @if ((await Auth.AuthorizeAsync(User, Permission.ContentSave)).Succeeded)
 {
-    <button  v-on:click.prevent="save" class="btn btn-primary btn-labeled" title="@Localizer.General["Save"]">
-        <i class="fas fa-save"></i>
+    <button v-on:click.prevent="save" class="btn btn-primary btn-labeled" title="@Localizer.General["Save"]">
+        <em class="fas fa-save"></em>
         @Localizer.General["Save"]
     </button>
 }

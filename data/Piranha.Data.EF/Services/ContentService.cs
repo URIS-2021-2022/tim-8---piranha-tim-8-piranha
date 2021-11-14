@@ -567,7 +567,7 @@ namespace Piranha.Services
             }
             if (value is IEnumerable)
                 return (IEnumerable)value;
-            return (IEnumerable) returnValue;
+            return (IEnumerable)returnValue;
         }
 
         /// <summary>

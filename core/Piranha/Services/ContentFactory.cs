@@ -468,7 +468,7 @@ namespace Piranha.Services
                 var properties = block.GetType().GetProperties(App.PropertyBindings);
 
                 // Initialize all of the fields
-                foreach (var property in properties.Where(x=> typeof(Extend.IField).IsAssignableFrom(x.PropertyType)))
+                foreach (var property in properties.Where(x => typeof(Extend.IField).IsAssignableFrom(x.PropertyType)))
                 {
                     var field = property.GetValue(block);
 
@@ -508,26 +508,23 @@ namespace Piranha.Services
                     }
                     return field;
                 }
+                return Task.FromResult<object>(null);
             }
-            else
-            {
-                var reg = new ExpandoObject();
+            var reg = new ExpandoObject();
 
-                foreach (var fieldType in regionType.Fields)
+            foreach (var fieldType in regionType.Fields)
+            {
+                var field = CreateField(fieldType);
+                if (field != null)
                 {
-                    var field = CreateField(fieldType);
-                    if (field != null)
+                    if (initFields)
                     {
-                        if (initFields)
-                        {
-                            await InitFieldAsync(scope, field, managerInit).ConfigureAwait(false);
-                        }
-                        ((IDictionary<string, object>)reg).Add(fieldType.Id, field);
+                        await InitFieldAsync(scope, field, managerInit).ConfigureAwait(false);
                     }
+                    ((IDictionary<string, object>)reg).Add(fieldType.Id, field);
                 }
-                return reg;
             }
-            return null;
+            return reg;
         }
 
         /// <summary>

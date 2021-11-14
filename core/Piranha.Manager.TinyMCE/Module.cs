@@ -66,6 +66,9 @@ namespace Piranha.Manager.TinyMCE
         /// <summary>
         /// Initializes the module.
         /// </summary>
-        public void Init() { }
+        public void Init()
+        {
+            throw new System.NotSupportedException("Custom module initialization currently not implemented");
+        }
     }
 }

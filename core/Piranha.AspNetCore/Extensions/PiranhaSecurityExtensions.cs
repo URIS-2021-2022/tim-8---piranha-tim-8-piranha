@@ -20,12 +20,12 @@ using Piranha.AspNetCore.Http;
 using Piranha.AspNetCore.Security;
 using Piranha.Models;
 
-/// <summary>
-/// Security extensions for simplifying authorization in
-/// the client application.
-/// </summary>
 namespace Piranha.AspNetCore.Security
 {
+    /// <summary>
+    /// Security extensions for simplifying authorization in
+    /// the client application.
+    /// </summary>
     public static class PiranhaSecurityExtensions
     {
         /// <summary>
