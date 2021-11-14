@@ -156,7 +156,7 @@ namespace Piranha.Services
         /// <param name="models">The models</param>
         public async Task DeleteAsync(IEnumerable<ContentType> models)
         {
-            if (models != null && models.Count() > 0)
+            if (models != null && models.Any())
             {
                 foreach (var model in models)
                 {

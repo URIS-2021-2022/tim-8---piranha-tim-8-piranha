@@ -11,7 +11,7 @@ using System;
 
 namespace Piranha.Data.EF.SQLServer.Migrations
 {
-    [DbContext(typeof(SQLServerDb))]
+    [DbContext(typeof(SqlServerDb))]
     [Migration("20171215130248_AddBlogging")]
     partial class AddBlogging
     {

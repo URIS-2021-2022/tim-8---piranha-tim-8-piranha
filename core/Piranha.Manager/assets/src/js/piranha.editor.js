@@ -1,6 +1,6 @@
 
 piranha.editor = {
-    editors:[],
+    editors: [],
 
     addInline: function (id, toolbarId) {
         console.log("No HTML editor registered.")
@@ -18,7 +18,7 @@ piranha.editor = {
                 {
                     name: "image",
                     action: function customFunction(editor) {
-                        piranha.mediapicker.openCurrentFolder(function(media) {
+                        piranha.mediapicker.openCurrentFolder(function (media) {
                             var cm = editor.codemirror;
                             var active = simplemde.getState(cm).image;
 
@@ -26,7 +26,7 @@ piranha.editor = {
                             var endPoint = cm.getCursor("end");
 
                             if (active) {
-                               var text = cm.getLine(startPoint.line);
+                                var text = cm.getLine(startPoint.line);
                                 cm.replaceRange("![" + media.filename + "](" + media.publicUrl + ")",
                                     {
                                         line: startPoint.line,
@@ -48,11 +48,11 @@ piranha.editor = {
                 singleLineBreaks: false
             }
         });
-        simplemde.codemirror.on("change", function() {
+        simplemde.codemirror.on("change", function () {
             preview.html(simplemde.markdown(simplemde.value()));
             update(simplemde.value());
         });
-        setTimeout(function() {
+        setTimeout(function () {
             preview.html(simplemde.markdown(simplemde.value()));
             simplemde.codemirror.refresh();
         }.bind(simplemde), 0);
@@ -69,7 +69,7 @@ piranha.editor = {
             var index = this.editors.indexOf(simplemde);
 
             simplemde.toTextArea();
-            this.editors.splice[index, 1];
+            this.editors.splice(index, 1);
         }
     },
     refreshMarkdown: function () {

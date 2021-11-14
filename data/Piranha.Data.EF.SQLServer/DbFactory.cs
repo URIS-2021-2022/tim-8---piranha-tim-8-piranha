@@ -20,18 +20,18 @@ namespace Piranha.Data.EF.SQLServer
     /// when creating migrations.
     /// </summary>
     [NoCoverage]
-    public class DbFactory : IDesignTimeDbContextFactory<SQLServerDb>
+    public class DbFactory : IDesignTimeDbContextFactory<SqlServerDb>
     {
         /// <summary>
         /// Creates a new db context.
         /// </summary>
         /// <param name="args">The arguments</param>
         /// <returns>The db context</returns>
-        public SQLServerDb CreateDbContext(string[] args)
+        public SqlServerDb CreateDbContext(string[] args)
         {
-            var builder = new DbContextOptionsBuilder<SQLServerDb>();
+            var builder = new DbContextOptionsBuilder<SqlServerDb>();
             builder.UseSqlServer("data source=.\\sqlexpress;initial catalog=piranha.dev;integrated security=true;multipleactiveresultsets=true;");
-            return new SQLServerDb(builder.Options);
+            return new SqlServerDb(builder.Options);
         }
     }
 }

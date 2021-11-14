@@ -8,7 +8,7 @@ using Piranha;
 
 namespace Piranha.Data.EF.SQLServer.Migrations
 {
-    [DbContext(typeof(SQLServerDb))]
+    [DbContext(typeof(SqlServerDb))]
     [Migration("20180531092411_AddMediaVersionExtension")]
     partial class AddMediaVersionExtension
     {
