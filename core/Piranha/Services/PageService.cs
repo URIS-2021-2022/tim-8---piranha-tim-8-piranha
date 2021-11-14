@@ -120,9 +120,9 @@ namespace Piranha.Services
             {
                 pageBlock.Id = Guid.Empty;
 
-                if (pageBlock is Extend.BlockGroup)
+                if (pageBlock is Extend.BlockGroup pb)
                 {
-                    foreach (var childBlock in ((Extend.BlockGroup)pageBlock).Items)
+                    foreach (var childBlock in pb.Items)
                     {
                         childBlock.Id = Guid.Empty;
                     }
@@ -278,7 +278,7 @@ namespace Piranha.Services
                 await OnLoadAsync(model).ConfigureAwait(false);
             }
 
-            if (model != null && model is T)
+            if (model is T)
             {
                 return await MapOriginalAsync((T)model).ConfigureAwait(false);
             }
@@ -666,7 +666,7 @@ namespace Piranha.Services
             App.Hooks.OnBeforeSave<PageBase>(model);
 
             // Handle revisions and save
-            if ((IsPublished(current) || IsScheduled(current) ) && isDraft)
+            if ((IsPublished(current) || IsScheduled(current)) && isDraft)
             {
                 // We're saving a draft since we have a previously
                 // published version of the page
@@ -722,7 +722,7 @@ namespace Piranha.Services
             }
 
             // Invalidate sitemap if any other pages were affected
-            if (changeState || affected.Any() )
+            if (changeState || affected.Any())
             {
                 await _siteService.InvalidateSitemapAsync(model.SiteId).ConfigureAwait(false);
             }

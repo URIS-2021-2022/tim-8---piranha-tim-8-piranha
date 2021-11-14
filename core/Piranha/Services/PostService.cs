@@ -903,7 +903,7 @@ namespace Piranha.Services
                 }
             }
 
-            if (model != null && model is T)
+            if (model is T)
             {
                 return (T)model;
             }

@@ -296,23 +296,20 @@ namespace Piranha.Services
                     model.Id = block.Id;
                     model.Type = block.CLRType;
 
-                    foreach (var prop in model.GetType().GetProperties(App.PropertyBindings))
+                    foreach (var prop in model.GetType().GetProperties(App.PropertyBindings).Where(p => typeof(Extend.IField).IsAssignableFrom(p.PropertyType)))
                     {
-                        if (typeof(Extend.IField).IsAssignableFrom(prop.PropertyType))
+                        var field = block.Fields.FirstOrDefault(f => f.FieldId == prop.Name);
+
+                        if (field != null)
                         {
-                            var field = block.Fields.FirstOrDefault(f => f.FieldId == prop.Name);
+                            var type = App.Fields.GetByType(field.CLRType);
+                            var val = (Extend.IField)App.DeserializeObject(field.Value, type.Type);
 
-                            if (field != null)
-                            {
-                                var type = App.Fields.GetByType(field.CLRType);
-                                var val = (Extend.IField)App.DeserializeObject(field.Value, type.Type);
-
-                                prop.SetValue(model, val);
-                            }
-                            else
-                            {
-                                prop.SetValue(model, Activator.CreateInstance(prop.PropertyType));
-                            }
+                            prop.SetValue(model, val);
+                        }
+                        else
+                        {
+                            prop.SetValue(model, Activator.CreateInstance(prop.PropertyType));
                         }
                     }
 
@@ -320,9 +317,9 @@ namespace Piranha.Services
                     {
                         var parent = models.FirstOrDefault(m => m.Id == block.ParentId.Value);
 
-                        if (parent != null && typeof(Extend.BlockGroup).IsAssignableFrom(parent.GetType()))
+                        if (parent is Extend.BlockGroup p)
                         {
-                            ((Extend.BlockGroup)parent).Items.Add(model);
+                            p.Items.Add(model);
                         }
                         else
                         {
@@ -422,30 +419,27 @@ namespace Piranha.Services
                             LastModified = DateTime.Now
                         };
 
-                        foreach (var prop in models[n].GetType().GetProperties(App.PropertyBindings))
+                        foreach (var prop in models[n].GetType().GetProperties(App.PropertyBindings).Where(p => typeof(Extend.IField).IsAssignableFrom(p.PropertyType)))
                         {
-                            if (typeof(Extend.IField).IsAssignableFrom(prop.PropertyType))
+                            // Only save fields to the database
+                            var field = new BlockField()
                             {
-                                // Only save fields to the database
-                                var field = new BlockField()
-                                {
-                                    Id = Guid.NewGuid(),
-                                    BlockId = block.Id,
-                                    FieldId = prop.Name,
-                                    SortOrder = 0,
-                                    CLRType = prop.PropertyType.FullName,
-                                    Value = App.SerializeObject(prop.GetValue(models[n]), prop.PropertyType)
-                                };
-                                block.Fields.Add(field);
-                            }
+                                Id = Guid.NewGuid(),
+                                BlockId = block.Id,
+                                FieldId = prop.Name,
+                                SortOrder = 0,
+                                CLRType = prop.PropertyType.FullName,
+                                Value = App.SerializeObject(prop.GetValue(models[n]), prop.PropertyType)
+                            };
+                            block.Fields.Add(field);
                         }
                         blocks.Add(block);
 
-                        if (typeof(Extend.BlockGroup).IsAssignableFrom(models[n].GetType()))
+                        if (models[n] is Extend.BlockGroup)
                         {
                             var blockItems = TransformBlocks(((Extend.BlockGroup)models[n]).Items);
 
-                            if (blockItems.Count() > 0)
+                            if (blockItems.Count > 0)
                             {
                                 foreach (var item in blockItems)
                                 {

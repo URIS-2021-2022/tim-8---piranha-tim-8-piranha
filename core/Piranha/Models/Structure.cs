@@ -10,6 +10,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Piranha.Models
 {
@@ -113,7 +114,7 @@ namespace Piranha.Models
                     return crumb;
                 }
             }
-            return null;
+            return (IList<T>)Enumerable.Empty<T>();
         }
     }
 }

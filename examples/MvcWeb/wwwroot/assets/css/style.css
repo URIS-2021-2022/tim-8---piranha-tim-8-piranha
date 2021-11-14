@@ -3,7 +3,9 @@
   background-position: 50% 50%; }
 
 header {
-  padding: 1rem 0; }
+    color: #fff;
+    padding: 1rem 0;
+}
   header h1 + .lead {
     margin: 2rem 0; }
   header.site-header.site-header-dark {
@@ -56,8 +58,7 @@ header {
 body {
   font-family: 'Montserrat', sans-serif; }
 
-header {
-  color: #fff; }
+
   header.site-header {
     padding: 0;
     position: absolute;

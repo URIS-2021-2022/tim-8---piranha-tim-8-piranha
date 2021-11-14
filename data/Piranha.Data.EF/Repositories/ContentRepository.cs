@@ -352,14 +352,14 @@ namespace Piranha.Repositories
                         }
 
                         // Add tags
-                        foreach (var tag in taggedModel.Tags)
+                        foreach (var tagId in taggedModel.Tags.Select(t => t.Id))
                         {
-                            if (!content.Tags.Any(t => t.ContentId == content.Id && t.TaxonomyId == tag.Id))
+                            if (!content.Tags.Any(t => t.ContentId == content.Id && t.TaxonomyId == tagId))
                             {
                                 var contentTaxonomy = new ContentTaxonomy
                                 {
                                     ContentId = content.Id,
-                                    TaxonomyId = tag.Id
+                                    TaxonomyId = tagId
                                 };
                                 content.Tags.Add(contentTaxonomy);
                             }

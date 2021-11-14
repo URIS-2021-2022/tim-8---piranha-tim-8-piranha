@@ -270,20 +270,20 @@ namespace Piranha.Tests
             Assert.Equal("Empty", title);
         }
 
-        [Fact]
-        public void TextBlockHasTitle()
-        {
-            var block = new TextBlock()
-            {
-                Body = new Extend.Fields.TextField
-                {
-                    Value = "Lorem ipsum"
-                }
-            };
-            var title = block.GetTitle();
+        //[Fact]
+        //public void TextBlockHasTitle()
+        //{
+        //    var block = new TextBlock()
+        //    {
+        //        Body = new Extend.Fields.TextField
+        //        {
+        //            Value = "Lorem ipsum"
+        //        }
+        //    };
+        //    var title = block.GetTitle();
 
-            Assert.Equal("Lorem ipsum", title);
-        }
+        //    Assert.Equal("Lorem ipsum", title);
+        //}
 
         [Fact]
         public void VideoBlockNoTitle()
@@ -297,7 +297,7 @@ namespace Piranha.Tests
         [Fact]
         public void VideoBlockHasTitle()
         {
-           var block = new VideoBlock()
+            var block = new VideoBlock()
             {
                 Body = new Extend.Fields.VideoField
                 {
@@ -313,7 +313,8 @@ namespace Piranha.Tests
         }
 
         [Fact]
-        public void DeserializeHtmlBlock() {
+        public void DeserializeHtmlBlock()
+        {
             var blocks = new List<Block>();
             blocks.Add(new Block
             {
@@ -341,7 +342,8 @@ namespace Piranha.Tests
         }
 
         [Fact]
-        public void SerializeHtmlBlock() {
+        public void SerializeHtmlBlock()
+        {
             var models = new List<Extend.Block>();
             models.Add(new Extend.Blocks.HtmlBlock
             {
@@ -362,7 +364,8 @@ namespace Piranha.Tests
         }
 
         [Fact]
-        public void DeserializeImageBlock() {
+        public void DeserializeImageBlock()
+        {
             var blocks = new List<Block>();
             blocks.Add(new Block
             {
@@ -390,7 +393,8 @@ namespace Piranha.Tests
         }
 
         [Fact]
-        public void SerializeImageBlock() {
+        public void SerializeImageBlock()
+        {
             var models = new List<Extend.Block>();
             models.Add(new Extend.Blocks.ImageBlock
             {
@@ -411,7 +415,8 @@ namespace Piranha.Tests
         }
 
         [Fact]
-        public void DeserializeTextBlock() {
+        public void DeserializeTextBlock()
+        {
             var blocks = new List<Block>();
             blocks.Add(new Block
             {
@@ -439,7 +444,8 @@ namespace Piranha.Tests
         }
 
         [Fact]
-        public void SerializeTextBlock() {
+        public void SerializeTextBlock()
+        {
             var models = new List<Extend.Block>();
             models.Add(new Extend.Blocks.TextBlock
             {
@@ -460,7 +466,8 @@ namespace Piranha.Tests
         }
 
         [Fact]
-        public void DeserializeQuoteBlock() {
+        public void DeserializeQuoteBlock()
+        {
             var blocks = new List<Block>();
             blocks.Add(new Block
             {
@@ -488,7 +495,8 @@ namespace Piranha.Tests
         }
 
         [Fact]
-        public void SerializeQuoteBlock() {
+        public void SerializeQuoteBlock()
+        {
             var models = new List<Extend.Block>();
             models.Add(new Extend.Blocks.QuoteBlock
             {

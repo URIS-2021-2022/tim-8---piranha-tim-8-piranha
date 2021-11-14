@@ -60,13 +60,13 @@ namespace Piranha.Services
         {
             var models = await _repo.GetAll();
 
-            if (models.Count() > 0)
+            if (models.Any())
             {
-                foreach (var model in models)
+                foreach (var modelLogo in models.Select(model => model.Logo))
                 {
-                    if (model.Logo != null && model.Logo.Id.HasValue)
+                    if (modelLogo != null && modelLogo.Id.HasValue)
                     {
-                        await _factory.InitFieldAsync(model.Logo);
+                        await _factory.InitFieldAsync(modelLogo);
                     }
                 }
             }
@@ -117,7 +117,7 @@ namespace Piranha.Services
                 OnLoad(model);
             }
 
-            if (model != null &&model.Logo != null && model.Logo.Id.HasValue)
+            if (model != null && model.Logo != null && model.Logo.Id.HasValue)
             {
                 await _factory.InitFieldAsync(model.Logo);
             }
@@ -166,7 +166,7 @@ namespace Piranha.Services
 
             foreach (var mapping in mappings)
             {
-                foreach (var host in mapping.Hostnames.Split(new [] { ',' }))
+                foreach (var host in mapping.Hostnames.Split(new[] { ',' }))
                 {
                     if (host.Trim().ToLower() == hostname)
                     {
@@ -236,7 +236,7 @@ namespace Piranha.Services
                 await OnLoadContentAsync(model).ConfigureAwait(false);
             }
 
-            if ( model is T)
+            if (model is T)
             {
                 return (T)model;
             }
@@ -336,7 +336,7 @@ namespace Piranha.Services
             {
                 // Make sure we have a default site
                 var def = await _repo.GetDefault().ConfigureAwait(false);
-                if (def == null || def.Id == model.Id)
+                if (def == null || def.Id == model.Id)
                     model.IsDefault = true;
             }
             // Call hooks & save

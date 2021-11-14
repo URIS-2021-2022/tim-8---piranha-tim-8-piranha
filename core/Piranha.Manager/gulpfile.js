@@ -328,9 +328,8 @@ gulp.task("min:css", function (done) {
     }
 
     // Copy fonts
-    for (var n = 0; n < fonts.length; n++) {
-        gulp.src(fonts[n])
-            .pipe(gulp.dest(output + "webfonts"));
+    for (const font of fonts) {
+        gulp.src(font).pipe(gulp.dest(output + "webfonts"));
     }
     done();
 });
@@ -339,10 +338,10 @@ gulp.task("min:css", function (done) {
 // Compile & minimize less files
 //
 gulp.task("min:js", function (done) {
-    for (var n = 0; n < js.length; n++) {
-        gulp.src(js[n].items, { base: "." })
+    for (const jsItem of js) {
+        gulp.src(jsItem.items, { base: "." })
             .pipe(vueCompile())
-            .pipe(concat(output + "js/" + js[n].name))
+            .pipe(concat(output + "js/" + jsItem.name))
             .pipe(gulp.dest("."))
             .pipe(uglify().on('error', function (e) {
                 console.log(e);

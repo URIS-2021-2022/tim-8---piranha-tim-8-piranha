@@ -13,13 +13,13 @@ using Microsoft.EntityFrameworkCore;
 namespace Piranha.Data.EF.SQLServer
 {
     [NoCoverage]
-    public sealed class SQLServerDb : Db<SQLServerDb>
+    public sealed class SqlServerDb : Db<SqlServerDb>
     {
         /// <summary>
         /// Default constructor.
         /// </summary>
         /// <param name="options">Configuration options</param>
-        public SQLServerDb(DbContextOptions<SQLServerDb> options) : base(options)
+        public SqlServerDb(DbContextOptions<SqlServerDb> options) : base(options)
         {
         }
     }
