@@ -11,7 +11,7 @@ using System;
 
 namespace Piranha.Data.EF.SQLServer.Migrations
 {
-    [DbContext(typeof(SQLServerDb))]
+    [DbContext(typeof(SqlServerDb))]
     [Migration("20180203063923_AddAliases")]
     partial class AddAliases
     {
