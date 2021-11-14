@@ -66,6 +66,10 @@ namespace Piranha.Manager.TinyMCE
         /// <summary>
         /// Initializes the module.
         /// </summary>
-        public void Init() { }
+        public void Init()
+        {
+            // Currently not implemented - requires better understanding of how the application works;
+            // throwing exceptions from here causes tests to fail
+        }
     }
 }

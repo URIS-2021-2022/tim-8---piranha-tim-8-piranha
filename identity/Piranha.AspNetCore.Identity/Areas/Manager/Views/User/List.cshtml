@@ -7,12 +7,12 @@
 
     var userIsDelete = Context.Request.Query["d"] == "1";
 }
-@section script { 
+@section script {
     <script src="~/manager/identity/piranha.userlist.js"></script>
     <script type="text/javascript">
         piranha.userlist.currentUserName = "@User.Identity.Name";
         piranha.userlist.load();
-        @if (userIsDelete) { 
+        @if (userIsDelete) {
             <text>
             piranha.notifications.push({
                 body: "@Localizer.Security["The user has been deleted."]",
@@ -45,14 +45,14 @@
     </div>
 
     <div class="container-fluid app" :class="{ ready: !loading }">
-        <table class="table table-borderless">
+        <table class="table table-borderless" aria-label="Table that contains informations about users.">
             <thead>
-            <tr>
-                <th>@Localizer.General["Username"]</th>
-                <th>@Localizer.General["Email address"]</th>
-                <th>@Localizer.General["Roles"]</th>
-                <th class="actions one"></th>
-            </tr>
+                <tr>
+                    <th>@Localizer.General["Username"]</th>
+                    <th>@Localizer.General["Email address"]</th>
+                    <th>@Localizer.General["Roles"]</th>
+                    <th class="actions one"></th>
+                </tr>
             </thead>
             <tbody>
                 <tr v-for="user in users">
@@ -80,7 +80,7 @@
                         }
                     </td>
                 </tr>
-            
+
             </tbody>
         </table>
     </div>

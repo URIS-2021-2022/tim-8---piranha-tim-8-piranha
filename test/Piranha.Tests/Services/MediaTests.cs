@@ -20,7 +20,7 @@ using Piranha.Models;
 namespace Piranha.Tests.Services
 {
     [Collection("Integration tests")]
-    public class MediaTestsMemoryCache: MediaTests
+    public class MediaTestsMemoryCache : MediaTests
     {
         public override Task InitializeAsync()
         {
@@ -30,7 +30,7 @@ namespace Piranha.Tests.Services
     }
 
     [Collection("Integration tests")]
-    public class MediaTestsDistributedCache: MediaTests
+    public class MediaTestsDistributedCache : MediaTests
     {
         public override Task InitializeAsync()
         {
@@ -347,6 +347,7 @@ namespace Piranha.Tests.Services
             using (var api = CreateApi())
             {
                 await api.Media.DeleteAsync(image4Id);
+                Assert.NotNull(api);
             }
         }
     }

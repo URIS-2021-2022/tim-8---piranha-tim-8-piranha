@@ -435,11 +435,11 @@ namespace Piranha.Services
                         }
                         blocks.Add(block);
 
-                        if (typeof(Extend.BlockGroup).IsAssignableFrom(models[n].GetType()))
+                        if (models[n] is Extend.BlockGroup)
                         {
                             var blockItems = TransformBlocks(((Extend.BlockGroup)models[n]).Items);
 
-                            if (blockItems.Count() > 0)
+                            if (blockItems.Count > 0)
                             {
                                 foreach (var item in blockItems)
                                 {
@@ -561,7 +561,7 @@ namespace Piranha.Services
             }
             if (value is IEnumerable)
                 return (IEnumerable)value;
-            return (IEnumerable) returnValue;
+            return (IEnumerable)returnValue;
         }
 
         /// <summary>

@@ -82,14 +82,14 @@ piranha.postedit = new Vue({
         isExcerptEmpty: function () {
             return piranha.utils.isEmptyText(this.excerpt);
         },
-        metaPriorityDescription: function() {
+        metaPriorityDescription: function () {
             var description = piranha.resources.texts.important;
             if (this.metaPriority <= 0.3)
                 description = piranha.resources.texts.low;
             else if (this.metaPriority <= 0.6)
-                description =  piranha.resources.texts.medium;
+                description = piranha.resources.texts.medium;
             else if (this.metaPriority <= 0.9)
-                description =  piranha.resources.texts.high;
+                description = piranha.resources.texts.high;
 
             description = description + " (" + this.metaPriority + ")";
             return description;
@@ -170,8 +170,9 @@ piranha.postedit = new Vue({
                 .then(function (result) {
                     self.bind(result);
                 })
-                .catch(function (error) { console.log("error:", error );
-            });
+                .catch(function (error) {
+                    console.log("error:", error);
+                });
         },
         create: function (id, postType) {
             var self = this;
@@ -181,30 +182,26 @@ piranha.postedit = new Vue({
                 .then(function (result) {
                     self.bind(result);
                 })
-                .catch(function (error) { console.log("error:", error );
-            });
+                .catch(function (error) {
+                    console.log("error:", error);
+                });
         },
-        doHotKeys(e)
-        {
+        doHotKeys(e) {
             // CTRL + S
-            if (e.keyCode === 83 && e.ctrlKey)
-            {
+            if (e.keyCode === 83 && e.ctrlKey) {
                 e.preventDefault();
                 this.saveDraft();
             }
         },
-        save: function ()
-        {
+        save: function () {
             this.saving = true;
             this.saveInternal(piranha.baseUrl + "manager/api/post/save");
         },
-        saveDraft: function ()
-        {
+        saveDraft: function () {
             this.savingDraft = true;
             this.saveInternal(piranha.baseUrl + "manager/api/post/save/draft");
         },
-        unpublish: function ()
-        {
+        unpublish: function () {
             this.saving = true;
             this.saveInternal(piranha.baseUrl + "manager/api/post/save/unpublish");
         },
@@ -250,29 +247,29 @@ piranha.postedit = new Vue({
                 headers: piranha.utils.antiForgeryHeaders(),
                 body: JSON.stringify(model)
             })
-            .then(function (response) { return response.json(); })
-            .then(function (result) {
-                var oldState = self.state;
+                .then(function (response) { return response.json(); })
+                .then(function (result) {
+                    var oldState = self.state;
 
-                self.id = result.id;
-                self.slug = result.slug;
-                self.published = result.published;
-                self.state = result.state;
-                self.selectedRoute = result.selectedRoute;
+                    self.id = result.id;
+                    self.slug = result.slug;
+                    self.published = result.published;
+                    self.state = result.state;
+                    self.selectedRoute = result.selectedRoute;
 
-                if (oldState === 'new' && result.state !== 'new') {
-                    window.history.replaceState({ state: "created"}, "Edit post", piranha.baseUrl + "manager/post/edit/" + result.id);
-                }
-                piranha.notifications.push(result.status);
+                    if (oldState === 'new' && result.state !== 'new') {
+                        window.history.replaceState({ state: "created" }, "Edit post", piranha.baseUrl + "manager/post/edit/" + result.id);
+                    }
+                    piranha.notifications.push(result.status);
 
-                self.saving = false;
-                self.savingDraft = false;
+                    self.saving = false;
+                    self.savingDraft = false;
 
-                self.eventBus.$emit("onSaved", self.state)
-            })
-            .catch(function (error) {
-                console.log("error:", error);
-            });
+                    self.eventBus.$emit("onSaved", self.state)
+                })
+                .catch(function (error) {
+                    console.log("error:", error);
+                });
         },
         revert: function () {
             var self = this;
@@ -282,28 +279,28 @@ piranha.postedit = new Vue({
                 headers: piranha.utils.antiForgeryHeaders(),
                 body: JSON.stringify(self.id)
             })
-            .then(function (response) { return response.json(); })
-            .then(function (result) {
-                self.bind(result);
+                .then(function (response) { return response.json(); })
+                .then(function (result) {
+                    self.bind(result);
 
-                Vue.nextTick(function () {
-                    $("#selectedCategory").select2({
-                        tags: true,
-                        selectOnClose: true,
-                        placeholder: piranha.resources.texts.addCategory
+                    Vue.nextTick(function () {
+                        $("#selectedCategory").select2({
+                            tags: true,
+                            selectOnClose: true,
+                            placeholder: piranha.resources.texts.addCategory
+                        });
+                        $("#selectedTags").select2({
+                            tags: true,
+                            selectOnClose: false,
+                            placeholder: piranha.resources.texts.addTags
+                        });
                     });
-                    $("#selectedTags").select2({
-                        tags: true,
-                        selectOnClose: false,
-                        placeholder: piranha.resources.texts.addTags
-                    });
+
+                    piranha.notifications.push(result.status);
+                })
+                .catch(function (error) {
+                    console.log("error:", error);
                 });
-
-                piranha.notifications.push(result.status);
-            })
-            .catch(function (error) { 
-                console.log("error:", error );
-            });
         },
         remove: function () {
             var self = this;
@@ -320,13 +317,13 @@ piranha.postedit = new Vue({
                         headers: piranha.utils.antiForgeryHeaders(),
                         body: JSON.stringify(self.id)
                     })
-                    .then(function (response) { return response.json(); })
-                    .then(function (result) {
-                        piranha.notifications.push(result);
+                        .then(function (response) { return response.json(); })
+                        .then(function (result) {
+                            piranha.notifications.push(result);
 
-                        window.location = piranha.baseUrl + "manager/page/edit/" + self.blogId;
-                    })
-                    .catch(function (error) { console.log("error:", error ); });
+                            window.location = piranha.baseUrl + "manager/page/edit/" + self.blogId;
+                        })
+                        .catch(function (error) { console.log("error:", error); });
                 }
             });
         },
@@ -338,8 +335,9 @@ piranha.postedit = new Vue({
                 .then(function (result) {
                     self.blocks.splice(pos, 0, result.body);
                 })
-                .catch(function (error) { console.log("error:", error );
-            });
+                .catch(function (error) {
+                    console.log("error:", error);
+                });
         },
         moveBlock: function (from, to) {
             this.blocks.splice(to, 0, this.blocks.splice(from, 1)[0])
@@ -412,8 +410,7 @@ piranha.postedit = new Vue({
     updated: function () {
         var self = this;
 
-        if (this.loading)
-        {
+        if (this.loading) {
             sortable("#content-blocks", {
                 handle: ".handle",
                 items: ":not(.unsortable)"
@@ -425,7 +422,7 @@ piranha.postedit = new Vue({
                 selectOnClose: true,
                 placeholder: piranha.resources.texts.addCategory
             });
-            $("#selectedCategory").on("change", function() {
+            $("#selectedCategory").on("change", function () {
                 var item = $(this).find("option:selected").text();
                 self.selectedCategory = item;
             });
@@ -434,11 +431,11 @@ piranha.postedit = new Vue({
                 selectOnClose: false,
                 placeholder: piranha.resources.texts.addTags
             });
-            $("#selectedTags").on("change", function() {
+            $("#selectedTags").on("change", function () {
                 var items = $(this).find("option:selected");
                 self.selectedTags = [];
-                for (var n = 0; n < items.length; n++) {
-                    self.selectedTags.push(items[n].text);
+                for (var item of items) {
+                    self.selectedTags.push(item.text)
                 }
             });
             piranha.editor.addInline('excerpt-body', 'excerpt-toolbar');

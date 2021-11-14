@@ -22,13 +22,13 @@ piranha.pagelist = new Vue({
             var self = this;
             piranha.permissions.load(function () {
                 fetch(piranha.baseUrl + "manager/api/page/list")
-                .then(function (response) { return response.json(); })
-                .then(function (result) {
-                    self.sites = result.sites;
-                    self.pageTypes = result.pageTypes;
-                    self.updateBindings = true;
-                })
-                .catch(function (error) { console.log("error:", error ); });
+                    .then(function (response) { return response.json(); })
+                    .then(function (result) {
+                        self.sites = result.sites;
+                        self.pageTypes = result.pageTypes;
+                        self.updateBindings = true;
+                    })
+                    .catch(function (error) { console.log("error:", error); });
             });
         },
         remove: function (id) {
@@ -46,13 +46,13 @@ piranha.pagelist = new Vue({
                         headers: piranha.utils.antiForgeryHeaders(),
                         body: JSON.stringify(id)
                     })
-                    .then(function (response) { return response.json(); })
-                    .then(function (result) {
-                        piranha.notifications.push(result);
+                        .then(function (response) { return response.json(); })
+                        .then(function (result) {
+                            piranha.notifications.push(result);
 
-                        self.load();
-                    })
-                    .catch(function (error) { console.log("error:", error ); });
+                            self.load();
+                        })
+                        .catch(function (error) { console.log("error:", error); });
                 }
             });
         },
@@ -72,27 +72,32 @@ piranha.pagelist = new Vue({
                                 items: $(l).nestable("serialize")
                             })
                         })
-                        .then(function (response) { return response.json(); })
-                        .then(function (result) {
-                            piranha.notifications.push(result.status);
+                            .then(function (response) { return response.json(); })
+                            .then(function (result) {
+                                piranha.notifications.push(result.status);
 
-                            if (result.status.type === "success") {
-                                $('.sitemap-container').nestable('destroy');
-                                self.sites = [];
-                                Vue.nextTick(function () {
-                                    self.sites = result.sites;
+                                if (result.status.type === "success") {
+                                    $('.sitemap-container').nestable('destroy');
+                                    self.sites = [];
                                     Vue.nextTick(function () {
-                                        self.bind();
+                                        self.sites = result.sites;
+                                        Vue.nextTick(function () {
+                                            self.bind();
+                                        });
                                     });
-                                });
-                            }
-                        })
-                        .catch(function (error) {
-                            console.log("error:", error);
-                        });
+                                }
+                            })
+                            .catch(function (error) {
+                                console.log("error:", error);
+                            });
                     }
                 })
             });
+        },
+        setSiteTitle: function (e) {
+            if (e.id === siteId) {
+                self.addSiteTitle = e.title;
+            }
         },
         add: function (siteId, pageId, after) {
             var self = this;
@@ -102,11 +107,7 @@ piranha.pagelist = new Vue({
             self.addAfter = after;
 
             // Get the site title
-            self.sites.forEach(function (e) {
-                if (e.id === siteId) {
-                    self.addSiteTitle = e.title;
-                }
-            });
+            self.sites.forEach((e) => setSiteTitle(e));
 
             // Open the modal
             $("#pageAddModal").modal("show");
@@ -117,27 +118,20 @@ piranha.pagelist = new Vue({
             self.addSiteId = siteId;
 
             // Get the site title
-            self.sites.forEach(function (e) {
-                if (e.id === siteId) {
-                    self.addSiteTitle = e.title;
-                }
-            });
+            self.sites.forEach((e) => setSiteTitle(e));
         },
         collapse: function () {
             for (var sitesValue of this.sites)
             {
                 for (let i = 0; i < sitesValue.pages.length; i++)
                 {
-                    this.changeVisibility(this.sitesValue.sitesPageValue, false);
+                  this.changeVisibility(this.sitesValue.sitesPageValue, false);
                 }
             }
-            
         },
         expand: function () {
-            for (var n = 0; n < this.sites.length; n++)
-            {
-                for (var i = 0; i < this.sites[n].pages.length; i++)
-                {
+            for (var n = 0; n < this.sites.length; n++) {
+                for (var i = 0; i < this.sites[n].pages.length; i++) {
                     this.changeVisibility(this.sites[n].pages[i], true);
                 }
             }
@@ -153,8 +147,7 @@ piranha.pagelist = new Vue({
     created: function () {
     },
     updated: function () {
-        if (this.updateBindings)
-        {
+        if (this.updateBindings) {
             this.bind();
             this.updateBindings = false;
         }
