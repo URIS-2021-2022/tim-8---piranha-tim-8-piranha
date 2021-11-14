@@ -114,7 +114,7 @@ namespace Piranha.Models
                     return crumb;
                 }
             }
-            return (IList<T>)Enumerable.Empty<T>();
+            return null;
         }
     }
 }
