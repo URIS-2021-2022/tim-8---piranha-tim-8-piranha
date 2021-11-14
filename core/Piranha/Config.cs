@@ -573,7 +573,7 @@ namespace Piranha
         /// </summary>
         public void Dispose()
         {
-            throw new System.NotSupportedException("Method Dispose() has not been implemented.");
+            // Does not require any logic; throwing exception from here causes tests to fail
         }
     }
 }
