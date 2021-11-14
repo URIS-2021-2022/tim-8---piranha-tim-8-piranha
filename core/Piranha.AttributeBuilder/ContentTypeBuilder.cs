@@ -25,7 +25,7 @@ namespace Piranha.AttributeBuilder
     /// </summary>
     public class ContentTypeBuilder
     {
-        private class BuilderItem<T> where T : ContentTypeBase
+        private sealed class BuilderItem<T> where T : ContentTypeBase
         {
             public Type Type { get; set; }
             public T ContentType { get; set; }
@@ -88,12 +88,9 @@ namespace Piranha.AttributeBuilder
 
                         // Make sure we add the content group for this type as well
                         var groupType = GetContentGroupType(type);
-                        if (groupType != null)
+                        if (groupType != null && !_contentGroups.Contains(groupType))
                         {
-                            if (!_contentGroups.Contains(groupType))
-                            {
-                                _contentGroups.Add(groupType);
-                            }
+                            _contentGroups.Add(groupType);
                         }
                     }
                 }
@@ -117,15 +114,12 @@ namespace Piranha.AttributeBuilder
                         });
                     }
                 }
-                else if (typeof(SiteContentBase).IsAssignableFrom(type))
+                else if (typeof(SiteContentBase).IsAssignableFrom(type) && type.GetCustomAttribute<SiteTypeAttribute>() != null)
                 {
-                    if (type.GetCustomAttribute<SiteTypeAttribute>() != null)
+                    _siteTypes.Add(new BuilderItem<SiteType>
                     {
-                        _siteTypes.Add(new BuilderItem<SiteType>
-                        {
-                            Type = type
-                        });
-                    }
+                        Type = type
+                    });
                 }
             }
             return this;
@@ -382,16 +376,16 @@ namespace Piranha.AttributeBuilder
                 // Add archive items
                 if (pageType.IsArchive)
                 {
-                    var itemTypes = type.GetCustomAttributes(typeof(PageTypeArchiveItemAttribute));
-                    foreach (PageTypeArchiveItemAttribute itemType in itemTypes)
+                    IEnumerable<Attribute> itemTypes = type.GetCustomAttributes(typeof(PageTypeArchiveItemAttribute));
+                    foreach (Attribute itemType in itemTypes)
                     {
-                        var postAttr = itemType.PostType.GetCustomAttribute<PostTypeAttribute>();
+                        var postAttr = ((PageTypeArchiveItemAttribute)itemType).PostType.GetCustomAttribute<PostTypeAttribute>();
                         if (postAttr != null)
                         {
                             var typeId = postAttr.Id;
                             if (string.IsNullOrWhiteSpace(typeId))
                             {
-                                typeId = itemType.PostType.Name;
+                                typeId = ((PageTypeArchiveItemAttribute)itemType).PostType.Name;
                             }
                             pageType.ArchiveItemTypes.Add(typeId);
                         }
@@ -489,14 +483,14 @@ namespace Piranha.AttributeBuilder
             var routes = new List<ContentTypeRoute>();
 
             var attrs = type.GetTypeInfo().GetCustomAttributes(typeof(ContentTypeRouteAttribute));
-            foreach (ContentTypeRouteAttribute attr in attrs)
+            foreach (Attribute attribute in attrs)
             {
-                if (!string.IsNullOrWhiteSpace(attr.Title) && !string.IsNullOrWhiteSpace(attr.Route))
+                if (!string.IsNullOrWhiteSpace(((ContentTypeRouteAttribute)attribute).Title) && !string.IsNullOrWhiteSpace(((ContentTypeRouteAttribute)attribute).Route))
                 {
                     var contentRoute = new ContentTypeRoute
                     {
-                        Title = attr.Title,
-                        Route = attr.Route
+                        Title = ((ContentTypeRouteAttribute)attribute).Title,
+                        Route = ((ContentTypeRouteAttribute)attribute).Route
                     };
 
                     // Make sure the route starts with a forward slash
@@ -515,28 +509,28 @@ namespace Piranha.AttributeBuilder
             var editors = new List<ContentTypeEditor>();
 
             var attrs = type.GetTypeInfo().GetCustomAttributes(typeof(ContentTypeEditorAttribute));
-            foreach (ContentTypeEditorAttribute attr in attrs)
+            foreach (Attribute attr in attrs)
             {
-                if (!string.IsNullOrWhiteSpace(attr.Component) && !string.IsNullOrWhiteSpace(attr.Title))
+                if (!string.IsNullOrWhiteSpace(((ContentTypeEditorAttribute)attr).Component) && !string.IsNullOrWhiteSpace(((ContentTypeEditorAttribute)attr).Title))
                 {
                     // Check if we already have an editor registered with this name
-                    var current = editors.FirstOrDefault(e => e.Title == attr.Title);
+                    var current = editors.FirstOrDefault(e => e.Title == ((ContentTypeEditorAttribute)attr).Title);
 
                     if (current != null)
                     {
                         // Replace current editor
-                        current.Component = attr.Component;
-                        current.Icon = attr.Icon;
-                        current.Title = attr.Title;
+                        current.Component = ((ContentTypeEditorAttribute)attr).Component;
+                        current.Icon = ((ContentTypeEditorAttribute)attr).Icon;
+                        current.Title = ((ContentTypeEditorAttribute)attr).Title;
                     }
                     else
                     {
                         // Add new editor
                         editors.Add(new ContentTypeEditor
                         {
-                            Component = attr.Component,
-                            Icon = attr.Icon,
-                            Title = attr.Title
+                            Component = ((ContentTypeEditorAttribute)attr).Component,
+                            Icon = ((ContentTypeEditorAttribute)attr).Icon,
+                            Title = ((ContentTypeEditorAttribute)attr).Title
                         });
                     }
                 }
@@ -644,7 +638,7 @@ namespace Piranha.AttributeBuilder
                         regionType.Fields.Add(fieldType.Item2);
                     // Then add the unsorted fields
                     foreach (var fieldType in sortedFields.Where(t => !t.Item1.HasValue))
-                        regionType.Fields.Add(fieldType.Item2);                    
+                        regionType.Fields.Add(fieldType.Item2);
 
                     // Skip regions without fields.
                     if (regionType.Fields.Count == 0)
@@ -701,30 +695,27 @@ namespace Piranha.AttributeBuilder
                 type = type.GenericTypeArguments.First();
             }
 
-            if (typeof(IField).IsAssignableFrom(type))
+            if (typeof(IField).IsAssignableFrom(type) && type.GetCustomAttribute<FieldTypeAttribute>() != null)
             {
-                if (type.GetCustomAttribute<FieldTypeAttribute>() != null)
+                MethodInfo generic = null;
+
+                if (typeof(Extend.Fields.SelectFieldBase).IsAssignableFrom(type))
                 {
-                    MethodInfo generic = null;
-
-                    if (typeof(Extend.Fields.SelectFieldBase).IsAssignableFrom(type))
-                    {
-                        var method = typeof(Runtime.AppFieldList).GetMethod("RegisterSelect");
-                        generic = method.MakeGenericMethod(type.GenericTypeArguments.First());
-                    }
-                    else if (typeof(Extend.Fields.DataSelectFieldBase).IsAssignableFrom(type))
-                    {
-                        var method = typeof(Runtime.AppFieldList).GetMethod("RegisterDataSelect");
-                        generic = method.MakeGenericMethod(type.GenericTypeArguments.First());
-                    }
-                    else
-                    {
-                        var method = typeof(Runtime.AppFieldList).GetMethod("Register");
-                        generic = method.MakeGenericMethod(type);
-                    }
-
-                    generic.Invoke(App.Fields, null);
+                    var method = typeof(Runtime.AppFieldList).GetMethod("RegisterSelect");
+                    generic = method.MakeGenericMethod(type.GenericTypeArguments.First());
                 }
+                else if (typeof(Extend.Fields.DataSelectFieldBase).IsAssignableFrom(type))
+                {
+                    var method = typeof(Runtime.AppFieldList).GetMethod("RegisterDataSelect");
+                    generic = method.MakeGenericMethod(type.GenericTypeArguments.First());
+                }
+                else
+                {
+                    var method = typeof(Runtime.AppFieldList).GetMethod("Register");
+                    generic = method.MakeGenericMethod(type);
+                }
+
+                generic.Invoke(App.Fields, null);
             }
         }
     }

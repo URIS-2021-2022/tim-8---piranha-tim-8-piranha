@@ -18,6 +18,11 @@ using Piranha.Data.EF.SQLite;
 using Piranha.AspNetCore.Identity.SQLite;
 using Piranha.AttributeBuilder;
 using Piranha.Local;
+using PiranhaHostingExtensions;
+using Piranha.AspNetCore.Security;
+using Space;
+using Piranha.Manager.TinyMCE;
+using FileStorageStartupExtensions;
 
 namespace MvcWeb
 {

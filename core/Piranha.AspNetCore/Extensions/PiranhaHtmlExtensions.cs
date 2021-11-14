@@ -44,19 +44,20 @@ public static class PiranhaHtmlExtensions
     {
         var sb = new StringBuilder();
 
-        if (meta)
+        if (meta && !string.IsNullOrWhiteSpace(content.MetaKeywords))
         {
             // Generate meta tags
             sb.AppendLine($"<meta name=\"robots\" content=\"{ MetaRobots(content) }\">");
-
-            if (!string.IsNullOrWhiteSpace(content.MetaKeywords))
-            {
-                sb.AppendLine($"<meta name=\"keywords\" content=\"{ content.MetaKeywords }\">");
-            }
-            if (!string.IsNullOrWhiteSpace(content.MetaDescription))
-            {
-                sb.AppendLine($"<meta name=\"description\" content=\"{ content.MetaDescription }\">");
-            }
+            sb.AppendLine($"<meta name=\"keywords\" content=\"{ content.MetaKeywords }\">");
+        }
+        else if (meta && !string.IsNullOrWhiteSpace(content.MetaDescription))
+        {
+            sb.AppendLine($"<meta name=\"robots\" content=\"{ MetaRobots(content) }\">");
+            sb.AppendLine($"<meta name=\"description\" content=\"{ content.MetaDescription }\">");
+        }
+        else if (meta)
+        {
+            sb.AppendLine($"<meta name=\"robots\" content=\"{ MetaRobots(content) }\">");
         }
 
         if (generator)
@@ -87,10 +88,10 @@ public static class PiranhaHtmlExtensions
                 // default to the primary image.
                 sb.AppendLine($"<meta property=\"og:image\" content=\"{ app.AbsoluteContentUrl(contentBase.PrimaryImage) }\">");
             }
-            if (!string.IsNullOrWhiteSpace(OgDescription(content)))
-            {
-                sb.AppendLine($"<meta property=\"og:description\" content=\"{ OgDescription(content) }\">");
-            }
+        }
+        if (opengraph && !string.IsNullOrWhiteSpace(OgDescription(content)))
+        {
+            sb.AppendLine($"<meta property=\"og:description\" content=\"{ OgDescription(content) }\">");
         }
         return new HtmlString(sb.ToString());
     }

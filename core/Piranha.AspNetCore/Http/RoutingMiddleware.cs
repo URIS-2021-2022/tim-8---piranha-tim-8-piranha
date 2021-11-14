@@ -54,7 +54,7 @@ namespace Piranha.AspNetCore.Http
             if (!IsHandled(context) && !IsManagerRequest(context.Request.Path.Value))
             {
                 var url = context.Request.Path.HasValue ? context.Request.Path.Value : "";
-                var segments = !string.IsNullOrEmpty(url) ? url.Substring(1).Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries) : new string[] { };
+                var segments = !string.IsNullOrEmpty(url) ? url.Substring(1).Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries) : Array.Empty<string>();
                 int pos = 0;
 
                 _logger?.LogDebug($"Url: [{ url }]");
@@ -267,7 +267,7 @@ namespace Piranha.AspNetCore.Http
                         route.Append(post.Route ?? "/post");
                         for (var n = pos; n < segments.Length; n++)
                         {
-                            route.Append("/");
+                            route.Append('/');
                             route.Append(segments[n]);
                         }
 
@@ -453,7 +453,8 @@ namespace Piranha.AspNetCore.Http
                         context.Request.QueryString =
                             new QueryString(context.Request.QueryString.Value + "&" + strQuery);
                     }
-                    else {
+                    else
+                    {
                         context.Request.QueryString =
                             new QueryString("?" + strQuery);
                     }
@@ -517,7 +518,7 @@ namespace Piranha.AspNetCore.Http
         /// <param name="site">The site</param>
         /// <param name="hostname">The requested host</param>
         /// <returns>The hostname split into host and prefix</returns>
-        private string[] GetMatchingHost(Site site, string hostname)
+        private static string[] GetMatchingHost(Site site, string hostname)
         {
             var result = new string[2];
 

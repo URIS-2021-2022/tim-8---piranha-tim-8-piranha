@@ -42,12 +42,11 @@ namespace Piranha.WebApi
         [Route("{id:Guid?}")]
         public async Task<IActionResult> GetById(Guid? id = null)
         {
-            if (!Module.AllowAnonymousAccess)
+            if (!Module.AllowAnonymousAccess && !(await _auth.AuthorizeAsync(User, Permissions.Sitemap)).Succeeded)
             {
-                if (!(await _auth.AuthorizeAsync(User, Permissions.Sitemap)).Succeeded)
-                {
+               
                     return Unauthorized();
-                }
+       
             }
             return Json(await _api.Sites.GetSitemapAsync(id));
         }

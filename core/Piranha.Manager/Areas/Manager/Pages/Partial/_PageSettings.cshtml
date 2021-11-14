@@ -37,7 +37,7 @@
                         <label>@Localizer.Content["Primary image"]</label>
                         <div class="block image-block primary-image primary-image-modal" :class="{ readonly: isCopy}">
                             <div class="block-body has-media-picker rounded" :class="{ empty: primaryImage.id === null }">
-                                <img class="rounded" :src="primaryImageUrl">
+                                <img class="rounded" :src="primaryImageUrl" alt="Primary image">
                                 <div class="media-picker">
                                     <div class="btn-group float-right">
                                         <button v-on:click.prevent="selectPrimaryImage" class="btn btn-primary text-center">
@@ -95,7 +95,7 @@
                                 <div class="input-group">
                                     <input class="form-control" type="time" v-model="publishedTime">
                                     <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                        <span class="input-group-text"><em class="fas fa-clock"></em></span>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                             <label><strong>@Localizer.Content["Meta priority"]</strong></label>
                             <span class="ml-auto">{{ metaPriorityDescription }}</span>
                         </div>
-                        <input v-model="metaPriority" type="range"  class="custom-range" min="0" max="1" step="0.1">
+                        <input v-model="metaPriority" type="range" class="custom-range" min="0" max="1" step="0.1">
                         <small>@Localizer.Content["Search engine priority, compared to other content in the same site."]</small>
                     </div>
                 </div>
@@ -247,8 +247,10 @@
                     <div class="form-group">
                         <label>@Localizer.General["Redirect Type"]</label>
                         <select v-model="redirectType" class="form-control" :disabled="redirectUrl === null || redirectUrl.length === 0">
-                            <option v-if="redirectUrl !== null && redirectUrl.length > 0" value="Permanent">@Localizer.General["Permanent"]</option><option v-else value="Permanent"></option>
-                            <option v-if="redirectUrl !== null && redirectUrl.length > 0" value="Temporary">@Localizer.General["Temporary"]</option><option v-else value="Temporary"></option>
+                            <option v-if="redirectUrl !== null && redirectUrl.length > 0" value="Permanent">@Localizer.General["Permanent"]</option>
+                            <option v-else value="Permanent"></option>
+                            <option v-if="redirectUrl !== null && redirectUrl.length > 0" value="Temporary">@Localizer.General["Temporary"]</option>
+                            <option v-else value="Temporary"></option>
                         </select>
                     </div>
                     <div v-if="permissions.length > 0">

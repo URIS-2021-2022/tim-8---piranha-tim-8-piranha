@@ -30,6 +30,7 @@ namespace Piranha.Azure
         /// ensure uniqueness.
         /// </summary>
         private readonly BlobStorageNaming _naming;
+        private bool disposedValue;
 
         /// <summary>
         /// Creates a new Blog Storage service from the given credentials.
@@ -73,12 +74,12 @@ namespace Piranha.Azure
         /// Gets the public URL for the given media object.
         /// </summary>
         /// <param name="media">The media file</param>
-        /// <param name="id">The resource id</param>
+        /// <param name="filename">The resource id</param>
         /// <returns>The public url</returns>
-        public string GetPublicUrl(Media media, string id)
+        public string GetPublicUrl(Media media, string filename)
         {
-            return media == null || string.IsNullOrWhiteSpace(id) ? null : 
-                $"{ _blobContainerClient.Uri.AbsoluteUri }/{ GetResourceName(media, id, true) }";
+            return media == null || string.IsNullOrWhiteSpace(filename) ? null : 
+                $"{ _blobContainerClient.Uri.AbsoluteUri }/{ GetResourceName(media, filename, true) }";
         }
 
         /// <summary>
@@ -101,9 +102,16 @@ namespace Piranha.Azure
         /// <returns>The public url</returns>
         public string GetResourceName(Media media, string filename, bool encode)
         {
-            return _naming == BlobStorageNaming.UniqueFileNames ? 
-                $"{ media.Id }-{ (encode ? System.Web.HttpUtility.UrlPathEncode(filename) : filename) }" : 
-                $"{ media.Id }/{ (encode ? System.Web.HttpUtility.UrlPathEncode(filename) : filename) }";
+                
+
+            if(_naming == BlobStorageNaming.UniqueFileNames)
+            {
+                return $"{ media.Id }-{ (encode ? System.Web.HttpUtility.UrlPathEncode(filename) : filename) }";
+            }
+            else
+            {
+                return $"{ media.Id }/{ (encode ? System.Web.HttpUtility.UrlPathEncode(filename) : filename) }";
+            }
         }
 
         /// <summary>
@@ -172,11 +180,29 @@ namespace Piranha.Azure
             _blobContainerClient.CreateIfNotExists(PublicAccessType.Blob);
         }
 
-        /// <summary>
-        /// Disposes the session.
-        /// </summary>
+       
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects)
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+                // TODO: set large fields to null
+                disposedValue = true;
+            }
+        }
+
+        // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+        
+
         public void Dispose()
         {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
     }

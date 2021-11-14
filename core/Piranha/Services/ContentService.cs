@@ -141,7 +141,7 @@ namespace Piranha.Services
             }
             else
             {
-                model = null; // TODO: _cache?.Get<T>(id.ToString());
+                model =  _cache?.Get<T>(id.ToString());
             }
 
             // If we have a model, let's initialize it
@@ -160,14 +160,18 @@ namespace Piranha.Services
             // If we don't have a model, get it from the repository
             if (model == null)
             {
-                model = await _repo.GetById<T>(id, languageId.Value).ConfigureAwait(false);
+                if (languageId.HasValue)
+                {
+                    model = await _repo.GetById<T>(id, languageId.Value).ConfigureAwait(false);
 
-                await OnLoadAsync(model).ConfigureAwait(false);
+                    await OnLoadAsync(model).ConfigureAwait(false);
+                }
+               
             }
 
             // Check that we got back the requested type from the
             // repository
-            if (model != null && model is T)
+            if (model is T)
             {
                 return model;
             }
@@ -247,20 +251,20 @@ namespace Piranha.Services
             Validator.ValidateObject(model, context, true);
 
             // Ensure category
-            if (type.UseCategory)
+            if (type.UseCategory && model is ICategorizedContent categorizedModel)
             {
-                if (model is ICategorizedContent categorizedModel)
+                if (categorizedModel.Category == null || (string.IsNullOrWhiteSpace(categorizedModel.Category.Title) && string.IsNullOrWhiteSpace(categorizedModel.Category.Slug)))
                 {
-                    if (categorizedModel.Category == null || (string.IsNullOrWhiteSpace(categorizedModel.Category.Title) && string.IsNullOrWhiteSpace(categorizedModel.Category.Slug)))
-                    {
-                        throw new ValidationException("The Category field is required");
-                    }
+                    throw new ValidationException("The Category field is required");
                 }
             }
 
             // Call hooks and save
             App.Hooks.OnBeforeSave<GenericContent>(model);
-            await _repo.Save(model, languageId.Value);
+            if (languageId.HasValue)
+            {
+                await _repo.Save(model, languageId.Value);
+            }
             App.Hooks.OnAfterSave<GenericContent>(model);
 
             // Remove from cache
@@ -324,7 +328,7 @@ namespace Piranha.Services
             }
 
             // Initialize primary image
-             if (model.PrimaryImage == null)
+            if (model.PrimaryImage == null)
             {
                 model.PrimaryImage = new Extend.Fields.ImageField();
             }

@@ -160,6 +160,66 @@ namespace Piranha.Repositories
         }
 
         /// <summary>
+        /// Gets the comments available for the post with the specified id. If no post id
+        /// is provided all comments are fetched.
+        /// </summary>
+        /// <param name="postId">The unique post id</param>
+        /// <param name="onlyApproved">If only approved comments should be fetched</param>
+        /// <param name="onlyPending">If only pending comments should be fetched</param>
+        /// <param name="page">The page number</param>
+        /// <param name="pageSize">The page size</param>
+        /// <returns>The available comments</returns>
+        public async Task<IEnumerable<Models.Comment>> GetAllComments(Guid? postId, bool onlyApproved,
+            bool onlyPending, int page, int pageSize)
+        {
+            // Create base query
+            IQueryable<PostComment> query = _db.PostComments
+                .AsNoTracking();
+
+            // Check if only should include a comments for a certain post
+            if (postId.HasValue)
+            {
+                query = query.Where(c => c.PostId == postId.Value);
+            }
+
+            // Check if we should only include approved
+            if (onlyPending)
+            {
+                query = query.Where(c => !c.IsApproved);
+            }
+            else if (onlyApproved)
+            {
+                query = query.Where(c => c.IsApproved);
+            }
+
+            // Order the comments by date
+            query = query.OrderByDescending(c => c.Created);
+
+            // Check if this is a paged query
+            if (pageSize > 0)
+            {
+                query = query
+                    .Skip(page * pageSize)
+                    .Take(pageSize);
+            }
+
+            // Get the comments
+            return await query
+                .Select(c => new Models.PostComment
+                {
+                    Id = c.Id,
+                    ContentId = c.PostId,
+                    UserId = c.UserId,
+                    Author = c.Author,
+                    Email = c.Email,
+                    Url = c.Url,
+                    IsApproved = c.IsApproved,
+                    Body = c.Body,
+                    Created = c.Created
+                }).ToListAsync().ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// Gets the pending comments available for the post with the specified id.
         /// </summary>
         /// <param name="postId">The unique post id</param>
@@ -464,11 +524,11 @@ namespace Piranha.Repositories
             if (model != null)
             {
                 // Remove all blocks that are not reusable
-                foreach (var postBlock in model.Blocks)
+                foreach (var postBlock in model.Blocks.Select(p => p.Block))
                 {
-                    if (!postBlock.Block.IsReusable)
+                    if (!postBlock.IsReusable)
                     {
-                        _db.Blocks.Remove(postBlock.Block);
+                        _db.Blocks.Remove(postBlock);
                     }
                 }
 
@@ -532,66 +592,6 @@ namespace Piranha.Repositories
                 _db.PostComments.Remove(comment);
                 await _db.SaveChangesAsync().ConfigureAwait(false);
             }
-        }
-
-        /// <summary>
-        /// Gets the comments available for the post with the specified id. If no post id
-        /// is provided all comments are fetched.
-        /// </summary>
-        /// <param name="postId">The unique post id</param>
-        /// <param name="onlyApproved">If only approved comments should be fetched</param>
-        /// <param name="onlyPending">If only pending comments should be fetched</param>
-        /// <param name="page">The page number</param>
-        /// <param name="pageSize">The page size</param>
-        /// <returns>The available comments</returns>
-        public async Task<IEnumerable<Models.Comment>> GetAllComments(Guid? postId, bool onlyApproved,
-            bool onlyPending, int page, int pageSize)
-        {
-            // Create base query
-            IQueryable<PostComment> query = _db.PostComments
-                .AsNoTracking();
-
-            // Check if only should include a comments for a certain post
-            if (postId.HasValue)
-            {
-                query = query.Where(c => c.PostId == postId.Value);
-            }
-
-            // Check if we should only include approved
-            if (onlyPending)
-            {
-                query = query.Where(c => !c.IsApproved);
-            }
-            else if (onlyApproved)
-            {
-                query = query.Where(c => c.IsApproved);
-            }
-
-            // Order the comments by date
-            query = query.OrderByDescending(c => c.Created);
-
-            // Check if this is a paged query
-            if (pageSize > 0)
-            {
-                query = query
-                    .Skip(page * pageSize)
-                    .Take(pageSize);
-            }
-
-            // Get the comments
-            return await query
-                .Select(c => new Models.PostComment
-                {
-                    Id = c.Id,
-                    ContentId = c.PostId,
-                    UserId = c.UserId,
-                    Author = c.Author,
-                    Email = c.Email,
-                    Url = c.Url,
-                    IsApproved = c.IsApproved,
-                    Body = c.Body,
-                    Created = c.Created
-                }).ToListAsync().ConfigureAwait(false);
         }
 
         /// <summary>
@@ -1075,23 +1075,20 @@ namespace Piranha.Repositories
             model.CloseCommentsAfterDays = post.CloseCommentsAfterDays;
 
             // Blocks
-            if (!(model is Models.IContentInfo))
+            if (!(model is Models.IContentInfo) && post.Blocks.Count >0)
             {
-                if (post.Blocks.Count > 0)
+                foreach (var postBlock in post.Blocks.OrderBy(b => b.SortOrder))
                 {
-                    foreach (var postBlock in post.Blocks.OrderBy(b => b.SortOrder))
+                    if (postBlock.Block.ParentId.HasValue)
                     {
-                        if (postBlock.Block.ParentId.HasValue)
+                        var parent = post.Blocks.FirstOrDefault(b => b.BlockId == postBlock.Block.ParentId.Value);
+                        if (parent != null)
                         {
-                            var parent = post.Blocks.FirstOrDefault(b => b.BlockId == postBlock.Block.ParentId.Value);
-                            if (parent != null)
-                            {
-                                postBlock.Block.ParentId = parent.Block.Id;
-                            }
+                            postBlock.Block.ParentId = parent.Block.Id;
                         }
                     }
-                    model.Blocks = _contentService.TransformBlocks(post.Blocks.OrderBy(b => b.SortOrder).Select(b => b.Block));
                 }
+                model.Blocks = _contentService.TransformBlocks(post.Blocks.OrderBy(b => b.SortOrder).Select(b => b.Block));
             }
         }
     }

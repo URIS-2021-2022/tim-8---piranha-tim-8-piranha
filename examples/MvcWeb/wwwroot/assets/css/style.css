@@ -3,7 +3,9 @@
   background-position: 50% 50%; }
 
 header {
-  padding: 1rem 0; }
+    color: #fff;
+    padding: 1rem 0;
+}
   header h1 + .lead {
     margin: 2rem 0; }
   header.site-header.site-header-dark {
@@ -39,7 +41,10 @@ header {
   white-space: nowrap; }
 
 .post-header img {
-  margin-top: 2rem; }
+    margin-top: 2rem;
+    border: solid .3rem #fff;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
 
 .post-header .tag {
   margin-right: 1rem; }
@@ -53,8 +58,7 @@ header {
 body {
   font-family: 'Montserrat', sans-serif; }
 
-header {
-  color: #fff; }
+
   header.site-header {
     padding: 0;
     position: absolute;
@@ -118,8 +122,4 @@ header {
   transition: color ease-in-out .15s; }
   .archive-item h2 a:hover {
     transition: color ease-in-out .15s; }
-
-.post-header img {
-  border: solid .3rem #fff;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15); }
 

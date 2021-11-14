@@ -10,33 +10,38 @@
 
 using Piranha;
 using Piranha.AspNetCore;
+using TinyExtension;
 
-/// <summary>
-/// Extension class for adding TinyMCE to the web application.
-/// </summary>
-public static class TinyMCEStartupExtensions
+namespace Piranha.Manager.TinyMCE
 {
-    /// <summary>
-    /// Adds the Tiny MCE editor module if simple startup is used.
-    /// </summary>
-    /// <param name="serviceBuilder">The service builder</param>
-    /// <returns>The updated builder</returns>
-    public static PiranhaServiceBuilder UseTinyMCE(this PiranhaServiceBuilder serviceBuilder)
-    {
-        serviceBuilder.Services.AddPiranhaTinyMCE();
-
-        return serviceBuilder;
-    }
 
     /// <summary>
-    /// Uses the Tiny MCE editor module if simple startup is used.
+    /// Extension class for adding TinyMCE to the web application.
     /// </summary>
-    /// <param name="applicationBuilder">The application builder</param>
-    /// <returns>The updated builder</returns>
-    public static PiranhaApplicationBuilder UseTinyMCE(this PiranhaApplicationBuilder applicationBuilder)
+    public static class TinyMceStartupExtensions
     {
-        applicationBuilder.Builder.UsePiranhaTinyMCE();
+        /// <summary>
+        /// Adds the Tiny MCE editor module if simple startup is used.
+        /// </summary>
+        /// <param name="serviceBuilder">The service builder</param>
+        /// <returns>The updated builder</returns>
+        public static PiranhaServiceBuilder UseTinyMCE(this PiranhaServiceBuilder serviceBuilder)
+        {
+            serviceBuilder.Services.AddPiranhaTinyMCE();
 
-        return applicationBuilder;
+            return serviceBuilder;
+        }
+
+        /// <summary>
+        /// Uses the Tiny MCE editor module if simple startup is used.
+        /// </summary>
+        /// <param name="applicationBuilder">The application builder</param>
+        /// <returns>The updated builder</returns>
+        public static PiranhaApplicationBuilder UseTinyMCE(this PiranhaApplicationBuilder applicationBuilder)
+        {
+            applicationBuilder.Builder.UsePiranhaTinyMCE();
+
+            return applicationBuilder;
+        }
     }
 }

@@ -34,7 +34,7 @@ namespace Piranha.Models
         /// <summary>
         /// Gets/sets the options.
         /// </summary>
-        public FieldOption Options { get; set; }
+        public FieldOptions Options { get; set; }
 
         /// <summary>
         /// Gets/sets the optional placeholder for
@@ -51,6 +51,11 @@ namespace Piranha.Models
         /// <summary>
         /// Gets/sets the available field settings.
         /// </summary>
-        public IDictionary<string, object> Settings = new Dictionary<string, object>();
+        private IDictionary<string, object> settings = new Dictionary<string, object>();
+        public IDictionary<string, object> Settings
+        {
+            get { return settings; }
+            set { settings = value; }
+        }
     }
 }

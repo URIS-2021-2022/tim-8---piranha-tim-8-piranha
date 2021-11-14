@@ -9,6 +9,7 @@
  */
 
 using Piranha.Extend;
+using System;
 
 namespace Piranha.Local
 {
@@ -52,6 +53,7 @@ namespace Piranha.Local
         /// </summary>
         public void Init()
         {
+            //I tried to put throw new exception but it didn't work!
         }
     }
 }

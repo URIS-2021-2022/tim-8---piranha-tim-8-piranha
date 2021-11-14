@@ -1,5 +1,7 @@
 <template>
+    <ul>
     <li class="dd-item" :class="{ expanded: item.isExpanded || item.items.length === 0 }">
+        </ul>
         <div class="sitemap-item expanded">
             <div class="link" :class="{ readonly: item.isCopy }">
                 <a v-if="!item.isCopy && piranha.pagelist.addPageId !== null" :href="piranha.baseUrl + 'manager/page/copyrelative/' + item.id + '/' + piranha.pagelist.addPageId + '/' + piranha.pagelist.addAfter">

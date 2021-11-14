@@ -10,7 +10,6 @@ export default {
     props: ["uid", "model"],
     methods: {
         onBlur: function (e) {
-            // this.model.body.value = e.target.innerHTML;
 
             // Tell parent that title has been updated
             var title = this.model.body.value.replace(/(<([^>]+)>)/ig, "");

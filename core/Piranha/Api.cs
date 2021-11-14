@@ -17,7 +17,7 @@ namespace Piranha
     /// <summary>
     /// The main application api.
     /// </summary>
-    public sealed class Api : IApi, IDisposable
+    public sealed class Api : IApi
     {
         /// <summary>
         /// The private model cache.

@@ -91,14 +91,11 @@ namespace Piranha.Services
                     var block = (Extend.Block)Activator.CreateInstance(blockType.Type);
                     block.Type = typeName;
 
-                    foreach (var prop in blockType.Type.GetProperties(App.PropertyBindings))
+                    foreach (var prop in blockType.Type.GetProperties(App.PropertyBindings).Select(prop => prop).Where(prop => typeof(Extend.IField).IsAssignableFrom(prop.PropertyType)))
                     {
-                        if (typeof(Extend.IField).IsAssignableFrom(prop.PropertyType))
-                        {
-                            var field = Activator.CreateInstance(prop.PropertyType);
-                            await InitFieldAsync(scope, field, managerInit).ConfigureAwait(false);
-                            prop.SetValue(block, field);
-                        }
+                        var field = Activator.CreateInstance(prop.PropertyType);
+                        await InitFieldAsync(scope, field, managerInit).ConfigureAwait(false);
+                        prop.SetValue(block, field);
                     }
                     return block;
                 }
@@ -331,13 +328,18 @@ namespace Piranha.Services
         /// <param name="managerInit">If this is initialization used by the manager</param>
         /// <typeparam name="T">The model type</typeparam>
         /// <returns>The initialized model</returns>
-        private async Task<T> InitAsync<T>(T model, ContentTypeBase type, bool managerInit) where T : ContentBase
+        private Task<T> InitAsync<T>(T model, ContentTypeBase type, bool managerInit) where T : ContentBase
         {
             if (model is IDynamicContent)
             {
                 throw new ArgumentException("For dynamic models InitDynamic should be used.");
             }
 
+            return InitAsyncWrapped<T>(model, type, managerInit);
+        }
+
+        private async Task<T> InitAsyncWrapped<T>(T model, ContentTypeBase type, bool managerInit) where T : ContentBase
+        {
             using (var scope = _services.CreateScope())
             {
                 foreach (var regionType in type.Regions)
@@ -362,6 +364,8 @@ namespace Piranha.Services
                         }
                     }
                 }
+
+
 
                 if (!(model is IContentInfo) && model is IBlockContent blockModel)
                 {
@@ -461,16 +465,13 @@ namespace Piranha.Services
                 var properties = block.GetType().GetProperties(App.PropertyBindings);
 
                 // Initialize all of the fields
-                foreach (var property in properties)
+                foreach (var property in properties.Where(x => typeof(Extend.IField).IsAssignableFrom(x.PropertyType)))
                 {
-                    if (typeof(Extend.IField).IsAssignableFrom(property.PropertyType))
-                    {
-                        var field = property.GetValue(block);
+                    var field = property.GetValue(block);
 
-                        if (field != null)
-                        {
-                            await InitFieldAsync(scope, field, managerInit).ConfigureAwait(false);
-                        }
+                    if (field != null)
+                    {
+                        await InitFieldAsync(scope, field, managerInit).ConfigureAwait(false);
                     }
                 }
 
@@ -504,26 +505,23 @@ namespace Piranha.Services
                     }
                     return field;
                 }
+                return Task.FromResult<object>(null);
             }
-            else
-            {
-                var reg = new ExpandoObject();
+            var reg = new ExpandoObject();
 
-                foreach (var fieldType in regionType.Fields)
+            foreach (var fieldType in regionType.Fields)
+            {
+                var field = CreateField(fieldType);
+                if (field != null)
                 {
-                    var field = CreateField(fieldType);
-                    if (field != null)
+                    if (initFields)
                     {
-                        if (initFields)
-                        {
-                            await InitFieldAsync(scope, field, managerInit).ConfigureAwait(false);
-                        }
-                        ((IDictionary<string, object>)reg).Add(fieldType.Id, field);
+                        await InitFieldAsync(scope, field, managerInit).ConfigureAwait(false);
                     }
+                    ((IDictionary<string, object>)reg).Add(fieldType.Id, field);
                 }
-                return reg;
             }
-            return null;
+            return reg;
         }
 
         /// <summary>

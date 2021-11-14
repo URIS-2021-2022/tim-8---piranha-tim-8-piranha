@@ -7,49 +7,55 @@
  * https://github.com/piranhacms/piranha.core
  *
  */
-
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
-using Piranha.Manager.Editor;
-
-/// <summary>
-/// Extension class for adding TinyMCE to the web application.
-/// </summary>
-public static class TinyMCEExtensions
+namespace TinyExtension
 {
-    /// <summary>
-    /// Adds the Tiny MCE editor module.
-    /// </summary>
-    /// <param name="services">The current service collection</param>
-    /// <returns>The services</returns>
-    public static IServiceCollection AddPiranhaTinyMCE(this IServiceCollection services) {
-        // Add the manager module
-        Piranha.App.Modules.Register<Piranha.Manager.TinyMCE.Module>();
 
-        // Return the service collection
-        return services;
-    }
+
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.FileProviders;
+    using Piranha.Manager.Editor;
 
     /// <summary>
-    /// Uses the Tiny MCE editor module.
+    /// Extension class for adding TinyMCE to the web application.
     /// </summary>
-    /// <param name="builder">The application builder</param>
-    /// <returns>The builder</returns>
-    public static IApplicationBuilder UsePiranhaTinyMCE(this IApplicationBuilder builder) {
-        //
-        // Register the editor scripts.
-        //
-        EditorScripts.MainScriptUrl = "~/manager/tiny/tinymce/tinymce.min.js";
-        EditorScripts.EditorScriptUrl = "~/manager/tiny/piranha.editor.js";
-
-        //
-        // Add the embedded resources
-        //
-        return builder.UseStaticFiles(new StaticFileOptions
+    public static class TinyMceExtensions
+    {
+        /// <summary>
+        /// Adds the Tiny MCE editor module.
+        /// </summary>
+        /// <param name="services">The current service collection</param>
+        /// <returns>The services</returns>
+        public static IServiceCollection AddPiranhaTinyMCE(this IServiceCollection services)
         {
-            FileProvider = new EmbeddedFileProvider(typeof(TinyMCEExtensions).Assembly, "Piranha.Manager.TinyMCE.assets"),
-            RequestPath = "/manager/tiny"
-        });
+            // Add the manager module
+            Piranha.App.Modules.Register<Piranha.Manager.TinyMCE.Module>();
+
+            // Return the service collection
+            return services;
+        }
+
+        /// <summary>
+        /// Uses the Tiny MCE editor module.
+        /// </summary>
+        /// <param name="builder">The application builder</param>
+        /// <returns>The builder</returns>
+        public static IApplicationBuilder UsePiranhaTinyMCE(this IApplicationBuilder builder)
+        {
+            //
+            // Register the editor scripts.
+            //
+            EditorScripts.MainScriptUrl = "~/manager/tiny/tinymce/tinymce.min.js";
+            EditorScripts.EditorScriptUrl = "~/manager/tiny/piranha.editor.js";
+
+            //
+            // Add the embedded resources
+            //
+            return builder.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new EmbeddedFileProvider(typeof(TinyMceExtensions).Assembly, "Piranha.Manager.TinyMCE.assets"),
+                RequestPath = "/manager/tiny"
+            });
+        }
     }
 }

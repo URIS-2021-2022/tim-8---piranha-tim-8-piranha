@@ -32,6 +32,17 @@ public static class PiranhaUrlExtensions
     }
 
     /// <summary>
+    /// Generates an absolute url for the given slug.
+    /// </summary>
+    /// <param name="app">The current application service</param>
+    /// <param name="slug">The slug</param>
+    /// <returns>The url</returns>
+    public static string AbsoluteUrl(this IApplicationService app, string slug)
+    {
+        return $"{ AbsoluteUrlStart(app) }{ Url(app, slug) }";
+    }
+
+    /// <summary>
     /// Generates an absolute url for the given page block.
     /// </summary>
     /// <param name="app">The application service</param>
@@ -246,17 +257,6 @@ public static class PiranhaUrlExtensions
     }
 
     /// <summary>
-    /// Generates an absolute url for the given slug.
-    /// </summary>
-    /// <param name="app">The current application service</param>
-    /// <param name="slug">The slug</param>
-    /// <returns>The url</returns>
-    public static string AbsoluteUrl(this IApplicationService app, string slug)
-    {
-        return $"{ AbsoluteUrlStart(app) }{ Url(app, slug) }";
-    }
-
-    /// <summary>
     /// Generates an absolute url for the given content.
     /// </summary>
     /// <param name="app">The current application service</param>
@@ -288,7 +288,7 @@ public static class PiranhaUrlExtensions
         sb.Append(app.Request.Host);
         if (app.Request.Port.HasValue)
         {
-            sb.Append(":");
+            sb.Append(':');
             sb.Append(app.Request.Port.ToString());
         }
         return sb.ToString();

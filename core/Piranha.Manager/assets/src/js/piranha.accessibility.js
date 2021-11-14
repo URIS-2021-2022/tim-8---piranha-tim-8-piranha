@@ -1,6 +1,4 @@
-/*global
-    piranha
-*/
+
 
 piranha.accessibility = new function () {
     "use strict";
@@ -51,7 +49,7 @@ piranha.accessibility = new function () {
     // Keyboard Shortcuts
     //
     $(window).on("keydown", function (e) {
-        var menu = $(".main-nav");
+        
 
         // Function key
         if (e.altKey) {

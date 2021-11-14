@@ -279,9 +279,9 @@ piranha.contentedit = new Vue({
             }
         },
         updateBlockTitle: function (e) {
-            for (var n = 0; n < this.blocks.length; n++) {
-                if (this.blocks[n].meta.uid === e.uid) {
-                    this.blocks[n].meta.title = e.title;
+            for (var block of this.blocks) {
+                if (block.meta.uid === e.uid) {
+                    block.meta.title = e.title;
                     break;
                 }
             }

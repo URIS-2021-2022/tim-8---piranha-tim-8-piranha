@@ -133,7 +133,7 @@ namespace Piranha.Runtime
         /// <summary>
         /// Delegate for repository events.
         /// </summary>
-        public delegate void ModelDelegate<T>(T model);
+        public delegate void ModelDelegate<in T>(T model);
 
         /// <summary>
         /// Delegate for generating a slug.

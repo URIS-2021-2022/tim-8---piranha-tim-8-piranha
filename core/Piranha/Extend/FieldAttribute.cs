@@ -32,7 +32,7 @@ namespace Piranha.Extend
         /// <summary>
         /// Gets/sets the field options.
         /// </summary>
-        public FieldOption Options { get; set; }
+        public FieldOptions Options { get; set; }
 
         /// <summary>
         /// Gets/sets the optional placeholder for

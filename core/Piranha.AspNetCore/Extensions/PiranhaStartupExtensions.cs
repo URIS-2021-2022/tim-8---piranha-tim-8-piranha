@@ -16,45 +16,50 @@ using Piranha.AspNetCore;
 using Piranha.AspNetCore.Hosting;
 using Piranha.Security;
 
-/// <summary>
-/// Extensions methods for setting up Piranha in Configure
-/// and ConfigureServices.
-/// </summary>
-public static class PiranhaStartupExtensions
+namespace Space
 {
     /// <summary>
-    /// Adds the services needed to run a Piranha client application.
+    /// Extensions methods for setting up Piranha in Configure
+    /// and ConfigureServices.
     /// </summary>
-    /// <param name="serviceBuilder">The current service builder</param>
-    /// <param name="options">The optional routing options</param>
-    /// <returns>The updated service builder</returns>
-    public static PiranhaServiceBuilder UseCms(this PiranhaServiceBuilder serviceBuilder,
-        Action<RoutingOptions> options = null)
+    public static class PiranhaStartupExtensions
     {
-        serviceBuilder.Services.AddControllersWithViews();
-        var mvcBuilder = serviceBuilder.Services.AddRazorPages();
-        if (serviceBuilder.AddRazorRuntimeCompilation)
+        /// <summary>
+        /// Adds the services needed to run a Piranha client application.
+        /// </summary>
+        /// <param name="serviceBuilder">The current service builder</param>
+        /// <param name="options">The optional routing options</param>
+        /// <returns>The updated service builder</returns>
+        public static PiranhaServiceBuilder UseCms(this PiranhaServiceBuilder serviceBuilder,
+            Action<RoutingOptions> options = null)
         {
-            mvcBuilder.AddRazorRuntimeCompilation();
-        }
-        serviceBuilder.Services
-            .AddScoped<Piranha.AspNetCore.Services.IApplicationService, Piranha.AspNetCore.Services.ApplicationService>()
-            .AddScoped<Piranha.AspNetCore.Services.IModelLoader, Piranha.AspNetCore.Services.ModelLoader>()
-            .AddAuthorization(o =>
+            serviceBuilder.Services.AddControllersWithViews();
+            var mvcBuilder = serviceBuilder.Services.AddRazorPages();
+            if (serviceBuilder.AddRazorRuntimeCompilation)
             {
-                o.AddPolicy(Permission.PagePreview, policy =>
+                mvcBuilder.AddRazorRuntimeCompilation();
+            }
+            serviceBuilder.Services
+                .AddScoped<Piranha.AspNetCore.Services.IApplicationService, Piranha.AspNetCore.Services.ApplicationService>()
+                .AddScoped<Piranha.AspNetCore.Services.IModelLoader, Piranha.AspNetCore.Services.ModelLoader>()
+                .AddAuthorization(o =>
                 {
-                    policy.RequireClaim(Permission.PagePreview, Permission.PagePreview);
+                    o.AddPolicy(Permission.PagePreview, policy =>
+                    {
+                        policy.RequireClaim(Permission.PagePreview, Permission.PagePreview);
+                    });
+                    o.AddPolicy(Permission.PostPreview, policy =>
+                    {
+                        policy.RequireClaim(Permission.PostPreview, Permission.PostPreview);
+                    });
                 });
-                o.AddPolicy(Permission.PostPreview, policy =>
-                {
-                    policy.RequireClaim(Permission.PostPreview, Permission.PostPreview);
-                });
-            });
 
-        serviceBuilder.Services.AddTransient<IStartupFilter, PiranhaStartupFilter>();
-        serviceBuilder.Services.Configure<RoutingOptions>(o => options?.Invoke(o));
+            serviceBuilder.Services.AddTransient<IStartupFilter, PiranhaStartupFilter>();
+            serviceBuilder.Services.Configure<RoutingOptions>(o => options?.Invoke(o));
 
-        return serviceBuilder;
+            return serviceBuilder;
+        }
     }
 }
+
+

@@ -96,6 +96,11 @@ namespace Piranha.Services
             return GetAllAsync<DynamicPost>(blogId, index, pageSize);
         }
 
+        public Task<IEnumerable<DynamicPost>> GetAllAsync(string slug, Guid? siteId = null)
+        {
+            return GetAllAsync<DynamicPost>(slug, siteId);
+        }
+
         /// <summary>
         /// Gets the available post items.
         /// </summary>
@@ -170,10 +175,7 @@ namespace Piranha.Services
         /// <param name="slug">The blog slug</param>
         /// <param name="siteId">The optional site id</param>
         /// <returns>The posts</returns>
-        public Task<IEnumerable<DynamicPost>> GetAllAsync(string slug, Guid? siteId = null)
-        {
-            return GetAllAsync<DynamicPost>(slug, siteId);
-        }
+        
 
         /// <summary>
         /// Gets the available posts for the specified blog.
@@ -365,7 +367,7 @@ namespace Piranha.Services
                 }
             }
 
-            if (model != null && model is T)
+            if (model is T)
             {
                 return (T)model;
             }
@@ -901,7 +903,7 @@ namespace Piranha.Services
                 }
             }
 
-            if (model != null && model is T)
+            if (model is T)
             {
                 return (T)model;
             }

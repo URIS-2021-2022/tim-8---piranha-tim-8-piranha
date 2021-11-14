@@ -165,7 +165,7 @@ namespace Piranha.AspNetCore.Services
         /// </summary>
         /// <param name="site">The site</param>
         /// <returns>The hostname split into host and prefix</returns>
-        private string[] GetFirstHost(Site site)
+        private static string[] GetFirstHost(Site site)
         {
             var result = new string[2];
 

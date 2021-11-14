@@ -19,7 +19,7 @@
             @if ((await Auth.AuthorizeAsync(User, Piranha.AspNetCore.Identity.Permissions.RolesAdd)).Succeeded)
             {
                 <a href="@Url.Action("Add")" class="btn btn-labeled btn-primary pull-right">
-                    <i class="fas fa-plus"></i>@Localizer.General["Add"]
+                    <em class="fas fa-plus"></em>@Localizer.General["Add"]
                 </a>
             }
         </div>
@@ -28,6 +28,7 @@
 
 <div class="container-fluid">
     <table class="table table-borderless">
+        <caption>Some table description.</caption>
         <thead>
             <tr>
                 <th>@Localizer.General["Name"]</th>

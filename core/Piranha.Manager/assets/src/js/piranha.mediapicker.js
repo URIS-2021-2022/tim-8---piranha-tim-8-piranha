@@ -1,7 +1,3 @@
-/*global
-    piranha
-*/
-
 piranha.mediapicker = new Vue({
     el: "#mediapicker",
     data: {
@@ -51,7 +47,7 @@ piranha.mediapicker = new Vue({
         load: function (id) {
             var self = this;
 
-            var url = piranha.baseUrl + "manager/api/media/list" + (id ? "/" + id : "")+"/?width=210&height=160";
+            var url = piranha.baseUrl + "manager/api/media/list" + (id ? "/" + id : "") + "/?width=210&height=160";
             if (self.filter) {
                 url += "&filter=" + self.filter;
             }
@@ -85,7 +81,7 @@ piranha.mediapicker = new Vue({
                         }
                     }
                 })
-                .catch(function (error) { console.log("error:", error ); });
+                .catch(function (error) { console.log("error:", error); });
         },
         getThumbnailUrl: function (item) {
             return item.altVersionUrl !== null ? item.altVersionUrl : piranha.baseUrl + "manager/api/media/url/" + item.id + "/210/160";
@@ -110,7 +106,7 @@ piranha.mediapicker = new Vue({
             if (filter) {
                 switch (filter.toLowerCase()) {
                     case "document":
-                        folderId = this.currentDocumentFolderId? this.currentDocumentFolderId : folderId;
+                        folderId = this.currentDocumentFolderId ? this.currentDocumentFolderId : folderId;
                         break;
                     case "image":
                         folderId = this.currentImageFolderId ? this.currentImageFolderId : folderId;
@@ -120,7 +116,7 @@ piranha.mediapicker = new Vue({
                         break;
                 }
             }
-            
+
             this.load(folderId);
 
             $("#mediapicker").modal("show");
@@ -154,28 +150,27 @@ piranha.mediapicker = new Vue({
                         name: self.folderName
                     })
                 })
-                .then(function (response) { return response.json(); })
-                .then(function (result) {
-                    if (result.status.type === "success")
-                    {
-                        // Clear input
-                        self.folderName = null;
+                    .then(function (response) { return response.json(); })
+                    .then(function (result) {
+                        if (result.status.type === "success") {
+                            // Clear input
+                            self.folderName = null;
 
-                        self.folders = result.folders;
-                        self.items = result.media;
-                    }
+                            self.folders = result.folders;
+                            self.items = result.media;
+                        }
 
-                    if (result.status !== 400) {
-                        // Push status to notification hub
-                        piranha.notifications.push(result.status);
-                    } else {
-                        // Unauthorized request
-                        piranha.notifications.unauthorized();
-                    }
-                })
-                .catch(function (error) {
-                    console.log("error:", error);
-                });
+                        if (result.status !== 400) {
+                            // Push status to notification hub
+                            piranha.notifications.push(result.status);
+                        } else {
+                            // Unauthorized request
+                            piranha.notifications.unauthorized();
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log("error:", error);
+                    });
             }
         }
     },
@@ -199,8 +194,8 @@ piranha.mediapicker = new Vue({
     }
 });
 
-$(document).ready(function() {
-    $("#mediapicker").on("shown.bs.modal", function() {
+$(document).ready(function () {
+    $("#mediapicker").on("shown.bs.modal", function () {
         $("#mediapickerSearch").trigger("focus");
     });
 });

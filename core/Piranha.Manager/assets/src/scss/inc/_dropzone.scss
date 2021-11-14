@@ -44,6 +44,7 @@
         }
 
         &.dz-complete {
+            color: silver;
         }
 
         &.dz-remove {
@@ -58,7 +59,6 @@
     margin: 0;
     overflow-y: auto;
     overflow-x: hidden;
-    width: 50%;
     margin-left: 1rem;
 
     transition: all .3s ease;
@@ -171,9 +171,6 @@
         .file-error {
             display: block;
         }
-    }
-
-    &.dz-complete {
     }
 
     &.dz-remove {

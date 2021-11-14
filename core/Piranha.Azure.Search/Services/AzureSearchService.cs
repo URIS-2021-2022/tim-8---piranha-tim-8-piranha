@@ -25,8 +25,8 @@ namespace Piranha.Azure.Search.Services
     /// </summary>
     public class AzureSearchService : ISearch
     {
-        private readonly string _serviceName = "";
-        private readonly string _apiKey = "";
+        private readonly string _serviceName;
+        private readonly string _apiKey;
 
         /// <summary>
         /// Default constructor.

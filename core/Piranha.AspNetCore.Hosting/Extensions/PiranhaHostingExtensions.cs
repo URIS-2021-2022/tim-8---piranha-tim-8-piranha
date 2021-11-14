@@ -12,30 +12,34 @@ using System;
 using Microsoft.AspNetCore.Builder;
 using Piranha.AspNetCore;
 
-/// <summary>
-/// Extensions methods for hosting Piranha in an ASP.NET
-/// application.
-/// </summary>
-public static class PiranhaHostingExtensions
+
+namespace PiranhaHostingExtensions
 {
     /// <summary>
-    /// Simple startup with integrated middleware that also adds common
-    /// dependencies needed for an integrated web application.
+    /// Extensions methods for hosting Piranha in an ASP.NET
+    /// application.
     /// </summary>
-    /// <param name="builder">The application builder</param>
-    /// <param name="options">Action for configuring the builder</param>
-    /// <returns>The updated application builder</returns>
-    public static IApplicationBuilder UsePiranha(this IApplicationBuilder builder, Action<PiranhaApplicationBuilder> options)
+    public static class PiranhaHostingExtensions
     {
-        var applicationBuilder = new PiranhaApplicationBuilder(builder);
+        /// <summary>
+        /// Simple startup with integrated middleware that also adds common
+        /// dependencies needed for an integrated web application.
+        /// </summary>
+        /// <param name="builder">The application builder</param>
+        /// <param name="options">Action for configuring the builder</param>
+        /// <returns>The updated application builder</returns>
+        public static IApplicationBuilder UsePiranha(this IApplicationBuilder builder, Action<PiranhaApplicationBuilder> options)
+        {
+            var applicationBuilder = new PiranhaApplicationBuilder(builder);
 
-        applicationBuilder.Builder
-            .UseRouting()
-            .UseAuthentication()
-            .UseAuthorization();
+            applicationBuilder.Builder
+                .UseRouting()
+                .UseAuthentication()
+                .UseAuthorization();
 
-        options?.Invoke(applicationBuilder);
+            options?.Invoke(applicationBuilder);
 
-        return applicationBuilder.Builder;
+            return applicationBuilder.Builder;
+        }
     }
 }

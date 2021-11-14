@@ -22,7 +22,14 @@ namespace Piranha.Extend.Fields
         /// </summary>
         public virtual string GetTitle()
         {
-            return Media != null ? (!string.IsNullOrWhiteSpace(Media.Title)? string.Format("{0} ({1})", Media.Title, Media.Filename) : Media.Filename) : null;
+            if (Media != null)
+            {
+                return !string.IsNullOrWhiteSpace(Media.Title) ? string.Format("{0} ({1})", Media.Title, Media.Filename) : Media.Filename;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -88,15 +95,15 @@ namespace Piranha.Extend.Fields
         /// <summary>
         /// Checks if the given field is equal to the field.
         /// </summary>
-        /// <param name="obj">The field</param>
+        /// <param name="other">The field</param>
         /// <returns>True if the fields are equal</returns>
-        public virtual bool Equals(T obj)
+        public virtual bool Equals(T other)
         {
-            if (obj == null)
+            if (other == null)
             {
                 return false;
             }
-            return Id == obj.Id;
+            return Id == other.Id;
         }
 
         /// <summary>

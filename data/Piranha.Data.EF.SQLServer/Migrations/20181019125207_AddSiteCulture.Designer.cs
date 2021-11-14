@@ -8,7 +8,7 @@ using Piranha;
 
 namespace Piranha.Data.EF.SQLServer.Migrations
 {
-    [DbContext(typeof(SQLServerDb))]
+    [DbContext(typeof(SqlServerDb))]
     [Migration("20181019125207_AddSiteCulture")]
     partial class AddSiteCulture
     {

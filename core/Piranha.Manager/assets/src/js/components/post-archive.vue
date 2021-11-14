@@ -32,7 +32,14 @@
             <a v-if="postTypes.length === 1 && piranha.permissions.posts.add" :href="piranha.baseUrl + postTypes[0].addUrl + id + '/' + postTypes[0].id" class="btn btn-sm btn-primary btn-labeled float-right"><i class="fas fa-plus"></i>{{ piranha.resources.texts.add }}</a>
         </div>
         <table v-if="items.length > 0" class="table">
+            <caption>items list caption</caption>
             <tbody>
+                <tr>
+                    <th id="header1">Header1</th>
+                    <th id="header2">Header2</th>
+                    <th id="header3">Header3</th>
+                    <th id="header4">Header4</th>
+                </tr>
                 <tr v-bind:key="post.id" v-for="post in selectedPosts" :class="{ unpublished: post.status === 'unpublished' || post.isScheduled }">
                     <td>
                         <a :href="piranha.baseUrl + post.editUrl + post.id">{{ post.title }}</a>

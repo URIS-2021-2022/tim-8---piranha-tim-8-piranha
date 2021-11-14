@@ -52,11 +52,11 @@ export default {
     props: ["uid", "toolbar", "model"],
     methods: {
         selectItem: function (item) {
-            for (var n = 0; n < this.model.items.length; n++) {
-                if (this.model.items[n] == item) {
-                    this.model.items[n].isActive = true;
+            for (let value of this.model.items) {
+                if (value == item) {
+                    value.isActive = true;
                 } else {
-                    this.model.items[n].isActive = false;
+                    value.isActive = false;
                 }
             }
         },
@@ -83,9 +83,9 @@ export default {
             });
         },
         updateTitle: function (e) {
-            for (var n = 0; n < this.model.items.length; n++) {
-                if (this.model.items[n].meta.uid === e.uid) {
-                    this.model.items[n].meta.title = e.title;
+            for (var item of this.model.items) {
+                if (item.meta.uid === e.uid) {
+                    item.meta.title = e.title;
                     break;
                 }
             }

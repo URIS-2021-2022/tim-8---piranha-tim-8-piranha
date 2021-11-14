@@ -50,12 +50,13 @@
 
     <div class="container-fluid app" :class="{ ready: !loading }">
         <table class="table table-borderless">
+            <caption>Table Name</caption>
             <thead>
             <tr>
-                <th>@Localizer.General["Title"]</th>
-                <th>@Localizer.General["Type"]</th>
-                <th>@Localizer.General["Modified"]</th>
-                <th class="actions one"></th>
+                <th id="title">@Localizer.General["Title"]</th>
+                <th id="type">@Localizer.General["Type"]</th>
+                <th id="modified">@Localizer.General["Modified"]</th>
+                <th id="actions one" class="actions one"></th>
             </tr>
             </thead>
             <tbody>

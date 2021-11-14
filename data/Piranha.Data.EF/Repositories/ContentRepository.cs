@@ -198,7 +198,6 @@ namespace Piranha.Repositories
         public async Task Save<T>(T model, Guid languageId) where T : Models.GenericContent
         {
             var type = App.ContentTypes.GetById(model.TypeId);
-            var lastModified = DateTime.MinValue;
 
             if (type != null)
             {
@@ -248,51 +247,50 @@ namespace Piranha.Repositories
                 }
 
                 // Ensure tags
-                if (type.UseTags)
+                if (type.UseTags && model is Models.ITaggedContent tagged)
                 {
-                    if (model is Models.ITaggedContent tagged)
+
+                    foreach (var t in tagged.Tags)
                     {
-                        foreach (var t in tagged.Tags)
+                        var tag = await _db.Taxonomies
+                            .FirstOrDefaultAsync(tg => tg.Id == t.Id)
+                            .ConfigureAwait(false);
+
+                        if (tag == null)
                         {
-                            var tag = await _db.Taxonomies
-                                .FirstOrDefaultAsync(tg => tg.Id == t.Id)
-                                .ConfigureAwait(false);
+                            if (!string.IsNullOrWhiteSpace(t.Slug))
+                            {
+                                tag = await _db.Taxonomies
+                                    .FirstOrDefaultAsync(tg => tg.GroupId == type.Group && tg.Slug == t.Slug && tg.Type == TaxonomyType.Tag)
+                                    .ConfigureAwait(false);
+                            }
+                            if (tag == null && !string.IsNullOrWhiteSpace(t.Title))
+                            {
+                                tag = await _db.Taxonomies
+                                    .FirstOrDefaultAsync(tg => tg.GroupId == type.Group && tg.Title == t.Title && tg.Type == TaxonomyType.Tag)
+                                    .ConfigureAwait(false);
+                            }
 
                             if (tag == null)
                             {
-                                if (!string.IsNullOrWhiteSpace(t.Slug))
+                                tag = new Taxonomy
                                 {
-                                    tag = await _db.Taxonomies
-                                        .FirstOrDefaultAsync(tg => tg.GroupId == type.Group && tg.Slug == t.Slug && tg.Type == TaxonomyType.Tag)
-                                        .ConfigureAwait(false);
-                                }
-                                if (tag == null && !string.IsNullOrWhiteSpace(t.Title))
-                                {
-                                    tag = await _db.Taxonomies
-                                        .FirstOrDefaultAsync(tg => tg.GroupId == type.Group && tg.Title == t.Title && tg.Type == TaxonomyType.Tag)
-                                        .ConfigureAwait(false);
-                                }
-
-                                if (tag == null)
-                                {
-                                    tag = new Taxonomy
-                                    {
-                                        Id = t.Id != Guid.Empty ? t.Id : Guid.NewGuid(),
-                                        GroupId = type.Group,
-                                        Type = TaxonomyType.Tag,
-                                        Title = t.Title,
-                                        Slug = Utils.GenerateSlug(t.Title),
-                                        Created = DateTime.Now,
-                                        LastModified = DateTime.Now
-                                    };
-                                    await _db.Taxonomies.AddAsync(tag).ConfigureAwait(false);
-                                }
-                                t.Id = tag.Id;
+                                    Id = t.Id != Guid.Empty ? t.Id : Guid.NewGuid(),
+                                    GroupId = type.Group,
+                                    Type = TaxonomyType.Tag,
+                                    Title = t.Title,
+                                    Slug = Utils.GenerateSlug(t.Title),
+                                    Created = DateTime.Now,
+                                    LastModified = DateTime.Now
+                                };
+                                await _db.Taxonomies.AddAsync(tag).ConfigureAwait(false);
                             }
-                            t.Title = tag.Title;
-                            t.Slug = tag.Slug;
+                            t.Id = tag.Id;
                         }
+                        t.Title = tag.Title;
+                        t.Slug = tag.Slug;
                     }
+
                 }
 
                 var content = await _db.Content
@@ -354,14 +352,14 @@ namespace Piranha.Repositories
                         }
 
                         // Add tags
-                        foreach (var tag in taggedModel.Tags)
+                        foreach (var tagId in taggedModel.Tags.Select(t => t.Id))
                         {
-                            if (!content.Tags.Any(t => t.ContentId == content.Id && t.TaxonomyId == tag.Id))
+                            if (!content.Tags.Any(t => t.ContentId == content.Id && t.TaxonomyId == tagId))
                             {
                                 var contentTaxonomy = new ContentTaxonomy
                                 {
                                     ContentId = content.Id,
-                                    TaxonomyId = tag.Id
+                                    TaxonomyId = tagId
                                 };
                                 content.Tags.Add(contentTaxonomy);
                             }
@@ -484,7 +482,7 @@ namespace Piranha.Repositories
                 /*
                  * TODO
                  *
-                await DeleteUnusedCategories(model.BlogId).ConfigureAwait(false);
+                
                 await DeleteUnusedTags(model.BlogId).ConfigureAwait(false);
                  */
             }
@@ -531,10 +529,10 @@ namespace Piranha.Repositories
                     Translations = languages
                         .Where(l => !l.IsDefault)
                         .Select(l => new Models.TranslationStatus.TranslationStatusItem
-                    {
-                        LanguageId = l.Id,
-                        LanguageTitle = l.Title
-                    }).OrderBy(l => l.LanguageTitle).ToList()
+                        {
+                            LanguageId = l.Id,
+                            LanguageTitle = l.Title
+                        }).OrderBy(l => l.LanguageTitle).ToList()
                 };
 
                 // Examine the available translations
@@ -567,7 +565,7 @@ namespace Piranha.Repositories
         /// <returns>The queryable</returns>
         private IQueryable<Content> GetQuery()
         {
-            return (IQueryable<Content>)_db.Content
+            return _db.Content
                 .AsNoTracking()
                 .Include(c => c.Category)
                 .Include(c => c.Translations)
@@ -585,7 +583,8 @@ namespace Piranha.Repositories
         /// <param name="model">The target model</param>
         private Task ProcessAsync<T>(Data.Content content, T model) where T : Models.GenericContent
         {
-            return Task.Run(() => {
+            return Task.Run(() =>
+            {
                 // Map category
                 if (content.Category != null && model is Models.ICategorizedContent categorizedModel)
                 {

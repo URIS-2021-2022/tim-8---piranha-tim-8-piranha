@@ -11,7 +11,7 @@
     <div class="navbar-collapse collapse" id="mobileNavbar">
         <ul class="justify-content-center navbar-nav mr-auto">
 
-            @foreach (var item in await WebApp.Site.Sitemap.ForUserAsync(User, Auth))
+            @*@foreach (var item in await WebApp.Site.Sitemap.ForUserAsync(User, Auth))
             {
                 if (!item.IsHidden)
                 {
@@ -19,7 +19,7 @@
                         <a class="nav-link" href="@WebApp.Url(item)">@item.MenuTitle</a>
                     </li>
                 }
-            }
+            }*@
         </ul>
     </div>
 </nav>

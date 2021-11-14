@@ -369,10 +369,15 @@ namespace Piranha
                             initializableMediaService.Init();
                         }
 
-                        _isInitialized = true;
+                        IsInitialized();
                     }
                 }
             }
+        }
+
+        private void IsInitialized()
+        {
+            _isInitialized = true;
         }
     }
 }
