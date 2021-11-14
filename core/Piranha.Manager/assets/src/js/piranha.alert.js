@@ -1,6 +1,3 @@
-/*global
-    piranha
-*/
 
 piranha.alert = new Vue({
     el: "#alert",

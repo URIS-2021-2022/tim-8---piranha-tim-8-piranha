@@ -192,6 +192,8 @@ namespace Piranha.Data.EF
         /// <summary>
         /// Initializes the module.
         /// </summary>
-        public void Init() { }
+        public void Init() {
+            throw new NotSupportedException();
+        }
     }
 }

@@ -251,12 +251,11 @@ namespace Piranha.Services
             Validator.ValidateObject(model, context, true);
 
             // Ensure category
-            if (type.UseCategory && model is ICategorizedContent categorizedModel)
+            if (type.UseCategory && model is ICategorizedContent categorizedModel && (categorizedModel.Category == null || (string.IsNullOrWhiteSpace(categorizedModel.Category.Title) && string.IsNullOrWhiteSpace(categorizedModel.Category.Slug))))
             {
-                if (categorizedModel.Category == null || (string.IsNullOrWhiteSpace(categorizedModel.Category.Title) && string.IsNullOrWhiteSpace(categorizedModel.Category.Slug)))
-                {
+              
                     throw new ValidationException("The Category field is required");
-                }
+                
             }
 
             // Call hooks and save

@@ -118,12 +118,11 @@ namespace Piranha.WebApi
         [Route("info/{slug}")]
         public async Task<IActionResult> GetInfoBySlug(string slug)
         {
-            if (!Module.AllowAnonymousAccess)
+            if (!Module.AllowAnonymousAccess && (!(await _auth.AuthorizeAsync(User, Permissions.Pages)).Succeeded))
             {
-                if (!(await _auth.AuthorizeAsync(User, Permissions.Pages)).Succeeded)
-                {
+                
                     return Unauthorized();
-                }
+                
             }
             return Json(await _api.Pages.GetBySlugAsync<PageInfo>(slug));
         }

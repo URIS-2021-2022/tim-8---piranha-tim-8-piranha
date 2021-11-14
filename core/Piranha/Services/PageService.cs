@@ -24,7 +24,6 @@ namespace Piranha.Services
         private readonly IContentFactory _factory;
         private readonly ISiteService _siteService;
         private readonly IParamService _paramService;
-        private readonly IMediaService _mediaService;
         private readonly ICache _cache;
         private readonly ISearch _search;
 
@@ -45,7 +44,7 @@ namespace Piranha.Services
             _factory = factory;
             _siteService = siteService;
             _paramService = paramService;
-            _mediaService = mediaService;
+            
             _search = search;
 
             if ((int)App.CacheLevel > 2)

@@ -294,8 +294,8 @@ var js = [
 //
 gulp.task("rtl:min:css", function (done) {
     // Minimize and combine styles
-    for (var n = 0; n < css.length; n++) {
-        gulp.src(css[n])
+    for (var value1 of css) {
+        gulp.src(value1)
             .pipe(sass().on("error", sass.logError))
             .pipe(cssmin())
             .pipe(rtlcss()) // Convert to RTL.

@@ -596,7 +596,7 @@ namespace Piranha.Services
         /// <param name="model">The model</param>
         /// <param name="regionId">The region id</param>
         /// <returns>If the region exists</returns>
-        private bool HasRegion<T>(T model, string regionId) where T : Models.ContentBase
+        private static bool HasRegion<T>(T model, string regionId) where T : Models.ContentBase
         {
             if (model is Models.IDynamicContent dynamicModel)
             {

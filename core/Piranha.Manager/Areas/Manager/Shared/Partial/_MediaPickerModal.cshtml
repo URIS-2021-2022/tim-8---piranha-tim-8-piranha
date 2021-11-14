@@ -131,7 +131,7 @@
                             <a href="#" class="thumbnail" v-on:click.prevent="select(item)">
 
                                 <template v-if="item.type === 'Image'">
-                                    <img class="thumbnail-image" :src="getThumbnailUrl(item)">
+                                    <img class="thumbnail-image" :src="getThumbnailUrl(item)" alt="Thumbnail imgage">
                                 </template>
 
                                 <template v-else-if="item.type === 'Document'">

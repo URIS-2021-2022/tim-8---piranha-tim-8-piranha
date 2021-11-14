@@ -180,7 +180,7 @@ namespace Piranha.Services
         /// <summary>
         /// Gets the available posts for the specified blog.
         /// </summary>
-        /// <param name="slug">The blog slug</param>
+       
         /// <param name="siteId">The optional site id</param>
         /// <returns>The posts</returns>
         public async Task<IEnumerable<T>> GetAllAsync<T>(string slug, Guid? siteId = null) where T : PostBase

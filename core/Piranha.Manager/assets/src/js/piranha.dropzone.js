@@ -27,7 +27,9 @@ piranha.dropzone = new function () {
 
                 // Default removedfile callback
                 if (!options.removedfile) {
-                    options.removedfile = function (file) { }
+                    options.removedfile = function (file) {
+                          // this function is empty now, but will be filled in the future!
+                    }
                 }
 
                 // Default error callback
